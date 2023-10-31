@@ -15,27 +15,23 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Professor extends Pessoa{
+public class Professor extends Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer SIAPE;
-    private String email;
-    private String senha;
 
-    @OneToOne
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.PERSIST)
     private Localizacao localizacao;
 
     @OneToMany( fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
     private List<Turma> turmas;
 
-    public Professor(String nome, String endereco, String genero,
-                 String nomeSocial, Integer CPF, Date dataNascimento,
+    public Professor(String nome,
+                 String nomeSocial, String CPF, Date dataNascimento,
                 String email, String senha, Integer SIAPE, ArrayList<Turma> turmas) {
         this.nome = nome;
-        this.endereco = endereco;
-        this.genero = genero;
         this.nomeSocial = nomeSocial;
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;

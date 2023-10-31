@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,11 +28,16 @@ public class Aluno extends Pessoa {
                 inverseJoinColumns = @JoinColumn(name = "turmaId", referencedColumnName = "id"))
     private List<Turma> turmas;
 
-    public Aluno(String nome, String endereco, String genero,
-                 String nomeSocial, Integer CPF, Date dataNascimento) {
+    @OneToMany
+    @JoinColumn(name = "atestadoId", referencedColumnName = "id")
+    private List<Atestado> atestados;
+
+    @OneToMany
+    @JoinColumn(name = "chamadaId", referencedColumnName = "id")
+    private List<Chamada> chamadas;
+
+    public Aluno(String nome, String nomeSocial, String CPF, Date dataNascimento) {
         this.nome = nome;
-        this.endereco = endereco;
-        this.genero = genero;
         this.nomeSocial = nomeSocial;
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;
