@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    @Query("select a from Student a join a.registration m where m.id = :registrationId")
-    Student findByRegisterStudent(Integer registerStudent);
+    @Query("select a from Student a where a.register.identifier = :identifier")
+    Student findByIdentifier(String identifier);
 
-    @Query("select a.classrooms from Student a join a.registration m where m.id = :registrationId")
-    List<Classroom> findClassroomsByRegisterStudent(Integer registerStudent);
+    @Query("select a.classrooms from Student a where a.register.identifier = :identifier")
+    List<Classroom> findClassroomsByIdentifier(String identifier);
 
 }

@@ -1,6 +1,6 @@
 package com.macfi.service;
 
-import com.macfi.exception.EntidadeNaoEncontradaException;
+import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.Classroom;
 import com.macfi.model.Location;
 import com.macfi.model.person.Professor;
@@ -26,6 +26,12 @@ public class ProfessorService {
         professorRepository.deleteById(id);
     }
 
+    public Professor deleteProfessorByIdentifier(String identifier){
+        Professor aProfessor = getProfessorByIdentifier(identifier);
+        professorRepository.deleteById(aProfessor.getId());
+        return aProfessor;
+    }
+
     public Professor deleteProfessor(Professor professor) {
         Professor aProfessor = getProfessorById(professor.getId());
         professorRepository.deleteById(aProfessor.getId());
@@ -34,27 +40,19 @@ public class ProfessorService {
 
     public Professor getProfessorById(Long id) {
         return professorRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("professor não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("professor não encontrado"));
     }
 
-    public Professor getProfessorByregisterProfessor(Integer registerProfessor) {
-        return professorRepository.findByregisterProfessor(registerProfessor);
-        //.orElseThrow(() -> new EntidadeNaoEncontradaException());
-    }
-
-    public List<Classroom> getClassroomsByregisterProfessor(Integer registerProfessor) {
-        return professorRepository.findClassroomsByregisterProfessor(registerProfessor);
-    }
-
-    public Location getLocationByregisterProfessor(Integer registerProfessor) {
-        return professorRepository.findLocationByregisterProfessor(registerProfessor);
+    public Professor getProfessorByIdentifier(String identifier) {
+        return professorRepository.findByIdentifier(identifier);
+        //.orElseThrow(() -> new EntityNotFoundException());
     }
 
     public Professor updateProfessor(Professor professor) {
         Professor aProfessor = getProfessorById(professor.getId());
         if (!professor.getId().equals(aProfessor.getId())) {
             professorRepository.findById(professor.getId())
-                    .orElseThrow(() -> new EntidadeNaoEncontradaException("professor não encontrado"));
+                    .orElseThrow(() -> new EntityNotFoundException("professor não encontrado"));
         }
         return professorRepository.save(professor);
     }

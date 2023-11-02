@@ -24,6 +24,5 @@ public class VirtualZone {
     @OneToOne
     private Attendance attendance;
 
-    //todo metodo que dado uma lat e long verifica se o Student ta em aula
 
 }

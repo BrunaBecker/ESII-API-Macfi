@@ -1,6 +1,6 @@
 package com.macfi.service;
 
-import com.macfi.exception.EntidadeNaoEncontradaException;
+import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.Classroom;
 import com.macfi.model.person.Student;
 import com.macfi.repository.StudentRepository;
@@ -31,24 +31,26 @@ public class StudentService {
         return aStudent;
     }
 
-    public List<Classroom> getClassroomsByRegisterStudent(Integer registerStudent) {
-        return studentRepository.findClassroomsByRegisterStudent(registerStudent);
+    public Student deleteStudentByIdentifier(String identifier){
+        Student aStudent = getStudentByIdentifier(identifier);
+        studentRepository.deleteById(aStudent.getId());
+        return aStudent;
     }
 
     public Student getStudentById(Long id) {
         return studentRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Student não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Student não encontrado"));
     }
 
-    public Student getStudentByRegisterStudent(Integer registrationId) {
-        return studentRepository.findByRegisterStudent(registrationId);
+    public Student getStudentByIdentifier(String identifier) {
+        return studentRepository.findByIdentifier(identifier);
     }
 
     public Student updateStudent(Student Student) {
         Student umStudent = getStudentById(Student.getId());
         if (!Student.getId().equals(umStudent.getId())) {
             studentRepository.findById(Student.getId())
-                    .orElseThrow(() -> new EntidadeNaoEncontradaException("Student nao encontrado"));
+                    .orElseThrow(() -> new EntityNotFoundException("Student nao encontrado"));
         }
         return studentRepository.save(Student);
     }

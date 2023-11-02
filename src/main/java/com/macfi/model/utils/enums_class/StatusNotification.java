@@ -1,4 +1,4 @@
-package com.macfi.model.utils;
+package com.macfi.model.utils.enums_class;
 
 public enum StatusNotification {
 

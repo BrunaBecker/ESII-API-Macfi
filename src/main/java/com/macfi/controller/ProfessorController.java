@@ -28,21 +28,15 @@ public class ProfessorController {
         return professorService.createProfessor(professor);
     }
 
-    @DeleteMapping("{idProfessor}")
-    public void deleteProfessor(@PathVariable("idProfessor") Long id) {
-        //TODO: clean all the related parameters
-        professorService.deleteProfessor(id);
-    }
-
 
     @PutMapping
     public Professor updateProfessor(@RequestBody Professor professor) {
         return professorService.updateProfessor(professor);
     }
 
-    @PutMapping("{registerProfessor}")
-    public Professor adicionarClassroom(@RequestBody Classroom Classroom, @PathVariable("registerProfessor") Integer registerProfessor) {
-        Professor professor = professorService.getProfessorByregisterProfessor(registerProfessor);
+    @PutMapping("{identifier}/class")
+    public Professor addClassroom(@RequestBody Classroom Classroom, @PathVariable("identifier") String identifier) {
+        Professor professor = professorService.getProfessorByIdentifier(identifier);
         professor.getClassrooms().add(Classroom);
         return professorService.updateProfessor(professor);
     }
@@ -52,19 +46,10 @@ public class ProfessorController {
         return professorService.getProfessorById(id);
     }
 
-    @GetMapping("/{registerProfessor}")
-    public Professor getProfessorByregisterProfessor(@PathVariable("registerProfessor") Integer registerProfessor) {
-        return professorService.getProfessorByregisterProfessor(registerProfessor);
+    @GetMapping("/{identifier}")
+    public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
+        return professorService.getProfessorByIdentifier(identifier);
     }
 
-    @GetMapping("/{registerProfessor}/Classrooms")
-    public List<Classroom> getClassroomsByregisterProfessor(@PathVariable("registerProfessor") Integer registerProfessor) {
-        return professorService.getClassroomsByregisterProfessor(registerProfessor);
-    }
-
-    @GetMapping("/{registerProfessor}/Location")
-    public Location getLocationByregisterProfessor(@PathVariable("registerProfessor") Integer registerProfessor) {
-        return professorService.getLocationByregisterProfessor(registerProfessor);
-    }
 
 }

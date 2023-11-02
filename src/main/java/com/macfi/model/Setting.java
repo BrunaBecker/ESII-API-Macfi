@@ -23,4 +23,6 @@ public class Setting {
     @OneToOne
     private Person person;
     //create a method to take de localization from professor
+
+    //todo Setting repository
 }

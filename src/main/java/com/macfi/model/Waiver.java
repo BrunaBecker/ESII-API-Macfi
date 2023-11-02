@@ -19,6 +19,7 @@ public class Waiver {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @OneToOne
     private FileMacFI file;
 
     private String description;
@@ -37,5 +38,8 @@ public class Waiver {
     @JoinColumn(name = "Student_id", referencedColumnName = "id")
     private Student student;
 
+    @OneToOne
+    @JoinColumn(name = "AttendanceStatus_id", referencedColumnName = "id")
+    private AttendanceStatus attendanceStatus;
 
 }

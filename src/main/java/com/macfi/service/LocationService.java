@@ -27,6 +27,10 @@ public class LocationService {
         return locationRepository.findByID(id);
     }
 
+    public Location getLocationByProfessor(String identifier) {
+        return locationRepository.findByProfessor(identifier);
+    }
+
     public Location updateLocation(Location Location) {
         Location aLocation = getLocationById(Location.getId());
         if (!Location.getId().equals(aLocation.getId())) {

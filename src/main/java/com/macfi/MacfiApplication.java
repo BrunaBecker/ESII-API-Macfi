@@ -28,7 +28,6 @@ public class MacfiApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         //build initial bd here
 
-
     }
 
 

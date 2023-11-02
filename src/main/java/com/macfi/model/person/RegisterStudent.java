@@ -18,6 +18,6 @@ public class RegisterStudent extends RegisterCollegeID {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "registration")
+    @OneToOne(mappedBy = "register")
     private Student student;
 }

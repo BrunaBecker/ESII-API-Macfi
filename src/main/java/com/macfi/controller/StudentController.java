@@ -25,32 +25,22 @@ public class StudentController {
         return studentService.createStudent(Student);
     }
 
-    @DeleteMapping("{idStudent}")
-    public void deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
-    }
 
     @PutMapping
     public Student updateStudent(@RequestBody Student Student) {
         return studentService.updateStudent(Student);
     }
 
-    @PutMapping("{registerStudent}")
-    public Student adicionarClassroom(@RequestBody Classroom Classroom, @PathVariable("registerStudent") Integer registerStudent) {
-        Student Student = studentService.getStudentByRegisterStudent(registerStudent);
+    @PutMapping("{identifier}/class")
+    public Student addClassroom(@RequestBody Classroom Classroom, @PathVariable("identifier") String identifier) {
+        Student Student = studentService.getStudentByIdentifier(identifier);
         Student.getClassrooms().add(Classroom);
         return studentService.updateStudent(Student);
     }
 
     @GetMapping("/{idStudent}")
-    public Student getStudentById(@PathVariable("isStudent") Long id) {
+    public Student getStudentById(@PathVariable("idStudent") Long id) {
         return studentService.getStudentById(id);
     }
-
-//    @GetMapping("/{registerStudent}")
-//    public Student getStudentByRegisterStudent(@PathVariable("registerStudent") Integer registerStudent){
-//        return StudentService.getStudentByRegisterStudent(registerStudent);
-//    }
-
 
 }

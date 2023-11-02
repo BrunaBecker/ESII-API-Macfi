@@ -17,9 +17,6 @@ import java.util.List;
 //@ToString
 public class Student extends Person {
 
-    @OneToOne
-    @JoinColumn(name = "registerStudentID", referencedColumnName = "id")
-    private RegisterStudent registration;
 
     @ManyToMany
     @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "studentId", referencedColumnName = "id"),

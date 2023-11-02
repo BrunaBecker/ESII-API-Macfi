@@ -1,6 +1,7 @@
 package com.macfi.model;
 
 import com.macfi.model.person.Professor;
+import com.macfi.model.utils.Coordinates;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,10 @@ public class Location {
     private Long id;
     private String title;
     private String description;
-    private boolean isVisible;
-    private Integer latitude;
-    private Integer longitude;
+    private boolean isActive;
+
+    @OneToOne
+    private Coordinates coordinates;
 
     @ManyToOne
     @JoinColumn(name = "professor_id")

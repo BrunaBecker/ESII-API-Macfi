@@ -16,9 +16,6 @@ import java.util.List;
 @Entity
 public class Professor extends Person {
 
-    @OneToOne
-    private RegisterProfessor registerProfessor;
-
     @OneToMany(mappedBy = "professor", cascade = CascadeType.PERSIST)
     private List<Location> locations;
 

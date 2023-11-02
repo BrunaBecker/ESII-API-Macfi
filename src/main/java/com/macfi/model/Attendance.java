@@ -28,7 +28,7 @@ public class Attendance {
 
     private Time Duration;
     private boolean isAutomatic;
-    private boolean isActive;
+    private boolean isHappening;
 
     @OneToOne
     private VirtualZone virtualZone;

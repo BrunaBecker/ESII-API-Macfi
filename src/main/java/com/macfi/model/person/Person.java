@@ -1,8 +1,10 @@
 package com.macfi.model.person;
 
+import com.macfi.model.Notification;
 import com.macfi.model.Setting;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
+import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,14 +29,23 @@ public abstract class Person {
     protected String email;
     protected String password;
 
+
+    @OneToOne
+    protected RegisterCollegeID register;
+
     @OneToOne
     protected Setting setting;
 
-    //todo procurar como a gente salva imagens no banco
-    protected Picture imagem;
+    @OneToOne
+    protected Picture profileImagem;
 
     @OneToMany(mappedBy = "author")
     protected List<Comment> commentList;
+
+    @OneToMany(mappedBy = "person")
+    protected List<Notification> notificationList;
+
+    //todo [RF-013]
 
 
 }
