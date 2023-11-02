@@ -20,10 +20,10 @@ public class Ping {
 
     private Long id;
 
-    private Date data;
+    private Date date;
 
     private boolean status;
 
-    private EstadoChamada estadoChamada;
+    private AttendanceStatus attendanceStatus;
 
 }

@@ -11,23 +11,23 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "atestado")
-public class Atestado {
+public class Waiver {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String arquivo;
+    private String file;
 
-    private String descricao;
+    private String description;
 
-    private Date dataEnvio;
+    private Date sendDate;
 
-    private Date dataAceito;
+    private Date acceptionDate;
 
-    private boolean estado;
+    private boolean state;
 
-    private String comentario;
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "aluno_id", referencedColumnName = "id")

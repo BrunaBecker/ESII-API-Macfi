@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 //@ToString
-public class Aluno extends Pessoa {
+public class Student extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,26 +22,26 @@ public class Aluno extends Pessoa {
 
     @OneToOne
     @JoinColumn(name = "matriculaId", referencedColumnName = "id")
-    private Matricula matricula;
+    private RegisterStudent registration;
 
     @ManyToMany
     @JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "alunoId", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "turmaId", referencedColumnName = "id"))
-    private List<Turma> turmas;
+    private List<Classroom> classrooms;
 
     @OneToMany
     @JoinColumn(name = "atestadoId", referencedColumnName = "id")
-    private List<Atestado> atestados;
+    private List<Waiver> waivers;
 
     @OneToMany
     @JoinColumn(name = "chamadaId", referencedColumnName = "id")
-    private List<Chamada> chamadas;
+    private List<Attendance> attendances;
 
-    public Aluno(String nome, String nomeSocial, String CPF, Date dataNascimento) {
-        this.nome = nome;
-        this.nomeSocial = nomeSocial;
+    public Student(String name, String socialName, String CPF, Date birthDate) {
+        this.name = name;
+        this.socialName = socialName;
         this.CPF = CPF;
-        this.dataNascimento = dataNascimento;
+        this.birthDate = birthDate;
     }
 
 }

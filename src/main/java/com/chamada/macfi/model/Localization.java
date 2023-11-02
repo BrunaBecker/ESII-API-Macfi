@@ -14,20 +14,20 @@ import com.chamada.macfi.model.person.*;
 @Getter
 @Setter
 @ToString
-public class Localizacao {
+public class Localization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Titulo;
-    private String Descricao;
-    private boolean Visivel;
+    private String title;
+    private String description;
+    private boolean isVisible;
     private Integer LAT;
     private Integer LON;
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
-    private Professor Professor;
+    private Professor professor;
 
     @OneToMany(mappedBy = "localizacao")
     private List<VirtualZone> virtualZones;

@@ -8,17 +8,17 @@ import java.util.Date;
 
 @MappedSuperclass
 @Entity
-public abstract class Pessoa {
+public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    protected String nome;
-    protected String nomeSocial;
-    protected Date dataNascimento;
+    protected String name;
+    protected String socialName;
+    protected Date birthDate;
     protected Boolean isActive;
     protected String CPF;
     protected String email;
-    protected String senha;
+    protected String password;
 
     @OneToOne
     protected Setting setting;

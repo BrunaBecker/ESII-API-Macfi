@@ -1,6 +1,6 @@
 package com.chamada.macfi.model.person;
 
-import com.chamada.macfi.model.utils.NumeroIdentificador;
+import com.chamada.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +12,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Matricula extends NumeroIdentificador {
+public class RegisterStudent extends RegisterCollegeID {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(mappedBy = "matricula")
-    private Student Student;
+    private Student student;
 }

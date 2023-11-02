@@ -1,7 +1,7 @@
 package com.chamada.macfi.model;
 
 
-import com.chamada.macfi.model.person.Pessoa;
+import com.chamada.macfi.model.person.Person;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,6 @@ public class Setting {
     private boolean silentMode;
 
     @OneToOne
-    private Pessoa person;
+    private Person person;
     //create a method to take de localization from professor
 }

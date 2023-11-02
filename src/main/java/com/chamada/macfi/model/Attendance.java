@@ -15,18 +15,18 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Chamada {
+public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date Data;
+    private Date date;
     private String supportingText;
 
-    private Time HoraInicio;
-    private Time HoraTermino;
+    private Time startHour;
+    private Time endHour;
 
-    private Time Duracao;
+    private Time Duration;
     private boolean isAutomatic;
     private boolean isActive;
 
@@ -37,6 +37,6 @@ public class Chamada {
     private Classroom classroom;
 
     @OneToMany(mappedBy = "chamada")
-    private List<EstadoChamada> StatusStudentAttendance;
+    private List<AttendanceStatus> StatusStudentAttendance;
 
 }

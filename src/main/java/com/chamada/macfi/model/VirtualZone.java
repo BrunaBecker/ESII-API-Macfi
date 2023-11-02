@@ -19,10 +19,10 @@ public class VirtualZone {
     private Long id;
 
     @ManyToOne
-    private Localizacao localizacao;
+    private Localization localization;
 
     @OneToOne
-    private Chamada chamada;
+    private Attendance attendance;
 
     //todo metodo que dado uma lat e long verifica se o aluno ta em aula
 

@@ -6,9 +6,9 @@ import java.util.Date;
 
 
 @ToString
-public abstract class NumeroIdentificador {
+public abstract class RegisterCollegeID {
 
-    private String identificator;
+    private String indentifier;
 
     private Date dateStarted;
 

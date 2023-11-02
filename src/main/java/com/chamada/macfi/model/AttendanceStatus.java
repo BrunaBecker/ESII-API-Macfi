@@ -16,13 +16,13 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class EstadoChamada {
+public class AttendanceStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private StudentAtAttendanceState estadoAluno;
+    private StudentAtAttendanceState studentState;
 
     private boolean studentHasResponded;
 
@@ -32,12 +32,12 @@ public class EstadoChamada {
     private Student student;
 
     @ManyToOne
-    private Chamada chamada;
+    private Attendance attendance;
 
     @OneToMany(mappedBy = "estadoChamada")
-    private List<Ping> pingsSuccess;
+    private List<Ping> successfulPings;
 
     @OneToMany(mappedBy = "estadoChamada")
-    private List<Ping> pingsFail;
+    private List<Ping> unsuccessfulPings;
 
 }

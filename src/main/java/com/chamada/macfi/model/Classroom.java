@@ -15,22 +15,22 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Turma {
+public class Classroom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String codigo;
-    private String semestre;
+    private String name;
+    private String code;
+    private String semester;
 
     @OneToOne
-    private Localizacao localizacaoPadrao;
+    private Localization defaultLocation;
 
     @ManyToOne
     private Professor professor;
     @ManyToMany(mappedBy = "turmas")
     private List<Student> students;
     @OneToMany(mappedBy = "turma")
-    private  List<Chamada> chamadas;
+    private  List<Attendance> attendances;
 }

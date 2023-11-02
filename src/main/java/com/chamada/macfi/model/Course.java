@@ -16,12 +16,12 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @ToString
-public class Curso {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Codigo;
-    private String Nome;
+    private String code;
+    private String name;
 
 }

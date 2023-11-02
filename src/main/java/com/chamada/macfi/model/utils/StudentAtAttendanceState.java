@@ -1,5 +1,5 @@
 package com.chamada.macfi.model.utils;
 
-public enum estadoAlunoNaChamada {
+public enum StudentAtAttendanceState {
     present, absent, justified
 }

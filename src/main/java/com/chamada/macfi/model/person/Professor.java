@@ -1,7 +1,7 @@
 package com.chamada.macfi.model.person;
 
-import com.chamada.macfi.model.Localizacao;
-import com.chamada.macfi.model.Turma;
+import com.chamada.macfi.model.Classroom;
+import com.chamada.macfi.model.Localization;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,20 +16,20 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Professor extends Pessoa {
+public class Professor extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    private Siape siape;
+    private RegisterProfessor siape;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.PERSIST)
-    private Localizacao localizacao;
+    private List<Localization> localization;
 
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
-    private List<Turma> turmas;
+    private List<Classroom> classrooms;
 
 
 
