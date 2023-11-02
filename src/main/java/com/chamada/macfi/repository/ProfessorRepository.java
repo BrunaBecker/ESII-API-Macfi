@@ -1,7 +1,7 @@
 package com.chamada.macfi.repository;
 
 import com.chamada.macfi.model.Localizacao;
-import com.chamada.macfi.model.Professor;
+import com.chamada.macfi.model.person.Professor;
 import com.chamada.macfi.model.Turma;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

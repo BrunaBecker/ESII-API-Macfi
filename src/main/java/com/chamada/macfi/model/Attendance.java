@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -21,15 +21,22 @@ public class Chamada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date Data;
-//    private Turma Turma;
+    private String supportingText;
+
     private Time HoraInicio;
     private Time HoraTermino;
-    private Time Duracao;
-//    private Integer ID;
 
-    @OneToMany
-    private ArrayList<Aluno> alunos;
-    
+    private Time Duracao;
+    private boolean isAutomatic;
+    private boolean isActive;
+
     @OneToOne
-    private Turma turma;
+    private VirtualZone virtualZone;
+
+    @ManyToOne
+    private Classroom classroom;
+
+    @OneToMany(mappedBy = "chamada")
+    private List<EstadoChamada> StatusStudentAttendance;
+
 }

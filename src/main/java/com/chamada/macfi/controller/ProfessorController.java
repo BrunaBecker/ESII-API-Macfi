@@ -1,7 +1,7 @@
 package com.chamada.macfi.controller;
 
 import com.chamada.macfi.model.Localizacao;
-import com.chamada.macfi.model.Professor;
+import com.chamada.macfi.model.person.Professor;
 import com.chamada.macfi.model.Turma;
 import com.chamada.macfi.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;

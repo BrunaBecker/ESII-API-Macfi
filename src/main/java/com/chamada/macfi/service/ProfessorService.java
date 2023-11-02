@@ -2,12 +2,11 @@ package com.chamada.macfi.service;
 
 import com.chamada.macfi.exception.EntidadeNaoEncontradaException;
 import com.chamada.macfi.model.Localizacao;
-import com.chamada.macfi.model.Professor;
+import com.chamada.macfi.model.person.Professor;
 import com.chamada.macfi.model.Turma;
 import com.chamada.macfi.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

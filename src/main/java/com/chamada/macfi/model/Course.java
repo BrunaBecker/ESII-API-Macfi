@@ -21,7 +21,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer Codigo;
+    private String Codigo;
     private String Nome;
-//    private ArrayList<Turma> Turmas;
+
 }

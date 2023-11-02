@@ -1,5 +1,6 @@
-package com.chamada.macfi.model;
+package com.chamada.macfi.model.person;
 
+import com.chamada.macfi.model.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.chamada.macfi.model;
+package com.chamada.macfi.model.aux;
 
 public enum StatusNotification {
 

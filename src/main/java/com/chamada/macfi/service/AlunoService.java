@@ -1,14 +1,13 @@
 package com.chamada.macfi.service;
 
 import com.chamada.macfi.exception.EntidadeNaoEncontradaException;
-import com.chamada.macfi.model.Aluno;
+import com.chamada.macfi.model.person.Aluno;
 import com.chamada.macfi.model.Turma;
 import com.chamada.macfi.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

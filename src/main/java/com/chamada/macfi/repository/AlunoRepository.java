@@ -1,8 +1,7 @@
 package com.chamada.macfi.repository;
 
-import com.chamada.macfi.model.Aluno;
+import com.chamada.macfi.model.person.Aluno;
 import com.chamada.macfi.model.Turma;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.futureorpresent.FutureOrPresentValidatorForCalendar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

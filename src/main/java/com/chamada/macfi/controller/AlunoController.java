@@ -1,7 +1,6 @@
 package com.chamada.macfi.controller;
 
-import com.chamada.macfi.model.Aluno;
-import com.chamada.macfi.model.Professor;
+import com.chamada.macfi.model.person.Aluno;
 import com.chamada.macfi.model.Turma;
 import com.chamada.macfi.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,7 @@
 package com.chamada.macfi.controller;
 
-import com.chamada.macfi.model.Professor;
+import com.chamada.macfi.model.person.Professor;
 import com.chamada.macfi.model.Turma;
-import com.chamada.macfi.repository.TurmaRepository;
 import com.chamada.macfi.service.AlunoService;
 import com.chamada.macfi.service.ProfessorService;
 import com.chamada.macfi.service.TurmaService;
