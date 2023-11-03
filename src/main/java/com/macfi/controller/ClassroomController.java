@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("Classrooms")
+@RequestMapping("classroom")
 public class ClassroomController {
 
     @Autowired
@@ -39,12 +39,12 @@ public class ClassroomController {
     }
 
 
-    @GetMapping("{identifier}")
-    public List<Classroom> getClassroomsByregisterProfessor(@PathVariable("identifier") String identifier) {
+    @GetMapping("professor/{identifier}")
+    public List<Classroom> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
         return ClassroomService.getClassroomByProfessor(identifier);
     }
 
-    @GetMapping("{identifier}")
+    @GetMapping("student/{identifier}")
     public List<Classroom> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
         return ClassroomService.getClassroomByStudent(identifier);
     }
