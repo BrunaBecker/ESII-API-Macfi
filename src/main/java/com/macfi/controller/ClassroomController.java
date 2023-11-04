@@ -29,13 +29,13 @@ public class ClassroomController {
     }
 
     @PostMapping
-    public Classroom createClassroom(@RequestBody Classroom Classroom) {
-        return ClassroomService.createClassroom(Classroom);
+    public Classroom createClassroom(@RequestBody Classroom classroom) {
+        return ClassroomService.createClassroom(classroom);
     }
 
     @PutMapping
-    public Classroom updateClassroom(@RequestBody Classroom Classroom) {
-        return ClassroomService.updateClassroom(Classroom);
+    public Classroom updateClassroom(@RequestBody Classroom classroom) {
+        return ClassroomService.updateClassroom(classroom);
     }
 
 

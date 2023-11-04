@@ -31,24 +31,24 @@ public class AttendanceController {
     }
 
 
-    @GetMapping("attendanceInClassroomByDate") //localhost:5173/attendance/attendanceInClassroomByDate?classroomid=1&date=2021-06-01
+    @GetMapping("inClassroomByDate") //localhost:5173/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
     public List<Attendance> getAttendancesByClassroomAndDate(@RequestParam("classroomid") Long classroomid, @RequestParam("date") Date date) {
         return attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
     }
 
-    @GetMapping("allHappenings") //localhost:5173/attendance/Happening
+    @GetMapping("happening") //localhost:5173/attendance/happenings
 
     public List<Attendance> getAttendancesHappening() {
         return attendanceService.getAttendancesHappening();
     }
 
 
-    @GetMapping("allHappeningsByClassroom/{id}") //localhost:5173/attendance/HappeningByClassroom/1
+    @GetMapping("happeningByClassroom/{id}") //localhost:5173/attendance/happeningByClassroom/1
     public List<Attendance> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
         return attendanceService.getAttendancesHappeningByClassroom(id);
     }
 
-    @GetMapping("HappeningByStudent/{id}") //localhost:5173/attendance/HappeningBytudent/1
+    @GetMapping("happeningByStudent/{id}") //localhost:5173/attendance/happeningByStudent/1
     public List<Attendance> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
         return attendanceService.getAttendancesHappeningByStudent(id);
     }
