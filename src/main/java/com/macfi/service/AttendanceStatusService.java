@@ -36,7 +36,7 @@ public class AttendanceStatusService {
         return attendanceStatusRepository.save(attendanceStatus);
     }
 
-    public AttendanceStatus getAttendanceStatusByAttendanceId(Long attendanceid) {
+    public List<AttendanceStatus> getAttendanceStatusByAttendanceId(Long attendanceid) {
         return attendanceStatusRepository.FindByAttendanceId(attendanceid);
     }
 

@@ -5,13 +5,17 @@ import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.FileMacFI;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "waiver")
 public class Waiver {
     @Id
@@ -24,8 +28,12 @@ public class Waiver {
 
     private String description;
 
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
 
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date acceptionDate;
 
     private boolean isAccepted;
@@ -42,4 +50,15 @@ public class Waiver {
     @JoinColumn(name = "AttendanceStatus_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
+    public Waiver(Long id, FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
+        this.id = id;
+        this.file = file;
+        this.description = description;
+        this.sendDate = sendDate;
+        this.acceptionDate = acceptionDate;
+        this.isAccepted = isAccepted;
+        this.comment = comment;
+        this.student = student;
+        this.attendanceStatus = attendanceStatus;
+    }
 }

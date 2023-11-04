@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 
 @Entity
 @NoArgsConstructor
@@ -14,10 +16,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RegisterProfessor extends RegisterCollegeID {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @OneToOne
     private Professor professor;
+
+    public RegisterProfessor(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {
+        super(identifier, dateStarted, dateFinished, isActive, person);
+    }
 }

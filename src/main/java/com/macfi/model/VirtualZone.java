@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@Table(name = "virtual_zone")
 public class VirtualZone {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,5 +25,9 @@ public class VirtualZone {
     @OneToOne
     private Attendance attendance;
 
-
+    public VirtualZone(Long id, Location location, Attendance attendance) {
+        this.id = id;
+        this.location = location;
+        this.attendance = attendance;
+    }
 }

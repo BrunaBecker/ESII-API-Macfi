@@ -36,7 +36,7 @@ public class AttendanceStatusController {
     }
 
     @GetMapping("attendance/{idAttendance}") //localhost:3599/attendanceStatus/attendance/1
-    public AttendanceStatus getAttendanceStatusByAttendanceId(@PathVariable("idAttendance") Long attendanceid) {
+    public List<AttendanceStatus> getAttendanceStatusByAttendanceId(@PathVariable("idAttendance") Long attendanceid) {
         return attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid);
     }
 

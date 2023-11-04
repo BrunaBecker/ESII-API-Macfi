@@ -1,6 +1,6 @@
 package com.macfi.model;
 
-import com.macfi.model.utils.Coordinates;
+import com.macfi.model.utils.Coordinate;
 import com.macfi.model.utils.GeoLocation;
 import com.macfi.model.utils.enums_class.StatusPing;
 import jakarta.persistence.*;
@@ -17,6 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@Table(name = "ping")
 public class Ping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,8 @@ public class Ping {
 
     private String ip;
 
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     private StatusPing status;
@@ -32,7 +35,7 @@ public class Ping {
     private boolean isContinuos;
 
     @OneToOne
-    private Coordinates coordinates;
+    private Coordinate coordinates;
 
     @ManyToOne
     private AttendanceStatus attendanceStatus;
@@ -41,4 +44,13 @@ public class Ping {
         return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
     }
 
+    public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinates, AttendanceStatus attendanceStatus) {
+        this.id = id;
+        this.ip = ip;
+        this.date = date;
+        this.status = status;
+        this.isContinuos = isContinuos;
+        this.coordinates = coordinates;
+        this.attendanceStatus = attendanceStatus;
+    }
 }
