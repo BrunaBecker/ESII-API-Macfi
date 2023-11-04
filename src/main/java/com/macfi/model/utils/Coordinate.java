@@ -2,6 +2,7 @@ package com.macfi.model.utils;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,7 +11,9 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-public class Coordinates {
+@NoArgsConstructor
+@Table(name = "coordinate")
+public class Coordinate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,5 +22,9 @@ public class Coordinates {
     private Double latitude;
     private Double longitude;
 
-
+    public Coordinate(Long id, Double latitude, Double longitude) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }
