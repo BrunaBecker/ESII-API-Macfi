@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("Professors")
+@RequestMapping("professor")
 //@RequestMapping("Professors")
 public class ProfessorController {
 
@@ -35,18 +35,18 @@ public class ProfessorController {
     }
 
     @PutMapping("{identifier}/class")
-    public Professor addClassroom(@RequestBody Classroom Classroom, @PathVariable("identifier") String identifier) {
+    public Professor addClassroom(@RequestBody Classroom classroom, @PathVariable("identifier") String identifier) {
         Professor professor = professorService.getProfessorByIdentifier(identifier);
-        professor.getClassrooms().add(Classroom);
+        professor.getClassrooms().add(classroom);
         return professorService.updateProfessor(professor);
     }
 
-    @GetMapping("{idProfessor}")
+    @GetMapping("{idProfessor}") //localhost:5173/professor/1
     public Professor getProfessorById(@PathVariable("idProfessor") Long id) {
         return professorService.getProfessorById(id);
     }
-
-    @GetMapping("/{identifier}")
+    //TODO review this method
+    @GetMapping("byIdentifier/{identifier}") //localhost:5173/professor/byIdentifier/1
     public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
         return professorService.getProfessorByIdentifier(identifier);
     }

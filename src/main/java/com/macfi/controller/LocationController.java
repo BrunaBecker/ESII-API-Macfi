@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("Location")
+@RequestMapping("location")
 public class LocationController {
 
     @Autowired

@@ -19,9 +19,9 @@ public class WaiverController {
         return waiverService.createWaiver(waiver);
     }
 
-    @GetMapping("byStudentAndClassroom") //http://localhost:8080/waiver/byStudentAndClassroom?id=1&idClassroom=1
-    public Waiver getWaiverByStudentAndClassroom(@RequestParam Long id, @RequestParam Long idClassroom) {
-        return waiverService.getWaiverByStudentAndClassroom(id, idClassroom);
+    @GetMapping("byStudentAndClassroom") //http://localhost:8080/waiver/byStudentAndClassroom?idStudent=1&idClassroom=1
+    public Waiver getWaiverByStudentAndClassroom(@RequestParam Long idStudent, @RequestParam Long idClassroom) {
+        return waiverService.getWaiverByStudentAndClassroom(idStudent, idClassroom);
     }
 
 

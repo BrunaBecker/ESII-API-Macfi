@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("localhost:5871")
 @RestController
-@RequestMapping("/ping")
+@RequestMapping("ping")
 public class PingController {
 
     @Autowired
