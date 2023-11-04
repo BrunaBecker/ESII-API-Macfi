@@ -17,10 +17,8 @@ import java.util.Date;
 @ToString
 public class RegisterProfessor extends RegisterCollegeID {
 
-    @OneToOne
-    private Professor professor;
 
-    public RegisterProfessor(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {
+    public RegisterProfessor(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Professor person) {
         super(identifier, dateStarted, dateFinished, isActive, person);
     }
 }
