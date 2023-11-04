@@ -35,7 +35,7 @@ public class Ping {
     private boolean isContinuos;
 
     @OneToOne
-    private Coordinate coordinates;
+    private Coordinate coordinate;
 
     @ManyToOne
     private AttendanceStatus attendanceStatus;
@@ -44,13 +44,13 @@ public class Ping {
         return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
     }
 
-    public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinates, AttendanceStatus attendanceStatus) {
+    public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinate, AttendanceStatus attendanceStatus) {
         this.id = id;
         this.ip = ip;
         this.date = date;
         this.status = status;
         this.isContinuos = isContinuos;
-        this.coordinates = coordinates;
+        this.coordinate = coordinate;
         this.attendanceStatus = attendanceStatus;
     }
 }

@@ -1,6 +1,6 @@
 package com.macfi.model;
 
-import com.macfi.model.utils.enums_class.eventStatus;
+import com.macfi.model.utils.enums_class.EventStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,19 +32,19 @@ public class Event {
     @OneToOne
     private Classroom classroom;
 
-    private eventStatus status;
+    private EventStatus status;
 
     @ManyToMany(mappedBy = "events")
     @ToString.Exclude
-    private List<Calendar> calendar;
+    private List<Calendar> calendars;
 
-    public Event(Long id, String name, Date date, String description, Classroom classroom, eventStatus status, List<Calendar> calendar) {
+    public Event(Long id, String name, Date date, String description, Classroom classroom, EventStatus status, List<Calendar> calendar) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.description = description;
         this.classroom = classroom;
         this.status = status;
-        this.calendar = calendar;
+        this.calendars = calendar;
     }
 }

@@ -1,8 +1,8 @@
 package com.macfi.model.utils.enums_class;
 
-public enum eventStatus {
+public enum EventStatus {
     classNormal,
     classCancelled,
 
-    classNormalRecorrent,
+    classNormalRecurrent,
 }

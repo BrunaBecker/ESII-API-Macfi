@@ -45,7 +45,7 @@ public class ProfessorController {
     public Professor getProfessorById(@PathVariable("idProfessor") Long id) {
         return professorService.getProfessorById(id);
     }
-    //TODO review this method
+
     @GetMapping("byIdentifier/{identifier}") //localhost:3599/professor/byIdentifier/1
     public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
         return professorService.getProfessorByIdentifier(identifier);
