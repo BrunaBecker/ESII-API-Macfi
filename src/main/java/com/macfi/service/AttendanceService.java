@@ -2,11 +2,15 @@ package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.Attendance;
+import com.macfi.model.utils.Dateformater;
 import com.macfi.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -48,8 +52,16 @@ public class AttendanceService {
         return attendanceRepository.findByClassroomId(id);
     }
 
-    public List<Attendance> getAttendancesByClassroomAndDate(Long classroomid, Date date) {
-        return attendanceRepository.findByClassroomIdAndDate(classroomid, date);
+    public List<Attendance> getAttendancesByClassroomAndDate(Long classroomid, String dateStr) {
+
+        Date date = null;
+        try {
+            date = Dateformater.format(dateStr);
+            return attendanceRepository.findByClassroomIdAndDate(classroomid, date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public List<Attendance> getAttendancesHappening() {

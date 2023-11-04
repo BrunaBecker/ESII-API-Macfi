@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("http://localhost:3599")
 @RestController
 @RequestMapping("location")
 public class LocationController {
@@ -31,10 +31,9 @@ public class LocationController {
         return LocationService.updateLocation(Location);
     }
 
-    @GetMapping("{id}")
-    public Location getLocationById(@PathVariable("id") Long id) {
-        return LocationService.getLocationById(id);
+
+    @GetMapping("byProfessor/{identifier}")
+    public List<Location> getLocationByProfessor(@PathVariable("identifier") String identifier) {
+        return LocationService.getLocationByProfessor(identifier);
     }
-
-
 }

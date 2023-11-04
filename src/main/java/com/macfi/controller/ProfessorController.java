@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("http://localhost:3599")
 @RestController
 @RequestMapping("professor")
 //@RequestMapping("Professors")
@@ -41,12 +41,12 @@ public class ProfessorController {
         return professorService.updateProfessor(professor);
     }
 
-    @GetMapping("{idProfessor}") //localhost:5173/professor/1
+    @GetMapping("{idProfessor}") //localhost:3599/professor/1
     public Professor getProfessorById(@PathVariable("idProfessor") Long id) {
         return professorService.getProfessorById(id);
     }
     //TODO review this method
-    @GetMapping("byIdentifier/{identifier}") //localhost:5173/professor/byIdentifier/1
+    @GetMapping("byIdentifier/{identifier}") //localhost:3599/professor/byIdentifier/1
     public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
         return professorService.getProfessorByIdentifier(identifier);
     }

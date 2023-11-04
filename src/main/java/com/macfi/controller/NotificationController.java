@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("localhost:5871")
+@CrossOrigin("localhost:3599")
 @RestController
 @RequestMapping("notification")
 public class NotificationController {
@@ -15,7 +15,7 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @GetMapping("{idPerson}") //localhost:5871/notification/1
+    @GetMapping("{idPerson}") //localhost:3599/notification/1
     public List<Notification> getActiveNotificationByPersonId(@PathVariable("idPerson") Long personId) {
         return notificationService.getActiveNotificationByPersonId(personId);
     }
@@ -30,7 +30,7 @@ public class NotificationController {
         return notificationService.deleteNotification(notification);
     }
 
-    @DeleteMapping("{id}")//localhost:5871/notification/1
+    @DeleteMapping("{id}")//localhost:3599/notification/1
     public boolean deleteNotificationById(@PathVariable("id") Long id) {
         return notificationService.deleteNotificationById(id);
     }

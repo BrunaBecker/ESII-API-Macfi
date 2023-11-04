@@ -18,16 +18,12 @@ public class LocationService {
         return locationRepository.save(Location);
     }
 
-    public void deleteLocation(Long id) {
-        getLocationById(id);
-        locationRepository.deleteById(id);
-    }
-
     public Location getLocationById(Long id) {
         return locationRepository.findByID(id);
     }
 
-    public Location getLocationByProfessor(String identifier) {
+
+    public List<Location> getLocationByProfessor(String identifier) {
         return locationRepository.findByProfessor(identifier);
     }
 
