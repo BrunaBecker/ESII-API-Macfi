@@ -1,19 +1,17 @@
 package com.macfi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@Table(name = "course")
 public class Course {
 
     @Id
@@ -22,4 +20,9 @@ public class Course {
     private String code;
     private String name;
 
+    public Course(Long id, String code, String name) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+    }
 }

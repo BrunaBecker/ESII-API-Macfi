@@ -1,12 +1,13 @@
 package com.macfi.model;
 
 import com.macfi.model.person.Professor;
-import com.macfi.model.utils.Coordinates;
+import com.macfi.model.utils.Coordinate;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.locationtech.jts.geom.Coordinates;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Table(name = "location")
 public class Location {
 
     @Id
@@ -25,14 +27,25 @@ public class Location {
     private boolean isActive;
 
     @OneToOne
-    private Coordinates coordinates;
+    private Coordinate coordinate;
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
     @OneToMany(mappedBy = "location")
+    @ToString.Exclude
     private List<VirtualZone> virtualZones;
+
+    public Location(Long id, String title, String description, boolean isActive, Coordinate coordinate, Professor professor, List<VirtualZone> virtualZones) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.isActive = isActive;
+        this.coordinate = coordinate;
+        this.professor = professor;
+        this.virtualZones = virtualZones;
+    }
 
 
 }

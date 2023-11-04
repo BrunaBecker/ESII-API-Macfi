@@ -13,5 +13,5 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     Location findByID(Long id);
 
     @Query("select l from Location l where l.professor.register.identifier = :identifier")
-    List<Location> findByProfessor(String indentifier);
+    List<Location> findByProfessor(String identifier);
 }

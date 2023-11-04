@@ -3,8 +3,17 @@ package com.macfi.model.utils;
 import com.macfi.model.Waiver;
 import com.macfi.model.person.Person;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Table(name = "comment")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +28,12 @@ public class Comment {
 
     @OneToOne
     private Waiver waiver;
+
+    public Comment(Long id, String content, Person author, Comment replyTo, Waiver waiver) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+        this.replyTo = replyTo;
+        this.waiver = waiver;
+    }
 }

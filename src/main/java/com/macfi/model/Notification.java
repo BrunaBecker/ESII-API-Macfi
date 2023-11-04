@@ -4,11 +4,16 @@ import com.macfi.model.person.Person;
 import com.macfi.model.utils.enums_class.StatusNotification;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@ToString
+@Table(name = "notification")
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +24,7 @@ public class Notification {
 
     private String supportingText;
 
+
     private StatusNotification statusNotification;
 
     private boolean isActive;
@@ -27,5 +33,15 @@ public class Notification {
 
     @ManyToOne
     private Person person;
+
+    public Notification(Long id, String title, String supportingText, StatusNotification statusNotification, boolean isActive, boolean isRead, Person person) {
+        this.id = id;
+        this.title = title;
+        this.supportingText = supportingText;
+        this.statusNotification = statusNotification;
+        this.isActive = isActive;
+        this.isRead = isRead;
+        this.person = person;
+    }
 
 }

@@ -14,7 +14,4 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     @Query("select c from Calendar c where c.date = :date")
     Calendar findByDate(Date date);
 
-    List<Event> findAllByDateBetween(
-            Date dateStart,
-            Date dateEnd);
 }
