@@ -43,7 +43,7 @@ public abstract class Person {
     protected Setting setting;
 
     @OneToOne
-    protected Picture profileImagem;
+    protected Picture profileImage;
 
     @OneToMany(mappedBy = "author")
     protected List<Comment> commentList;
@@ -65,7 +65,7 @@ public abstract class Person {
         this.password = password;
         this.register = register;
         this.setting = setting;
-        this.profileImagem = profileImagem;
+        this.profileImage = profileImagem;
         this.commentList = commentList;
         this.notificationList = notificationList;
     }

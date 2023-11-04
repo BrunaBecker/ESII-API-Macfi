@@ -43,4 +43,5 @@ public abstract class RegisterCollegeID {
         this.isActive = isActive;
         this.person = person;
     }
+
 }
