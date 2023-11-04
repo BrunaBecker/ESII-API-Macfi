@@ -9,7 +9,7 @@ public class WaiverService {
 
     public WaiverRepository waiverRepository;
 
-    public Waiver createWaiver(Waiver waiver)  {
+    public Waiver createWaiver(Waiver waiver) {
         return waiverRepository.save(waiver);
     }
 

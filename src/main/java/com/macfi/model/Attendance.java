@@ -7,8 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Duration;
-import java.util.Date;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -49,19 +49,6 @@ public class Attendance {
     @ToString.Exclude
     private List<AttendanceStatus> StatusStudentAttendance;
 
-
-    public boolean addStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-       return StatusStudentAttendance.add(attendanceStatus);
-    }
-
-    public boolean removeStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-        return StatusStudentAttendance.remove(attendanceStatus);
-    }
-
-
-    public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {
-        return Duration.between(startHour, endHour);
-    }
 
     public Attendance(Date date,
                       String supportingText,
@@ -105,6 +92,18 @@ public class Attendance {
         this.virtualZone = virtualZone;
         this.classroom = classroom;
         StatusStudentAttendance = statusStudentAttendance;
+    }
+
+    public boolean addStatusStudentAttendance(AttendanceStatus attendanceStatus) {
+        return StatusStudentAttendance.add(attendanceStatus);
+    }
+
+    public boolean removeStatusStudentAttendance(AttendanceStatus attendanceStatus) {
+        return StatusStudentAttendance.remove(attendanceStatus);
+    }
+
+    public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {
+        return Duration.between(startHour, endHour);
     }
 
 

@@ -40,10 +40,6 @@ public class Ping {
     @ManyToOne
     private AttendanceStatus attendanceStatus;
 
-    public boolean inCorrectLocation(double lat1, double lon1, double lat2, double lon2) {
-        return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
-    }
-
     public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinate, AttendanceStatus attendanceStatus) {
         this.id = id;
         this.ip = ip;
@@ -52,5 +48,9 @@ public class Ping {
         this.isContinuos = isContinuos;
         this.coordinate = coordinate;
         this.attendanceStatus = attendanceStatus;
+    }
+
+    public boolean inCorrectLocation(double lat1, double lon1, double lat2, double lon2) {
+        return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
     }
 }

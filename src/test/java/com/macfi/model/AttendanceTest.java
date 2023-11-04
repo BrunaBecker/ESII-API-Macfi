@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -121,7 +120,7 @@ class AttendanceTest {
     }
 
     @Test
-    void createAttendance(){
+    void createAttendance() {
 
         Date date = new Date(); // Use the current date for simplicity
         String supportingText = "Test Attendance";

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,14 +46,6 @@ public class AttendanceStatus {
     @OneToOne
     private Waiver waiver;
 
-    public boolean addSuccessfulPing(Ping ping) {
-        return successfulPings.add(ping);
-    }
-
-    public boolean addUnsuccessfulPing(Ping ping) {
-        return unsuccessfulPings.add(ping);
-    }
-
     public AttendanceStatus(StudentAtAttendanceState studentState, boolean studentHasResponded, boolean validated, Student student, Attendance attendance, List<Ping> successfulPings, List<Ping> unsuccessfulPings, Waiver waiver) {
         this.studentState = studentState;
         this.studentHasResponded = studentHasResponded;
@@ -77,6 +68,13 @@ public class AttendanceStatus {
         this.waiver = waiver;
     }
 
+    public boolean addSuccessfulPing(Ping ping) {
+        return successfulPings.add(ping);
+    }
+
+    public boolean addUnsuccessfulPing(Ping ping) {
+        return unsuccessfulPings.add(ping);
+    }
 
 
 }

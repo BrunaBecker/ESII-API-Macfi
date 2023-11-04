@@ -1,9 +1,11 @@
 package com.macfi.controllertests;
 
 
-
 import com.macfi.controller.*;
-import com.macfi.model.*;
+import com.macfi.model.Attendance;
+import com.macfi.model.AttendanceStatus;
+import com.macfi.model.Classroom;
+import com.macfi.model.VirtualZone;
 import com.macfi.repository.*;
 import com.macfi.service.*;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @ExtendWith(SpringExtension.class)
@@ -36,40 +39,74 @@ public class AttendanceControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean private AttendanceService attendanceService;
-    @MockBean private AttendanceStatusService attendanceStatusService;
-    @MockBean private CalendarService calendarService;
-    @MockBean private ClassroomService classroomService;
-    @MockBean private EventService eventService;
-    @MockBean private LocationService locationService;
-    @MockBean private NotificationService notificationService;
-    @MockBean private PingService pingService;
-    @MockBean private ProfessorService professorService;
-    @MockBean private SettingService settingService;
-    @MockBean private StudentService studentService;
-    @MockBean private WaiverService waiverService;
-    @MockBean private AttendanceStatusRepository attendanceStatusRepository;
-    @MockBean private CalendarRepository calendarRepository;
-    @MockBean private ClassroomRepository classroomRepository;
-    @MockBean private EventRepository eventRepository;
-    @MockBean private LocationRepository locationRepository;
-    @MockBean private NotificationRepository notificationRepository;
-    @MockBean private PingRepository pingRepository;
-    @MockBean private ProfessorRepository professorRepository;
-    @MockBean private SettingRepository settingRepository;
-    @MockBean private StudentRepository studentRepository;
-    @MockBean private WaiverRepository waiverRepository;
-    @MockBean private AttendanceStatusController attendanceStatusController;
-    @MockBean private CalendarController calendarController;
-    @MockBean private ClassroomController classroomController;
-    @MockBean private EventController eventController;
-    @MockBean private LocationController locationController;
-    @MockBean private NotificationController notificationController;
-    @MockBean private PingController pingController;
-    @MockBean private ProfessorController professorController;
-    @MockBean private SettingController settingController;
-    @MockBean private StudentController studentController;
-    @MockBean private WaiverController waiverController;
+    @MockBean
+    private AttendanceService attendanceService;
+    @MockBean
+    private AttendanceStatusService attendanceStatusService;
+    @MockBean
+    private CalendarService calendarService;
+    @MockBean
+    private ClassroomService classroomService;
+    @MockBean
+    private EventService eventService;
+    @MockBean
+    private LocationService locationService;
+    @MockBean
+    private NotificationService notificationService;
+    @MockBean
+    private PingService pingService;
+    @MockBean
+    private ProfessorService professorService;
+    @MockBean
+    private SettingService settingService;
+    @MockBean
+    private StudentService studentService;
+    @MockBean
+    private WaiverService waiverService;
+    @MockBean
+    private AttendanceStatusRepository attendanceStatusRepository;
+    @MockBean
+    private CalendarRepository calendarRepository;
+    @MockBean
+    private ClassroomRepository classroomRepository;
+    @MockBean
+    private EventRepository eventRepository;
+    @MockBean
+    private LocationRepository locationRepository;
+    @MockBean
+    private NotificationRepository notificationRepository;
+    @MockBean
+    private PingRepository pingRepository;
+    @MockBean
+    private ProfessorRepository professorRepository;
+    @MockBean
+    private SettingRepository settingRepository;
+    @MockBean
+    private StudentRepository studentRepository;
+    @MockBean
+    private WaiverRepository waiverRepository;
+    @MockBean
+    private AttendanceStatusController attendanceStatusController;
+    @MockBean
+    private CalendarController calendarController;
+    @MockBean
+    private ClassroomController classroomController;
+    @MockBean
+    private EventController eventController;
+    @MockBean
+    private LocationController locationController;
+    @MockBean
+    private NotificationController notificationController;
+    @MockBean
+    private PingController pingController;
+    @MockBean
+    private ProfessorController professorController;
+    @MockBean
+    private SettingController settingController;
+    @MockBean
+    private StudentController studentController;
+    @MockBean
+    private WaiverController waiverController;
 
 
     @Test
@@ -124,7 +161,6 @@ public class AttendanceControllerTest {
         when(attendanceService.getAttendances()).thenReturn(attendances);
 
 
-
         this.mockMvc.perform(get("/attendance")).andExpect(status().isOk())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -132,10 +168,6 @@ public class AttendanceControllerTest {
 
 
     }
-
-
-
-
 
 
 }

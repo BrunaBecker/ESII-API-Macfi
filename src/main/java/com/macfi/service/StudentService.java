@@ -1,7 +1,6 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
-import com.macfi.model.Classroom;
 import com.macfi.model.person.Student;
 import com.macfi.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class StudentService {
         return aStudent;
     }
 
-    public Student deleteStudentByIdentifier(String identifier){
+    public Student deleteStudentByIdentifier(String identifier) {
         Student aStudent = getStudentByIdentifier(identifier);
         studentRepository.deleteById(aStudent.getId());
         return aStudent;

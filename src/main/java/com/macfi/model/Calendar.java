@@ -32,7 +32,7 @@ public class Calendar {
         this.events = events;
     }
 
-    public boolean addEvent(Event event){
+    public boolean addEvent(Event event) {
         return events.add(event);
     }
 

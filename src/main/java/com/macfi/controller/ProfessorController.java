@@ -1,7 +1,6 @@
 package com.macfi.controller;
 
 import com.macfi.model.Classroom;
-import com.macfi.model.Location;
 import com.macfi.model.person.Professor;
 import com.macfi.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -22,7 +22,7 @@ public class PingService {
     public Ping createPing(Ping ping) {
         AttendanceStatus attendanceStatus = attendanceStatusService.getAttendanceStatusById(ping.getAttendanceStatus().getId());
         Attendance attendance = attendanceStatus.getAttendance();
-        if (attendance.isHappening())  {
+        if (attendance.isHappening()) {
             ping.setStatus(StatusPing.validAttendance);
 
             if (ping.inCorrectLocation(ping.getCoordinate().getLatitude(),
@@ -45,7 +45,6 @@ public class PingService {
         pingRepository.save(ping);
         return ping;
     }
-
 
 
 }
