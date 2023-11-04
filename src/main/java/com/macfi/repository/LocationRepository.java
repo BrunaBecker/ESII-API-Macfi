@@ -4,6 +4,8 @@ import com.macfi.model.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
@@ -11,6 +13,5 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     Location findByID(Long id);
 
     @Query("select l from Location l where l.professor.register.identifier = :identifier")
-    Location findByProfessor(String indentifier);
-
+    List<Location> findByProfessor(String indentifier);
 }

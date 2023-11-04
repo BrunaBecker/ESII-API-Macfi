@@ -5,7 +5,7 @@ import com.macfi.service.WaiverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:5371")
+@CrossOrigin("http://localhost:3599")
 @RestController
 @RequestMapping("waiver")
 public class WaiverController {
