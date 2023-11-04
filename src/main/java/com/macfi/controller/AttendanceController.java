@@ -5,7 +5,6 @@ import com.macfi.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("http://localhost:3599")
@@ -20,6 +19,7 @@ public class AttendanceController {
     public List<Attendance> getAttendances() {
         return attendanceService.getAttendances();
     }
+
     @PostMapping//localhost:3599/attendance
     public Attendance createAttendance(@RequestBody Attendance attendance) {
         return attendanceService.createAttendance(attendance);
@@ -53,10 +53,6 @@ public class AttendanceController {
     public List<Attendance> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
         return attendanceService.getAttendancesHappeningByStudent(id);
     }
-
-
-
-
 
 
 }

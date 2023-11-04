@@ -40,7 +40,8 @@ public class AttendanceStatusController {
         return attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid);
     }
 
-    @GetMapping("byAttendanceAndStudent") //localhost:3599/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
+    @GetMapping("byAttendanceAndStudent")
+    //localhost:3599/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
     public AttendanceStatus getAttendanceStatusByAttendanceIdAndStudentId(@RequestParam("attendanceid") Long attendanceid, @RequestParam("studentid") Long studentid) {
         return attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid);
     }

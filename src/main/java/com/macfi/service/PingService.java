@@ -22,13 +22,13 @@ public class PingService {
     public Ping createPing(Ping ping) {
         AttendanceStatus attendanceStatus = attendanceStatusService.getAttendanceStatusById(ping.getAttendanceStatus().getId());
         Attendance attendance = attendanceStatus.getAttendance();
-        if (attendance.isHappening())  {
-            ping.setStatus(StatusPing.valid_attedance);
+        if (attendance.isHappening()) {
+            ping.setStatus(StatusPing.validAttendance);
 
-            if (ping.inCorrectLocation(ping.getCoordinates().getLatitude(),
-                    ping.getCoordinates().getLongitude(),
-                    attendance.getVirtualZone().getLocation().getCoordinates().getLatitude(),
-                    attendance.getVirtualZone().getLocation().getCoordinates().getLongitude())) {
+            if (ping.inCorrectLocation(ping.getCoordinate().getLatitude(),
+                    ping.getCoordinate().getLongitude(),
+                    attendance.getVirtualZone().getLocation().getCoordinate().getLatitude(),
+                    attendance.getVirtualZone().getLocation().getCoordinate().getLongitude())) {
 
                 if (attendanceStatus.addSuccessfulPing(ping)) {
                     ping.setStatus(StatusPing.successful);
@@ -40,12 +40,11 @@ public class PingService {
             }
 
         } else {
-            ping.setStatus(StatusPing.invalid_attendance);
+            ping.setStatus(StatusPing.invalidAttendance);
         }
         pingRepository.save(ping);
         return ping;
     }
-
 
 
 }

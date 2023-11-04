@@ -29,7 +29,7 @@ public class AttendanceStatusService {
     public AttendanceStatus updateAttendanceStatus(AttendanceStatus attendanceStatus) {
         AttendanceStatus aAttendanceStatus = getAttendanceStatusById(attendanceStatus.getId());
 
-        if  (!(attendanceStatus.getAttendance().getId().equals(aAttendanceStatus.getAttendance().getId()))){
+        if (!(attendanceStatus.getAttendance().getId().equals(aAttendanceStatus.getAttendance().getId()))) {
             attendanceRepository.findById(attendanceStatus.getAttendance().getId())
                     .orElseThrow(() -> new RuntimeException("AttendanceStatus não encontrada"));
         }

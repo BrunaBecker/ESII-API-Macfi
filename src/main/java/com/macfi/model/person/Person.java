@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 
-
 @Entity
 @Getter
 @Setter
@@ -46,15 +45,15 @@ public abstract class Person {
     protected Picture profileImage;
 
     @OneToMany(mappedBy = "author")
-    protected List<Comment> commentList;
+    protected List<Comment> comments;
 
     @OneToMany(mappedBy = "person")
-    protected List<Notification> notificationList;
+    protected List<Notification> notifications;
 
     //todo [RF-013]
 
 
-    public Person(Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList) {
+    public Person(Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImage, List<Comment> comments, List<Notification> notifications) {
         this.id = id;
         this.name = name;
         this.socialName = socialName;
@@ -65,8 +64,8 @@ public abstract class Person {
         this.password = password;
         this.register = register;
         this.setting = setting;
-        this.profileImage = profileImagem;
-        this.commentList = commentList;
-        this.notificationList = notificationList;
+        this.profileImage = profileImage;
+        this.comments = comments;
+        this.notifications = notifications;
     }
 }
