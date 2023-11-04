@@ -21,20 +21,20 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody Student Student) {
-        return studentService.createStudent(Student);
+    public Student createStudent(@RequestBody Student student) {
+        return studentService.createStudent(student);
     }
 
 
     @PutMapping
-    public Student updateStudent(@RequestBody Student Student) {
-        return studentService.updateStudent(Student);
+    public Student updateStudent(@RequestBody Student student) {
+        return studentService.updateStudent(student);
     }
 
     @PutMapping("{identifier}/class")
-    public Student addClassroom(@RequestBody Classroom Classroom, @PathVariable("identifier") String identifier) {
+    public Student addClassroom(@RequestBody Classroom classroom, @PathVariable("identifier") String identifier) {
         Student Student = studentService.getStudentByIdentifier(identifier);
-        Student.getClassrooms().add(Classroom);
+        Student.getClassrooms().add(classroom);
         return studentService.updateStudent(Student);
     }
 
