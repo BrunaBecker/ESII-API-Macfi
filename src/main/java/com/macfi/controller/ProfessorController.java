@@ -1,7 +1,6 @@
 package com.macfi.controller;
 
 import com.macfi.model.Classroom;
-import com.macfi.model.Location;
 import com.macfi.model.person.Professor;
 import com.macfi.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class ProfessorController {
     public Professor getProfessorById(@PathVariable("idProfessor") Long id) {
         return professorService.getProfessorById(id);
     }
-    //TODO review this method
+
     @GetMapping("byIdentifier/{identifier}") //localhost:3599/professor/byIdentifier/1
     public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
         return professorService.getProfessorByIdentifier(identifier);

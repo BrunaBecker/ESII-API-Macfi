@@ -25,7 +25,7 @@ public class EventService {
             dateEnd = Dateformater.format(end);
             return eventRepository.findAllByDateBetween(dateStart, dateEnd);
         } catch (Exception e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 

@@ -6,8 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,13 +27,13 @@ public class Attendance {
     private String supportingText;
 
     @Temporal(TemporalType.TIME)
-    private Time startHour;
+    private LocalTime startHour;
 
     @Temporal(TemporalType.TIME)
-    private Time endHour;
+    private LocalTime endHour;
 
     @Temporal(TemporalType.TIME)
-    private Time Duration;
+    private Duration duration;
 
     private boolean isAutomatic;
     private boolean isHappening;
@@ -49,28 +50,11 @@ public class Attendance {
     private List<AttendanceStatus> StatusStudentAttendance;
 
 
-    public boolean addStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-       return StatusStudentAttendance.add(attendanceStatus);
-    }
-
-    public boolean removeStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-        return StatusStudentAttendance.remove(attendanceStatus);
-    }
-
-
-    public Time calculateDuration() {
-        if (startHour != null && endHour != null) {
-            Duration = new Time(endHour.getTime() - startHour.getTime());
-            return Duration;
-        }
-        throw new RuntimeException("StartHour or EndHour is null");
-    }
-
     public Attendance(Date date,
                       String supportingText,
-                      Time startHour,
-                      Time endHour,
-                      Time duration,
+                      LocalTime startHour,
+                      LocalTime endHour,
+                      Duration duration,
                       boolean isAutomatic,
                       boolean isHappening,
                       VirtualZone virtualZone,
@@ -80,7 +64,7 @@ public class Attendance {
         this.supportingText = supportingText;
         this.startHour = startHour;
         this.endHour = endHour;
-        Duration = duration;
+        this.duration = duration;
         this.isAutomatic = isAutomatic;
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
@@ -90,9 +74,9 @@ public class Attendance {
 
     public Attendance(Date date,
                       String supportingText,
-                      Time startHour,
-                      Time endHour,
-                      Time duration,
+                      LocalTime startHour,
+                      LocalTime endHour,
+                      Duration duration,
                       boolean isHappening,
                       VirtualZone virtualZone,
                       Classroom classroom,
@@ -102,12 +86,24 @@ public class Attendance {
         this.supportingText = supportingText;
         this.startHour = startHour;
         this.endHour = endHour;
-        Duration = duration;
+        this.duration = duration;
         this.isAutomatic = false;
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
         this.classroom = classroom;
         StatusStudentAttendance = statusStudentAttendance;
+    }
+
+    public boolean addStatusStudentAttendance(AttendanceStatus attendanceStatus) {
+        return StatusStudentAttendance.add(attendanceStatus);
+    }
+
+    public boolean removeStatusStudentAttendance(AttendanceStatus attendanceStatus) {
+        return StatusStudentAttendance.remove(attendanceStatus);
+    }
+
+    public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {
+        return Duration.between(startHour, endHour);
     }
 
 

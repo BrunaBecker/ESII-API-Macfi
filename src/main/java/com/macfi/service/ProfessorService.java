@@ -1,8 +1,6 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
-import com.macfi.model.Classroom;
-import com.macfi.model.Location;
 import com.macfi.model.person.Professor;
 import com.macfi.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ public class ProfessorService {
         professorRepository.deleteById(id);
     }
 
-    public Professor deleteProfessorByIdentifier(String identifier){
+    public Professor deleteProfessorByIdentifier(String identifier) {
         Professor aProfessor = getProfessorByIdentifier(identifier);
         professorRepository.deleteById(aProfessor.getId());
         return aProfessor;

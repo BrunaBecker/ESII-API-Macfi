@@ -48,7 +48,7 @@ public class StudentController {
         if (classroomService.getClassroomById(idClass) != null) {
             Student.getClassrooms().add(classroomService.getClassroomById(idClass));
             return studentService.updateStudent(Student);
-        }  else {
+        } else {
             return null;
         }
 
