@@ -27,8 +27,8 @@ public class PingService {
 
             if (ping.inCorrectLocation(ping.getCoordinates().getLatitude(),
                     ping.getCoordinates().getLongitude(),
-                    attendance.getVirtualZone().getLocation().getCoordinates().getLatitude(),
-                    attendance.getVirtualZone().getLocation().getCoordinates().getLongitude())) {
+                    attendance.getVirtualZone().getLocation().getCoordinate().getLatitude(),
+                    attendance.getVirtualZone().getLocation().getCoordinate().getLongitude())) {
 
                 if (attendanceStatus.addSuccessfulPing(ping)) {
                     ping.setStatus(StatusPing.successful);

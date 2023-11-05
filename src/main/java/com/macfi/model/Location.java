@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.locationtech.jts.geom.Coordinates;
+//import org.locationtech.jts.geom.Coordinates;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class Location {
     private String description;
     private boolean isActive;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Coordinate coordinate;
 
     @ManyToOne

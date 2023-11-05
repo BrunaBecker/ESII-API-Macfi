@@ -33,7 +33,7 @@ public abstract class RegisterCollegeID {
 
     protected boolean isActive;
 
-    @OneToOne
+    @OneToOne(mappedBy = "register")
     protected Person person;
 
     public RegisterCollegeID(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {

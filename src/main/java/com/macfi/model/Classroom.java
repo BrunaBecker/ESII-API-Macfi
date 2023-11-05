@@ -25,10 +25,10 @@ public class Classroom {
     private String code;
     private String semester;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Location defaultLocation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Professor professor;
     @ManyToMany(mappedBy = "classrooms")
     @ToString.Exclude
