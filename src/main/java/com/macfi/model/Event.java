@@ -39,8 +39,7 @@ public class Event {
     @ToString.Exclude
     private List<Calendar> calendars;
 
-    public Event(Long id, String name, Date date, String description, Classroom classroom, EventStatus status, List<Calendar> calendar) {
-        this.id = id;
+    public Event(String name, Date date, String description, Classroom classroom, EventStatus status, List<Calendar> calendar) {
         this.name = name;
         this.date = date;
         this.description = description;

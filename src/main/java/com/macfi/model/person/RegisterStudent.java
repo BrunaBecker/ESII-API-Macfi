@@ -16,6 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@PrimaryKeyJoinColumn(name = "id")
 public class RegisterStudent extends RegisterCollegeID {
 
     public RegisterStudent(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Student student) {

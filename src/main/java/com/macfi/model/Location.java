@@ -42,8 +42,7 @@ public class Location {
     @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     private Classroom classroom;
 
-    public Location(Long id, String title, String description, boolean isActive, Coordinate coordinate, Professor professor, List<VirtualZone> virtualZones) {
-        this.id = id;
+    public Location(String title, String description, boolean isActive, Coordinate coordinate, Professor professor, List<VirtualZone> virtualZones) {
         this.title = title;
         this.description = description;
         this.isActive = isActive;

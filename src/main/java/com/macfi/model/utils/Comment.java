@@ -29,8 +29,7 @@ public class Comment {
     @OneToOne
     private Waiver waiver;
 
-    public Comment(Long id, String content, Person author, Comment replyTo, Waiver waiver) {
-        this.id = id;
+    public Comment(String content, Person author, Comment replyTo, Waiver waiver) {
         this.content = content;
         this.author = author;
         this.replyTo = replyTo;

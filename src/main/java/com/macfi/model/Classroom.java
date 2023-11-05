@@ -36,7 +36,7 @@ public class Classroom {
     @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
     private Location defaultLocation;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Professor professor;
     @ManyToMany(mappedBy = "classrooms")
     @ToString.Exclude
@@ -46,8 +46,7 @@ public class Classroom {
     private List<Attendance> attendances;
 
 
-    public Classroom(Long id, String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances) {
-        this.id = id;
+    public Classroom(String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances) {
         this.name = name;
         this.code = code;
         this.semester = semester;

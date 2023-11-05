@@ -30,8 +30,7 @@ public class Setting {
     //todo Setting repository
 
 
-    public Setting(Long id, boolean automaticSaveLocalization, boolean usePredefinedCalendarForAttendance, boolean silentMode, Person person) {
-        this.id = id;
+    public Setting(boolean automaticSaveLocalization, boolean usePredefinedCalendarForAttendance, boolean silentMode, Person person) {
         this.automaticSaveLocalization = automaticSaveLocalization;
         this.usePredefinedCalendarForAttendance = usePredefinedCalendarForAttendance;
         this.silentMode = silentMode;

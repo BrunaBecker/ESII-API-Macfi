@@ -18,9 +18,10 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@PrimaryKeyJoinColumn(name = "id")
 public class Student extends Person {
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     @ToString.Exclude
@@ -37,8 +38,8 @@ public class Student extends Person {
     private List<Attendance> attendances;
 
 
-    public Student(Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List<Waiver> waivers, List<Attendance> attendances) {
-        super(id, name, socialName, birthDate, isActive, cpf, email, password, register, setting, profileImagem, commentList, notificationList);
+    public Student( String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List<Waiver> waivers, List<Attendance> attendances) {
+        super( name, socialName, birthDate, isActive, cpf, email, password, register, setting, profileImagem, commentList, notificationList);
         this.classrooms = classrooms;
         this.waivers = waivers;
         this.attendances = attendances;
