@@ -23,8 +23,8 @@ public class Calendar {
 
 
     @ManyToMany
-    @JoinTable(name = "calendar_id", joinColumns = @JoinColumn(name = "calendarId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "eventId", referencedColumnName = "id"))
+    @JoinTable(name = "calendar_event", joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"))
     @ToString.Exclude
     private List<Event> events;
 

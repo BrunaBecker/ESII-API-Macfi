@@ -27,15 +27,20 @@ public class Location {
     private boolean isActive;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coordinate_id", referencedColumnName = "id")
     private Coordinate coordinate;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id")
+    @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
     @OneToMany(mappedBy = "location")
     @ToString.Exclude
     private List<VirtualZone> virtualZones;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "classroom_id", referencedColumnName = "id")
+    private Classroom classroom;
 
     public Location(Long id, String title, String description, boolean isActive, Coordinate coordinate, Professor professor, List<VirtualZone> virtualZones) {
         this.id = id;

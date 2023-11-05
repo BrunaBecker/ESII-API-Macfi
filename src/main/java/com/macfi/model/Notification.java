@@ -32,6 +32,7 @@ public class Notification {
     private boolean isRead;
 
     @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
 
     public Notification(Long id, String title, String supportingText, StatusNotification statusNotification, boolean isActive, boolean isRead, Person person) {

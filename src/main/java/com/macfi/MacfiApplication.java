@@ -50,7 +50,7 @@ public class MacfiApplication implements CommandLineRunner {
             Setting setting = new Setting(Long.valueOf(i), false, false, false, professor);
             Picture profileImage = new Picture(Long.valueOf(i), "https://imagem.com", "imagem.png", "png", 10, new Date());
             professor.setRegister(registerProfessor);
-            professor.setProfileImagem(profileImage);
+            professor.setProfileImage(profileImage);
             professor.setSetting(setting);
             professorRepository.save(professor);
         }
@@ -62,7 +62,7 @@ public class MacfiApplication implements CommandLineRunner {
             Setting setting = new Setting(Long.valueOf(i+10), false, false, false, student);
             Picture profileImage = new Picture(Long.valueOf(i+10), "https://imagem.com", "imagem.png", "png", 10, new Date());
             student.setRegister(registerStudent);
-            student.setProfileImagem(profileImage);
+            student.setProfileImage(profileImage);
             student.setSetting(setting);
 
             studentRepository.save(student);
@@ -77,7 +77,7 @@ public class MacfiApplication implements CommandLineRunner {
             Classroom classroom = new Classroom(Long.valueOf(i), "classroom "+i, ""+i, "223", null, professor, students, new ArrayList<Attendance>());
 
             Location location = new Location(Long.valueOf(i), "location "+i, "location", false, null, professor, new ArrayList<VirtualZone>());
-            Coordinate coordinate = new Coordinate(Long.valueOf(i), 1234.0, 1234.0);
+            Coordinate coordinate = new Coordinate((long) i, 1234.0, 1234.0);
 
             location.setCoordinate(coordinate);
             classroom.setDefaultLocation(location);

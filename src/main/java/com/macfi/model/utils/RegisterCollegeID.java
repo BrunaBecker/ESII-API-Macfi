@@ -14,8 +14,15 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "register_college_id")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class RegisterCollegeID {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+
     protected String identifier;
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateStarted;
@@ -25,10 +32,6 @@ public abstract class RegisterCollegeID {
 
     @OneToOne(mappedBy = "register")
     protected Person person;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     public RegisterCollegeID(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {
         this.identifier = identifier;
