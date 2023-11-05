@@ -30,6 +30,7 @@ public class Event {
     private String description;
 
     @OneToOne
+    @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     private Classroom classroom;
 
     private EventStatus status;

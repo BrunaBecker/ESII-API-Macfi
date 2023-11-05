@@ -25,7 +25,15 @@ public class Classroom {
     private String code;
     private String semester;
 
-    @OneToOne(cascade=CascadeType.ALL)
+
+    @Temporal(TemporalType.TIME)
+    private String startHour;
+
+    @Temporal(TemporalType.TIME)
+    private String endHour;
+
+
+    @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
     private Location defaultLocation;
 
     @ManyToOne(cascade = CascadeType.ALL)

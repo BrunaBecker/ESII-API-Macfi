@@ -39,10 +39,12 @@ public class Attendance {
     private boolean isHappening;
 
     @OneToOne
+    @JoinColumn(name = "virtual_zone_id", referencedColumnName = "id")
     private VirtualZone virtualZone;
 
 
     @ManyToOne
+    @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     private Classroom classroom;
 
     @OneToMany(mappedBy = "attendance")

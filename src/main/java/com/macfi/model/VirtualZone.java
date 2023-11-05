@@ -15,14 +15,15 @@ import lombok.ToString;
 @Table(name = "virtual_zone")
 public class VirtualZone {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="location_id", referencedColumnName = "id")
     private Location location;
 
-    @OneToOne
+    @OneToOne(mappedBy = "virtualZone")
     private Attendance attendance;
 
     public VirtualZone(Long id, Location location, Attendance attendance) {

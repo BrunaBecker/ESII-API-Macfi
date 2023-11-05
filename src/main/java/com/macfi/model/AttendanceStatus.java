@@ -30,9 +30,11 @@ public class AttendanceStatus {
     private boolean validated;
 
     @OneToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name = "attendance_id", referencedColumnName = "id")
     private Attendance attendance;
 
     @OneToMany(mappedBy = "attendanceStatus")
@@ -43,7 +45,7 @@ public class AttendanceStatus {
     @ToString.Exclude
     private List<Ping> unsuccessfulPings;
 
-    @OneToOne
+    @OneToOne(mappedBy = "attendanceStatus")
     private Waiver waiver;
 
     public AttendanceStatus(StudentAtAttendanceState studentState, boolean studentHasResponded, boolean validated, Student student, Attendance attendance, List<Ping> successfulPings, List<Ping> unsuccessfulPings, Waiver waiver) {

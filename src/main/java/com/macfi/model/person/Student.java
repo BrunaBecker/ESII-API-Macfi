@@ -21,18 +21,18 @@ import java.util.List;
 public class Student extends Person {
 
     @ManyToMany
-    @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "studentId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "classId", referencedColumnName = "id"))
+    @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     @ToString.Exclude
     private List<Classroom> classrooms;
 
     @OneToMany
-    @JoinColumn(name = "waiverId", referencedColumnName = "id")
+    @JoinColumn(name = "waiver_id", referencedColumnName = "id")
     @ToString.Exclude
     private List<Waiver> waivers;
 
     @OneToMany
-    @JoinColumn(name = "attendanceId", referencedColumnName = "id")
+    @JoinColumn(name = "attendance_id", referencedColumnName = "id")
     @ToString.Exclude
     private List<Attendance> attendances;
 

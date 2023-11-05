@@ -18,10 +18,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "person")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
     protected String name;
     protected String socialName;
@@ -40,11 +40,13 @@ public abstract class Person {
     protected RegisterCollegeID register;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "setting_id")
     protected Setting setting;
 
 
     @OneToOne(cascade=CascadeType.ALL)
-    protected Picture profileImagem;
+    @JoinColumn(name = "profile_image_id")
+    protected Picture profileImage;
 
     @OneToMany(mappedBy = "author")
     protected List<Comment> comments;

@@ -19,11 +19,12 @@ import java.util.Date;
 @Table(name = "waiver")
 public class Waiver {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
+    @JoinColumn(name = "file_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
     private FileMacFI file;
 
     private String description;
@@ -39,15 +40,15 @@ public class Waiver {
     private boolean isAccepted;
 
     @OneToOne
-    @JoinColumn(name = "comment_id")
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
     @ManyToOne
-    @JoinColumn(name = "Student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     @OneToOne
-    @JoinColumn(name = "AttendanceStatus_id", referencedColumnName = "id")
+    @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
     public Waiver(Long id, FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {

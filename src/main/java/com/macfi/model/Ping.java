@@ -35,9 +35,11 @@ public class Ping {
     private boolean isContinuos;
 
     @OneToOne
+    @JoinColumn(name = "coordinate_id", referencedColumnName = "id")
     private Coordinate coordinate;
 
     @ManyToOne
+    @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
     public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinate, AttendanceStatus attendanceStatus) {
