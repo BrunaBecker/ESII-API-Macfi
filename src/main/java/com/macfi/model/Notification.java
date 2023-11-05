@@ -35,8 +35,7 @@ public class Notification {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    public Notification(Long id, String title, String supportingText, StatusNotification statusNotification, boolean isActive, boolean isRead, Person person) {
-        this.id = id;
+    public Notification(String title, String supportingText, StatusNotification statusNotification, boolean isActive, boolean isRead, Person person) {
         this.title = title;
         this.supportingText = supportingText;
         this.statusNotification = statusNotification;

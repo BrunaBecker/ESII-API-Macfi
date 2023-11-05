@@ -51,8 +51,7 @@ public class Waiver {
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
-    public Waiver(Long id, FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
-        this.id = id;
+    public Waiver( FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
         this.file = file;
         this.description = description;
         this.sendDate = sendDate;

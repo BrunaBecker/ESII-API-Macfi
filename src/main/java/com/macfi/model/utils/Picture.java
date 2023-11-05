@@ -1,6 +1,8 @@
 package com.macfi.model.utils;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +15,10 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @ToString
+@PrimaryKeyJoinColumn(name = "id")
 public class Picture extends FileMacFI {
 
-    public Picture(Long id, String linkFile, String nameFile, String typeFile, Integer sizeFile, Date dateFile) {
-        super(id, linkFile, nameFile, typeFile, sizeFile, dateFile);
+    public Picture( String linkFile, String nameFile, String typeFile, Integer sizeFile, Date dateFile) {
+        super( linkFile, nameFile, typeFile, sizeFile, dateFile);
     }
 }

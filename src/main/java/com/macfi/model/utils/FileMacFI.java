@@ -16,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Table(name = "file_macfi")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class FileMacFI {
 
     @Id
@@ -34,8 +35,7 @@ public class FileMacFI {
     //todo file atributte
 
 
-    public FileMacFI(Long id, String linkFile, String nameFile, String typeFile, Integer sizeFile, Date dateFile) {
-        this.id = id;
+    public FileMacFI(String linkFile, String nameFile, String typeFile, Integer sizeFile, Date dateFile) {
         this.linkFile = linkFile;
         this.nameFile = nameFile;
         this.typeFile = typeFile;

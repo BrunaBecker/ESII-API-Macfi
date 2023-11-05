@@ -22,8 +22,7 @@ public class Coordinate {
     private Double latitude;
     private Double longitude;
 
-    public Coordinate(Long id, Double latitude, Double longitude) {
-        this.id = id;
+    public Coordinate( Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

@@ -26,8 +26,7 @@ public class VirtualZone {
     @OneToOne(mappedBy = "virtualZone")
     private Attendance attendance;
 
-    public VirtualZone(Long id, Location location, Attendance attendance) {
-        this.id = id;
+    public VirtualZone( Location location, Attendance attendance) {
         this.location = location;
         this.attendance = attendance;
     }

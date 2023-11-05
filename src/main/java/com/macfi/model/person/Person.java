@@ -18,10 +18,12 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "person")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     protected Long id;
     protected String name;
     protected String socialName;
@@ -35,16 +37,16 @@ public abstract class Person {
     protected String password;
 
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "register_id")
     protected RegisterCollegeID register;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "setting_id")
     protected Setting setting;
 
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_image_id")
     protected Picture profileImage;
 
@@ -57,8 +59,7 @@ public abstract class Person {
     //todo [RF-013]
 
 
-    public Person(Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImage, List<Comment> comments, List<Notification> notifications) {
-        this.id = id;
+    public Person(String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImage, List<Comment> comments, List<Notification> notifications) {
         this.name = name;
         this.socialName = socialName;
         this.birthDate = birthDate;

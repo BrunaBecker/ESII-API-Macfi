@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Table(name = "attendance")
 public class Attendance {
 
     @Id

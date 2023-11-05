@@ -42,8 +42,7 @@ public class Ping {
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
-    public Ping(Long id, String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinate, AttendanceStatus attendanceStatus) {
-        this.id = id;
+    public Ping(String ip, Date date, StatusPing status, boolean isContinuos, Coordinate coordinate, AttendanceStatus attendanceStatus) {
         this.ip = ip;
         this.date = date;
         this.status = status;

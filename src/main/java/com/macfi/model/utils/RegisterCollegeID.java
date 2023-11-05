@@ -14,11 +14,12 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "register_college_id")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class RegisterCollegeID {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

@@ -1,6 +1,7 @@
 package com.macfi;
 
 import com.macfi.controller.ProfessorController;
+import com.macfi.controller.StudentController;
 import com.macfi.model.*;
 import com.macfi.model.person.Professor;
 import com.macfi.model.person.RegisterProfessor;
@@ -35,6 +36,9 @@ public class MacfiApplication implements CommandLineRunner {
     private ClassroomRepository classroomRepository;
 
     @Autowired
+    private StudentController studentController;
+
+    @Autowired
     private ProfessorController professorController;
 
     public static void main(String[] args) {
@@ -42,47 +46,76 @@ public class MacfiApplication implements CommandLineRunner {
     }
 
 
+
+
+
+    /*
+    *   Professor
+    *   Student
+    *   Classroom
+    *   Coordinate
+    *   Setting
+    *   Picture
+    *   Location
+    */
+
     @Override
-    public void run(String... args) throws Exception {
-        for (int i = 1; i <= 10; i++){
-            Professor professor = new Professor(Long.valueOf(i), "Professor "+i, "Professore "+i, new Date(), true, "1234567890"+(i-1), "professor"+i+"@ic.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Location>(), new ArrayList<Classroom>());
-            RegisterProfessor registerProfessor = new RegisterProfessor("123456"+(i-1), new Date(), null, true, professor);
-            Setting setting = new Setting(Long.valueOf(i), false, false, false, professor);
-            Picture profileImage = new Picture(Long.valueOf(i), "https://imagem.com", "imagem.png", "png", 10, new Date());
-            professor.setRegister(registerProfessor);
-            professor.setProfileImage(profileImage);
-            professor.setSetting(setting);
-            professorRepository.save(professor);
-        }
+    public void run(String... args) {
+
+        try {
+            for (int i = 1; i <= 10; i++) {
+                Professor professor = new Professor("Professor " + i, "Professore " + i, new Date(), true, "1234567890" + (i - 1), "professor" + i + "@ic.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Location>(), new ArrayList<Classroom>());
+                RegisterProfessor registerProfessor = new RegisterProfessor("123456" + (i - 1), new Date(), null, true, professor);
+                Setting setting = new Setting(false, false, false, professor);
+                Picture profileImage = new Picture("https://imagem.com", "imagem.png", "png", 10, new Date());
+
+                professor.setRegister(registerProfessor);
+                professor.setProfileImage(profileImage);
+                professor.setSetting(setting);
+
+                professorRepository.save(professor);
+            }
 
 //        Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List< Waiver > waivers, List<Attendance> attendances
-        for (int i = 1; i <= 10; i++){
-            Student student = new Student(Long.valueOf(i+10), "Aluno "+(i+10), "Alune "+(i+10), new Date(), true, "123456789"+(i+9), "aluno"+(i+10)+"@id.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Classroom>(), new ArrayList< Waiver>(), new ArrayList<Attendance>());
-            RegisterStudent registerStudent = new RegisterStudent("1234567"+(i+9), new Date(), null, true, student);
-            Setting setting = new Setting(Long.valueOf(i+10), false, false, false, student);
-            Picture profileImage = new Picture(Long.valueOf(i+10), "https://imagem.com", "imagem.png", "png", 10, new Date());
-            student.setRegister(registerStudent);
-            student.setProfileImage(profileImage);
-            student.setSetting(setting);
+            for (int i = 1; i <= 10; i++) {
+                Student student = new Student("Aluno " + (i + 10), "Alune " + (i + 10), new Date(), true, "123456789" + (i + 9), "aluno" + (i + 10) + "@id.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Classroom>(), new ArrayList<Waiver>(), new ArrayList<Attendance>());
+                RegisterStudent registerStudent = new RegisterStudent("1234567" + (i + 9), new Date(), null, true, student);
+                Setting setting = new Setting(false, false, false, student);
+                Picture profileImage = new Picture("https://imagem.com", "imagem.png", "png", 10, new Date());
+                student.setRegister(registerStudent);
+                student.setProfileImage(profileImage);
+                student.setSetting(setting);
 
-            studentRepository.save(student);
-        }
+                studentRepository.save(student);
+            }
 
 //        Long id, String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances
-        for (int i = 1; i <= 10; i++){
-            Professor professor = professorController.getProfessorById(Long.valueOf(i));
+            for (int i = 1; i <= 10; i++) {
+                Professor professor = professorController.getProfessorById(Long.valueOf(i));
+                Student student = studentController.getStudentById(Long.valueOf(i + 10));
 
-            ArrayList<Student> students = new ArrayList<Student>();
-            students.add(studentRepository.getReferenceById(Long.valueOf(i+10)));
-            Classroom classroom = new Classroom(Long.valueOf(i), "classroom "+i, ""+i, "223", null, professor, students, new ArrayList<Attendance>());
+                System.out.println(professor);
 
-            Location location = new Location(Long.valueOf(i), "location "+i, "location", false, null, professor, new ArrayList<VirtualZone>());
-            Coordinate coordinate = new Coordinate((long) i, 1234.0, 1234.0);
+                ArrayList<Student> students = new ArrayList<Student>();
+                students.add(student);
+                Classroom classroom = new Classroom("classroom " + i, "" + i, "223", null, professor, students, new ArrayList<Attendance>());
 
-            location.setCoordinate(coordinate);
-            classroom.setDefaultLocation(location);
+                Location location = new Location("location " + i, "location", false, null, professor, new ArrayList<VirtualZone>());
+                Coordinate coordinate = new Coordinate(1234.0, 1234.0);
 
-            classroomRepository.save(classroom);
+                location.setCoordinate(coordinate);
+                classroom.setDefaultLocation(location);
+                classroomRepository.save(classroom);
+
+                professor.getClassrooms().add(classroom);
+                professor.getLocations().add(location);
+                professorRepository.save(professor);
+
+                student.getClassrooms().add(classroom);
+                studentRepository.save(student);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
 
 
