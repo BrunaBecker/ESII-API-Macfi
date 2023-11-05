@@ -9,7 +9,7 @@ import java.util.Date;
 
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
-    @Query("select c from Calendar c where c.date = :date")
-    Calendar findByDate(Date date);
+//    @Query("select c from Calendar c where c.date = :date")
+//    Calendar findByDate(Date date);
 
 }

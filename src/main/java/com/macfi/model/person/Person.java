@@ -35,14 +35,16 @@ public abstract class Person {
     protected String password;
 
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "register_id")
     protected RegisterCollegeID register;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     protected Setting setting;
 
-    @OneToOne
-    protected Picture profileImage;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    protected Picture profileImagem;
 
     @OneToMany(mappedBy = "author")
     protected List<Comment> comments;

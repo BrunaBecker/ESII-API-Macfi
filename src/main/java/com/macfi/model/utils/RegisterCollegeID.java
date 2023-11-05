@@ -22,7 +22,8 @@ public abstract class RegisterCollegeID {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateFinished;
     protected boolean isActive;
-    @OneToOne
+
+    @OneToOne(mappedBy = "register")
     protected Person person;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

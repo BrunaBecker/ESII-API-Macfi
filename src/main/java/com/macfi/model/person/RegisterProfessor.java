@@ -16,9 +16,7 @@ import java.util.Date;
 @Setter
 @ToString
 public class RegisterProfessor extends RegisterCollegeID {
-
-
-    public RegisterProfessor(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Professor person) {
+    public RegisterProfessor(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {
         super(identifier, dateStarted, dateFinished, isActive, person);
     }
 }
