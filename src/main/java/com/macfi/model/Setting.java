@@ -23,7 +23,7 @@ public class Setting {
     private boolean usePredefinedCalendarForAttendance;
     private boolean silentMode;
 
-    @OneToOne
+    @OneToOne(mappedBy = "setting")
     private Person person;
     //create a method to take de localization from professor
 
