@@ -34,7 +34,7 @@ public class Location {
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<VirtualZone> virtualZones;
 

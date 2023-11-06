@@ -37,15 +37,15 @@ public class AttendanceStatus {
     @JoinColumn(name = "attendance_id", referencedColumnName = "id")
     private Attendance attendance;
 
-    @OneToMany(mappedBy = "attendanceStatus")
+    @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Ping> successfulPings;
 
-    @OneToMany(mappedBy = "attendanceStatus")
+    @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Ping> unsuccessfulPings;
 
-    @OneToOne(mappedBy = "attendanceStatus")
+    @OneToOne(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     private Waiver waiver;
 
     public AttendanceStatus(StudentAtAttendanceState studentState, boolean studentHasResponded, boolean validated, Student student, Attendance attendance, List<Ping> successfulPings, List<Ping> unsuccessfulPings, Waiver waiver) {

@@ -48,7 +48,7 @@ public class Attendance {
     @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     private Classroom classroom;
 
-    @OneToMany(mappedBy = "attendance")
+    @OneToMany(mappedBy = "attendance", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<AttendanceStatus> StatusStudentAttendance;
 
