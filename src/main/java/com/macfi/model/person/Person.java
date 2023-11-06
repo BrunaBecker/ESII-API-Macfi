@@ -53,7 +53,7 @@ public abstract class Person {
     @OneToMany(mappedBy = "author")
     protected List<Comment> comments;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected List<Notification> notifications;
 
     //todo [RF-013]

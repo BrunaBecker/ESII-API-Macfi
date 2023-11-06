@@ -31,7 +31,7 @@ public class Notification {
 
     private boolean isRead;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "person_id")
     private Person person;
 

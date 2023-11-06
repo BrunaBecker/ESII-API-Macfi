@@ -41,7 +41,7 @@ public class Classroom {
     @ManyToMany(mappedBy = "classrooms")
     @ToString.Exclude
     private List<Student> students;
-    @OneToMany(mappedBy = "classroom")
+    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Attendance> attendances;
 

@@ -24,7 +24,7 @@ public class Waiver {
     private Long id;
 
     @JoinColumn(name = "file_id", referencedColumnName = "id")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FileMacFI file;
 
     private String description;
@@ -39,7 +39,7 @@ public class Waiver {
 
     private boolean isAccepted;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
