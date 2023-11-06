@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Professor;
 import com.macfi.model.utils.Coordinate;
 import jakarta.persistence.*;
@@ -36,6 +39,8 @@ public class Location {
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<VirtualZone> virtualZones;
 
     @OneToOne(cascade = CascadeType.ALL)

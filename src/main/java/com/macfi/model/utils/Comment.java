@@ -1,5 +1,8 @@
 package com.macfi.model.utils;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.Waiver;
 import com.macfi.model.person.Person;
 import jakarta.persistence.*;
@@ -19,11 +22,15 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Person author;
+
     @ManyToOne
     @JoinColumn(name = "parent_comment_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Comment replyTo;
 
     @OneToOne

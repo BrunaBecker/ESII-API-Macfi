@@ -12,8 +12,8 @@ public class SettingService {
     @Autowired
     private SettingRepository settingRepository;
 
-    public Setting getSetting() {
-        return settingRepository.findById(1L).orElse(null);
+    public Setting getSetting(Long id) {
+        return settingRepository.findById(id).orElse(null);
     }
 
 

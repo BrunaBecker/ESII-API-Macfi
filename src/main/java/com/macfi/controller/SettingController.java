@@ -3,6 +3,7 @@ package com.macfi.controller;
 
 import com.macfi.model.Setting;
 import com.macfi.service.SettingService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ public class SettingController {
 
 
     @GetMapping
-    public Setting getSetting() {
-        return settingService.getSetting();
+    public Setting getSettings(@PathParam("id") Long id) {
+        return settingService.getSetting(id);
     }
 
     @PostMapping

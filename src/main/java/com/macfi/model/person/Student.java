@@ -1,5 +1,8 @@
 package com.macfi.model.person;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.*;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
@@ -25,16 +28,22 @@ public class Student extends Person {
     @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Classroom> classrooms;
 
     @OneToMany
     @JoinColumn(name = "waiver_id", referencedColumnName = "id")
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Waiver> waivers;
 
     @OneToMany
     @JoinColumn(name = "attendance_id", referencedColumnName = "id")
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Attendance> attendances;
 
 

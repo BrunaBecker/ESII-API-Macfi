@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.utils.enums_class.EventStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,6 +40,8 @@ public class Event {
 
     @ManyToMany(mappedBy = "events")
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Calendar> calendars;
 
     public Event(String name, Date date, String description, Classroom classroom, EventStatus status, List<Calendar> calendar) {

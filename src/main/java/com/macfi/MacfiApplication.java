@@ -85,7 +85,8 @@ public class MacfiApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-//        try {
+        try {
+            System.out.println("Criando Professores...");
             for (int i = 1; i <= 10; i++) {
                 Professor professor = new Professor("Professor " + i, "Professore " + i, new Date(), true, "1234567890" + (i - 1), "professor" + i + "@ic.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Location>(), new ArrayList<Classroom>());
                 RegisterProfessor registerProfessor = new RegisterProfessor("123456" + (i - 1), new Date(), null, true, professor);
@@ -98,7 +99,7 @@ public class MacfiApplication implements CommandLineRunner {
 
                 professorRepository.save(professor);
             }
-
+            System.out.println("Criando Estudantes.");
 //        Long id, String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List< Waiver > waivers, List<Attendance> attendances
             for (int i = 1; i <= 10; i++) {
                 Student student = new Student("Aluno " + (i + 10), "Alune " + (i + 10), new Date(), true, "123456789" + (i + 9), "aluno" + (i + 10) + "@id.uff.br", "senha", null, null, null, new ArrayList<Comment>(), new ArrayList<Notification>(), new ArrayList<Classroom>(), new ArrayList<Waiver>(), new ArrayList<Attendance>());
@@ -114,8 +115,8 @@ public class MacfiApplication implements CommandLineRunner {
 
 //        Long id, String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances
             for (int i = 1; i <= 10; i++) {
-                Professor professor = professorController.getProfessorById(Long.valueOf(i));
-                Student student = studentController.getStudentById(Long.valueOf(i + 10));
+                Professor professor = professorController.getProfessorById((long) i);
+                Student student = studentController.getStudentById((long) (i + 10));
 
                 ArrayList<Student> students = new ArrayList<Student>();
                 students.add(student);
@@ -137,7 +138,7 @@ public class MacfiApplication implements CommandLineRunner {
 
                 attendanceStatus.getSuccessfulPings().add(pingS);
                 attendanceStatus.setWaiver(waiver);
-                attendance.getStatusStudentAttendance().add(attendanceStatus);
+                attendance.getAttendancesStatuses().add(attendanceStatus);
                 location.getVirtualZones().add(virtualZone);
                 location.setCoordinate(coordinate);
                 classroom.setDefaultLocation(location);
@@ -151,22 +152,25 @@ public class MacfiApplication implements CommandLineRunner {
                 eventRepository.save(event);
                 calendarRepository.save(calendar);
 
-                professor.getNotifications().add(notificationOne);
-                professor.getClassrooms().add(classroom);
-                professor.getLocations().add(location);
-                professorRepository.save(professor);
+                if (professor != null) {
+                    professor.getNotifications().add(notificationOne);
+                    professor.getClassrooms().add(classroom);
+                    professor.getLocations().add(location);
+                    professorRepository.save(professor);
+                }
 
-
-                student.getNotifications().add(notificationTwo);
-                student.getClassrooms().add(classroom);
-                studentRepository.save(student);
+                if (student != null) {
+                    student.getNotifications().add(notificationTwo);
+                    student.getClassrooms().add(classroom);
+                    studentRepository.save(student);
+                }
 
                 waiver.setComment(comment);
                 waiverRepository.save(waiver);
             }
-//        } catch (Exception e){
-//            System.out.println(e.getLocalizedMessage());
-//        }
+        } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+        }
 
 
     }

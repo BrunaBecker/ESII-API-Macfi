@@ -152,7 +152,7 @@ public class AttendanceControllerTest {
         assertTrue(attendance.isHappening());
         assertSame(virtualZone, attendance.getVirtualZone());
         assertSame(classroom, attendance.getClassroom());
-        assertEquals(statusStudentAttendance, attendance.getStatusStudentAttendance());
+        assertEquals(statusStudentAttendance, attendance.getAttendancesStatuses());
 
 
         List<Attendance> attendances = List.of(attendance);

@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Student;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.FileMacFI;
@@ -25,6 +28,7 @@ public class Waiver {
 
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private FileMacFI file;
 
     private String description;
