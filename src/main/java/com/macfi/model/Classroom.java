@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Professor;
 import com.macfi.model.person.Student;
 import jakarta.persistence.*;
@@ -34,15 +37,21 @@ public class Classroom {
 
 
     @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Location defaultLocation;
 
     @ManyToOne
     private Professor professor;
+
     @ManyToMany(mappedBy = "classrooms")
     @ToString.Exclude
     private List<Student> students;
+
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Attendance> attendances;
 
 

@@ -158,6 +158,6 @@ class AttendanceTest {
         assertTrue(attendance.isHappening());
         assertSame(virtualZone, attendance.getVirtualZone());
         assertSame(classroom, attendance.getClassroom());
-        Assertions.assertEquals(statusStudentAttendance, attendance.getStatusStudentAttendance());
+        Assertions.assertEquals(statusStudentAttendance, attendance.getAttendancesStatuses());
     }
 }

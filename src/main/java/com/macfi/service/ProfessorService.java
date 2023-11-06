@@ -37,7 +37,7 @@ public class ProfessorService {
     }
 
     public Professor getProfessorById(Long id) {
-        return professorRepository.findById(id)
+        return (Professor) professorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("professor não encontrado"));
     }
 
@@ -56,7 +56,10 @@ public class ProfessorService {
     }
 
     public List<Professor> getProfessors() {
-        return professorRepository.findAll(Sort.by("id"));
+        return professorRepository.findAllByRepository(Sort.by("id"));
     }
 
+    public Professor getProfessorByClassroomCode(String code) {
+        return professorRepository.findByClassroomCode(code);
+    }
 }

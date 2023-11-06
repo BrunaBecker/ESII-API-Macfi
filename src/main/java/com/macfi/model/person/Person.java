@@ -1,5 +1,8 @@
 package com.macfi.model.person;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.Notification;
 import com.macfi.model.Setting;
 import com.macfi.model.utils.Comment;
@@ -39,21 +42,31 @@ public abstract class Person {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "register_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     protected RegisterCollegeID register;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "setting_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     protected Setting setting;
 
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_image_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     protected Picture profileImage;
 
     @OneToMany(mappedBy = "author")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     protected List<Comment> comments;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     protected List<Notification> notifications;
 
     //todo [RF-013]

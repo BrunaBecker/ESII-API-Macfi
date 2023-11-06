@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Student;
 import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
 import jakarta.persistence.*;
@@ -31,6 +34,8 @@ public class AttendanceStatus {
 
     @OneToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Student student;
 
     @ManyToOne
@@ -39,13 +44,19 @@ public class AttendanceStatus {
 
     @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Ping> successfulPings;
 
     @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Ping> unsuccessfulPings;
 
     @OneToOne(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Waiver waiver;
 
     public AttendanceStatus(StudentAtAttendanceState studentState, boolean studentHasResponded, boolean validated, Student student, Attendance attendance, List<Ping> successfulPings, List<Ping> unsuccessfulPings, Waiver waiver) {

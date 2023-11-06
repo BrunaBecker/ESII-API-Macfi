@@ -5,6 +5,7 @@ import com.macfi.model.Event;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -39,4 +40,7 @@ public class EventService {
     }
 
 
+    public List<Event> getEvents() {
+        return eventRepository.findAll(Sort.by("id"));
+    }
 }

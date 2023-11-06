@@ -1,5 +1,7 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Person;
 import com.macfi.model.utils.enums_class.StatusNotification;
 import jakarta.persistence.*;

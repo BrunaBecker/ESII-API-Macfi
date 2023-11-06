@@ -1,6 +1,8 @@
 package com.macfi.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Person;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,7 +25,7 @@ public class Setting {
     private boolean usePredefinedCalendarForAttendance;
     private boolean silentMode;
 
-    @OneToOne(mappedBy = "setting")
+    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER)
     private Person person;
     //create a method to take de localization from professor
 

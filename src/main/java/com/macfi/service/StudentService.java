@@ -1,7 +1,9 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
+import com.macfi.model.person.Person;
 import com.macfi.model.person.Student;
+import com.macfi.repository.PersonRepository;
 import com.macfi.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,6 +16,8 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private PersonRepository<Student, Long> personRepository;
 
     public Student createStudent(Student student) {
         return studentRepository.save(student);
@@ -37,7 +41,7 @@ public class StudentService {
     }
 
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id)
+        return (Student) studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Student não encontrado"));
     }
 
@@ -46,8 +50,8 @@ public class StudentService {
     }
 
     public Student updateStudent(Student Student) {
-        Student umStudent = getStudentById(Student.getId());
-        if (!Student.getId().equals(umStudent.getId())) {
+        Student aStudent = getStudentById(Student.getId());
+        if (!Student.getId().equals(aStudent.getId())) {
             studentRepository.findById(Student.getId())
                     .orElseThrow(() -> new EntityNotFoundException("Student nao encontrado"));
         }
@@ -55,6 +59,10 @@ public class StudentService {
     }
 
     public List<Student> getStudents() {
-        return studentRepository.findAll(Sort.by("id"));
+        return studentRepository.findAllByRepository(Sort.by("id"));
+    }
+
+    public List<Student> getStudentsTest() {
+        return (List<Student>) (Object) studentRepository.findAll(Sort.by("id"));
     }
 }

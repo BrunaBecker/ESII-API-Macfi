@@ -1,5 +1,8 @@
 package com.macfi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +27,8 @@ public class VirtualZone {
     private Location location;
 
     @OneToOne(mappedBy = "virtualZone")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Attendance attendance;
 
     public VirtualZone( Location location, Attendance attendance) {

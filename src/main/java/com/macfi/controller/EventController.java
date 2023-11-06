@@ -16,6 +16,12 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    @GetMapping()
+    public List<Event> getEvents() {
+        return eventService.getEvents();
+    }
+
+
     @GetMapping("byDateBetween")
     public List<Event> getByDateBetween(@RequestParam String startDate, @RequestParam String endDate) {
         return eventService.getEventByDateBetween(startDate, endDate);

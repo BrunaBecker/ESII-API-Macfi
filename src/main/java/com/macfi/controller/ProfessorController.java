@@ -50,5 +50,9 @@ public class ProfessorController {
         return professorService.getProfessorByIdentifier(identifier);
     }
 
+    public Professor getProfessorByClassroomCode(@PathVariable("code") String code) {
+        return professorService.getProfessorByClassroomCode(code);
+    }
+
 
 }
