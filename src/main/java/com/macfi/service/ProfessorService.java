@@ -56,7 +56,7 @@ public class ProfessorService {
     }
 
     public List<Professor> getProfessors() {
-        return professorRepository.findAllByRepository(Sort.by("id"));
+        return professorRepository.findAllByRepository();
     }
 
     public Professor getProfessorByClassroomCode(String code) {

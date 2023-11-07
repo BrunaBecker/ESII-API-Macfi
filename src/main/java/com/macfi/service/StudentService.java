@@ -59,7 +59,7 @@ public class StudentService {
     }
 
     public List<Student> getStudents() {
-        return studentRepository.findAllByRepository(Sort.by("id"));
+        return studentRepository.findAllByRepository();
     }
 
     public List<Student> getStudentsTest() {
