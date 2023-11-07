@@ -1,6 +1,7 @@
 package com.macfi.repository;
 
 import com.macfi.model.person.Person;
+import com.macfi.model.person.Professor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +23,7 @@ public interface PersonRepository<T extends Person, L extends Number> extends Jp
     @Query("select p from Person p where p.register.identifier = :identifier and p.password = :password")
     T findByIdentifierAndPassword(String identifier, String password);
 
-    @Query("select p from Person p ")
-    List<T> findAllByRepository(Sort sort);
+
 
 
 }

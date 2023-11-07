@@ -1,9 +1,7 @@
 package com.macfi.repository;
 
-import com.macfi.model.Classroom;
-import com.macfi.model.Location;
 import com.macfi.model.person.Professor;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,12 +18,9 @@ public interface ProfessorRepository extends PersonRepository<Professor, Long> {
     Professor findByEmail(String email);
 
 
-
-    @Query("select ps from Professor ps left join fetch Person p where p.id = ps.id ")
-    List<Professor> findAllByRepository();
-
-
     @Query("select p from Professor p left join fetch Person ps left join fetch Classroom c  where p.id = ps.id and c.code = :code")
     Professor findByClassroomCode(String code);
 
+    @Query("select ps from Professor ps join fetch Person p on p.id = ps.id order by ps.register.id asc")
+    List<Professor> findAllByRepository();
 }
