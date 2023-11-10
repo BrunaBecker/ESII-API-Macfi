@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * DTO for {@link Professor}
@@ -32,7 +33,8 @@ public class ProfessorDto implements Serializable {
     @NotEmpty
     String password;
 
-    RegisterCollegeIDDto register;
+    RegisterCollegeIDDto siape;
     SettingDto setting;
     PictureDto profileImage;
+
 }
