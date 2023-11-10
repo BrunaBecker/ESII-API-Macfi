@@ -23,7 +23,7 @@ public class ClassroomDto implements Serializable {
     String semester;
     @NotNull(message = "startHour can't be null")
     String startHour;
-    @NotNull(message = "startHour can't be null")
+    @NotNull(message = "endHour can't be null")
     String endHour;
     @NotNull
     ProfessorDto professor;

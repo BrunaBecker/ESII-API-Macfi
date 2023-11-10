@@ -3,6 +3,7 @@ package com.macfi.controller;
 
 import com.macfi.payload.EventDto;
 import com.macfi.service.EventService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,16 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
+    @PutMapping
+    public ResponseEntity<EventDto> updateEvent(@Valid @RequestBody EventDto eventDto) {
+         ;
+        return ResponseEntity.ok(eventService.updateEvent(eventDto));
+    }
+
+    @PostMapping
+    public ResponseEntity<EventDto> createEvent(@Valid @RequestBody EventDto eventDto) {
+        return ResponseEntity.ok(eventService.createEvent(eventDto));
+    }
 
     @GetMapping("byDateBetween")
     public ResponseEntity<List<EventDto>> getByDateBetween(@RequestParam String startDate, @RequestParam String endDate) {

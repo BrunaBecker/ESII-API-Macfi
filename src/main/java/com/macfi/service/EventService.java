@@ -39,6 +39,10 @@ public class EventService {
         return modelMapping.getInstance().mapToDto(eventRepository.save(event), EventDto.class);
     }
 
+    public EventDto updateEvent(EventDto eventDto) {
+        Event event = modelMapping.getInstance().mapToEntity(eventDto, Event.class);
+        return modelMapping.getInstance().mapToDto(eventRepository.save(event), EventDto.class);
+    }
 
     public EventDto getEventByDate(Date date) {
         return modelMapping.getInstance().mapToDto(eventRepository.findByDate(date), EventDto.class);

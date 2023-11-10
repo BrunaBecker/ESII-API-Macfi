@@ -17,4 +17,6 @@ public class CommentDto implements Serializable {
 
     @NotNull(message = "personId must not be null")
     Long personId;
+
+    CommentDto comment;
 }

@@ -3,6 +3,7 @@ package com.macfi.payload;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * DTO for {@link com.macfi.model.Location}
  */
-@Value
+@Data
 public class LocationDto implements Serializable {
     @NotNull(message = "Id cannot be null")
     @Positive(message = "Id must be positive")
