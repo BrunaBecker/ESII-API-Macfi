@@ -1,10 +1,13 @@
 package com.macfi.controller;
 
-import com.macfi.model.Classroom;
+import com.macfi.payload.ClassroomDto;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.ProfessorService;
 import com.macfi.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
 public class ClassroomController {
 
     @Autowired
-    ClassroomService ClassroomService;
+    ClassroomService classroomService;
 
     @Autowired
     ProfessorService professorService;
@@ -24,29 +27,29 @@ public class ClassroomController {
     StudentService studentService;
 
     @GetMapping
-    public List<Classroom> getClassrooms() {
-        return ClassroomService.getClassrooms();
+    public ResponseEntity<List<ClassroomDto>> getClassrooms() {
+        return ResponseEntity.ok(classroomService.getClassrooms());
     }
 
     @PostMapping
-    public Classroom createClassroom(@RequestBody Classroom classroom) {
-        return ClassroomService.createClassroom(classroom);
+    public ResponseEntity<ClassroomDto> createClassroom(@Valid @RequestBody ClassroomDto classroomDto) {
+        return new ResponseEntity<>(classroomService.createClassroom(classroomDto), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public Classroom updateClassroom(@RequestBody Classroom classroom) {
-        return ClassroomService.updateClassroom(classroom);
+    public ResponseEntity<ClassroomDto> updateClassroom(@Valid @RequestBody ClassroomDto classroomDto) {
+        return ResponseEntity.ok(classroomService.updateClassroom(classroomDto));
     }
 
 
     @GetMapping("professor/{identifier}")
-    public List<Classroom> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
-        return ClassroomService.getClassroomByProfessor(identifier);
+    public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
+        return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
     }
 
     @GetMapping("student/{identifier}")
-    public List<Classroom> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
-        return ClassroomService.getClassroomByStudent(identifier);
+    public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
+        return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
     }
 
 }
