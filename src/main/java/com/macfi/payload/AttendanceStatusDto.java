@@ -1,5 +1,6 @@
-package com.macfi.model;
+package com.macfi.payload;
 
+import com.macfi.model.AttendanceStatus;
 import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
 import lombok.Value;
 

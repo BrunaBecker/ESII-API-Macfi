@@ -1,4 +1,4 @@
-package com.macfi.model;
+package com.macfi.payload;
 
 import lombok.Value;
 

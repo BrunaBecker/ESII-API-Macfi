@@ -1,5 +1,6 @@
-package com.macfi.model;
+package com.macfi.payload;
 
+import com.macfi.model.Attendance;
 import lombok.Value;
 
 import java.io.Serializable;
