@@ -1,7 +1,6 @@
 package com.macfi.repository;
 
 import com.macfi.model.person.Professor;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

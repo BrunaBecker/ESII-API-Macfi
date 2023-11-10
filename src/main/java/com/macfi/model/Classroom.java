@@ -1,8 +1,5 @@
 package com.macfi.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Professor;
 import com.macfi.model.person.Student;
 import jakarta.persistence.*;
@@ -36,9 +33,8 @@ public class Classroom {
     private String endHour;
 
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "classroom")
+
     private Location defaultLocation;
 
     @ManyToOne
@@ -50,8 +46,7 @@ public class Classroom {
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+
     private List<Attendance> attendances;
 
 
