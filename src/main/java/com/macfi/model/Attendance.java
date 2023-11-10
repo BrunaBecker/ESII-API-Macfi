@@ -50,7 +50,7 @@ public class Attendance {
 
     @OneToMany(mappedBy = "attendance", cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<AttendanceStatus> StatusStudentAttendance;
+    private List<AttendanceStatus> attendancesStatuses;
 
 
     public Attendance(Date date,
@@ -62,7 +62,7 @@ public class Attendance {
                       boolean isHappening,
                       VirtualZone virtualZone,
                       Classroom classroom,
-                      List<AttendanceStatus> statusStudentAttendance) {
+                      List<AttendanceStatus> attendancesStatuses) {
         this.date = date;
         this.supportingText = supportingText;
         this.startHour = startHour;
@@ -72,7 +72,7 @@ public class Attendance {
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
         this.classroom = classroom;
-        StatusStudentAttendance = statusStudentAttendance;
+        this.attendancesStatuses = attendancesStatuses;
     }
 
     public Attendance(Date date,
@@ -83,7 +83,7 @@ public class Attendance {
                       boolean isHappening,
                       VirtualZone virtualZone,
                       Classroom classroom,
-                      List<AttendanceStatus> statusStudentAttendance) {
+                      List<AttendanceStatus> attendancesStatuses) {
 
         this.date = date;
         this.supportingText = supportingText;
@@ -94,15 +94,15 @@ public class Attendance {
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
         this.classroom = classroom;
-        StatusStudentAttendance = statusStudentAttendance;
+        this.attendancesStatuses = attendancesStatuses;
     }
 
     public boolean addStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-        return StatusStudentAttendance.add(attendanceStatus);
+        return attendancesStatuses.add(attendanceStatus);
     }
 
     public boolean removeStatusStudentAttendance(AttendanceStatus attendanceStatus) {
-        return StatusStudentAttendance.remove(attendanceStatus);
+        return attendancesStatuses.remove(attendanceStatus);
     }
 
     public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {

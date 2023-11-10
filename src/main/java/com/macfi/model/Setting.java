@@ -23,7 +23,7 @@ public class Setting {
     private boolean usePredefinedCalendarForAttendance;
     private boolean silentMode;
 
-    @OneToOne(mappedBy = "setting")
+    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER)
     private Person person;
     //create a method to take de localization from professor
 

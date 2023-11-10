@@ -37,6 +37,7 @@ public class Event {
 
     @ManyToMany(mappedBy = "events")
     @ToString.Exclude
+
     private List<Calendar> calendars;
 
     public Event(String name, Date date, String description, Classroom classroom, EventStatus status, List<Calendar> calendar) {

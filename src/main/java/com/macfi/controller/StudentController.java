@@ -1,15 +1,25 @@
 package com.macfi.controller;
 
+import com.macfi.model.Attendance;
 import com.macfi.model.Classroom;
+import com.macfi.model.Waiver;
 import com.macfi.model.person.Student;
+import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.ClassroomDto;
+import com.macfi.payload.StudentDto;
+import com.macfi.service.AttendanceService;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.StudentService;
+import com.macfi.service.WaiverService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3599")
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("student")
 public class StudentController {
@@ -19,50 +29,136 @@ public class StudentController {
     @Autowired
     private ClassroomService classroomService;
 
+    @Autowired
+    private WaiverService waiverService;
+
+    @Autowired
+    private AttendanceService attendanceService;
+
+    @Operation(
+            summary = "Get Student REST API",
+            description = "Get Student REST API is used to get all post from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
     @GetMapping
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public ResponseEntity<List<StudentDto>> getStudents() {
+        return ResponseEntity.ok(studentService.getStudents());
     }
 
+    @Operation(
+            summary = "Create Student REST API",
+            description = "Create Student REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.createStudent(student);
+    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto) {
+        return new ResponseEntity<>(studentService.createStudent(studentDto), org.springframework.http.HttpStatus.CREATED);
     }
 
-
+    @Operation(
+            summary = "Update Student REST API",
+            description = "Update Student REST API is used to delete post from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
     @PutMapping
-    public Student updateStudent(@RequestBody Student student) {
-        return studentService.updateStudent(student);
+    public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto) {
+        return ResponseEntity.ok(studentService.updateStudent(studentDto));
     }
 
     @PutMapping("{identifier}/class")
-    public Student addClassroom(@RequestBody Classroom classroom, @PathVariable("identifier") String identifier) {
-        Student Student = studentService.getStudentByIdentifier(identifier);
-        Student.getClassrooms().add(classroom);
-        return studentService.updateStudent(Student);
+    public ResponseEntity<StudentDto> addClassroom(@RequestBody ClassroomDto classroomDto, @PathVariable("identifier") String identifier) {
+        Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
+        student.getClassrooms().add(modelMapping.getInstance().mapToEntity(classroomDto, Classroom.class));
+        return ResponseEntity.ok(modelMapping.getInstance().mapToDto(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)), StudentDto.class));
+    }
+
+    @PutMapping("{identifier}/attendance/{idAttendance}")
+    public ResponseEntity<StudentDto> addAttendance(@PathVariable("idAttendance") Long idAttendance, @PathVariable("identifier") String identifier) {
+        Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
+        Attendance a = modelMapping.getInstance().mapToEntity(attendanceService.getAttendanceById(idAttendance), Attendance.class);
+        if (student != null && a != null) {
+            student.getAttendances().add(a);
+            return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
+        } else {
+            return null;
+        }
+    }
+
+    @PutMapping("{identifier}/waiver/{idWaiver}")
+    public ResponseEntity<StudentDto> addWaiver(@PathVariable("idWaiver") Long idWaiver, @PathVariable("identifier") String identifier) {
+        Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
+        Waiver w = modelMapping.getInstance().mapToEntity(waiverService.getWaiverById(idWaiver), Waiver.class);
+        if (student != null && w != null) {
+            student.getWaivers().add(w);
+            return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
+        } else {
+            return null;
+        }
     }
 
     @PutMapping("{identifier}/class/{idClass}")
-    public Student addClassroom(@PathVariable("idClass") Long idClass, @PathVariable("identifier") String identifier) {
-        Student Student = studentService.getStudentByIdentifier(identifier);
+    public ResponseEntity<StudentDto> addClassroom(@PathVariable("idClass") Long idClass, @PathVariable("identifier") String identifier) {
+        Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
         if (classroomService.getClassroomById(idClass) != null) {
-            Student.getClassrooms().add(classroomService.getClassroomById(idClass));
-            return studentService.updateStudent(Student);
+            student.getClassrooms().add(modelMapping.getInstance().mapToEntity(classroomService.getClassroomById(idClass), Classroom.class));
+            return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
         } else {
             return null;
         }
 
     }
 
+    @GetMapping("classroom/{idClass}")
+    public ResponseEntity<List<StudentDto>> getStudentsByClassroom(@PathVariable("idClass") Long idClass) {
+        List<StudentDto> students = studentService.getStudentsByClassroom(idClass);
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("attendance/{idAttendance}")
+    public ResponseEntity<List<StudentDto>> getStudentsByAttendance(@PathVariable("idAttendance") Long idAttendance) {
+        List<StudentDto> students = studentService.getStudentsByAttendance(idAttendance);
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("waiver/{idWaiver}")
+    public ResponseEntity<StudentDto> getStudentByWaiver(@PathVariable("idWaiver") Long idWaiver) {
+        StudentDto student = modelMapping.getInstance().mapToDto(studentService.getStudentByWaiver(idWaiver), StudentDto.class);
+        return ResponseEntity.ok(student);
+    }
 
     @GetMapping("/{idStudent}")
-    public Student getStudentById(@PathVariable("idStudent") Long id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable("idStudent") Long id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
     @GetMapping("byIdentifier/{identifier}")
-    public Student getStudentByIdentifier(@PathVariable("identifier") String identifier) {
-        return studentService.getStudentByIdentifier(identifier);
+    public ResponseEntity<StudentDto> getStudentByIdentifier(@PathVariable("identifier") String identifier) {
+        return ResponseEntity.ok(studentService.getStudentByIdentifier(identifier));
     }
 
+    @GetMapping("attendanceHappening/{idAttendance}")
+    public ResponseEntity<List<StudentDto>> getStudentsByAttendanceHappening(@PathVariable("idAttendance") Long idAttendance) {
+        List<StudentDto> students = studentService.getStudentsByAttendanceHappening(idAttendance);
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("email/{email}")
+    public ResponseEntity<StudentDto> getStudentByEmail(@PathVariable("email") String email) {
+        return ResponseEntity.ok(studentService.getStudentByEmail(email));
+    }
+
+    @GetMapping("classroomCode/{code}")
+    public ResponseEntity<List<StudentDto>> getStudentsByClassroomCode(@PathVariable("code") String code) {
+        List<StudentDto> students = studentService.getStudentsByClassroomCode(code);
+        return ResponseEntity.ok(students);
+    }
 }

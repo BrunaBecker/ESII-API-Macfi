@@ -6,6 +6,7 @@ import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
 import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {

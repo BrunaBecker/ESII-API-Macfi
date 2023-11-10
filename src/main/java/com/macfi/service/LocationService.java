@@ -1,6 +1,8 @@
 package com.macfi.service;
 
 import com.macfi.model.Location;
+import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.LocationDto;
 import com.macfi.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,29 +16,32 @@ public class LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public Location createLocation(Location Location) {
-        return locationRepository.save(Location);
+    public LocationDto createLocation(LocationDto Location) {
+        return modelMapping.getInstance().mapToDto(locationRepository.save(modelMapping.getInstance().mapToEntity(Location, Location.class)), LocationDto.class);
     }
 
-    public Location getLocationById(Long id) {
-        return locationRepository.findByID(id);
+    public LocationDto getLocationById(Long id) {
+        return modelMapping.getInstance().mapToDto(locationRepository.getReferenceById(id), LocationDto.class);
     }
 
 
-    public List<Location> getLocationByProfessor(String identifier) {
-        return locationRepository.findByProfessor(identifier);
+    public List<LocationDto> getLocationByProfessor(String identifier) {
+        List<Location> locations = locationRepository.findByProfessor(identifier);
+        return locations.stream().map(location -> modelMapping.getInstance().mapToDto(location, LocationDto.class)).collect(java.util.stream.Collectors.toList());
+
     }
 
-    public Location updateLocation(Location Location) {
-        Location aLocation = getLocationById(Location.getId());
+    public LocationDto updateLocation(LocationDto Location) {
+        Location aLocation = modelMapping.getInstance().mapToEntity(getLocationById(modelMapping.getInstance().mapToEntity(Location, Location.class).getId()), Location.class);
         if (!Location.getId().equals(aLocation.getId())) {
             locationRepository.findByID(Location.getId());
         }
-        return locationRepository.save(Location);
+        return modelMapping.getInstance().mapToDto(locationRepository.save(aLocation), LocationDto.class);
     }
 
-    public List<Location> getLocations() {
-        return locationRepository.findAll(Sort.by("id"));
+    public List<LocationDto> getLocations() {
+        List<Location> locations = locationRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return locations.stream().map(location -> modelMapping.getInstance().mapToDto(location, LocationDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
 }

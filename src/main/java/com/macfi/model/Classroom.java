@@ -33,16 +33,20 @@ public class Classroom {
     private String endHour;
 
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "classroom")
+
     private Location defaultLocation;
 
     @ManyToOne
     private Professor professor;
+
     @ManyToMany(mappedBy = "classrooms")
     @ToString.Exclude
     private List<Student> students;
+
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
+
     private List<Attendance> attendances;
 
 

@@ -25,6 +25,7 @@ public class Waiver {
 
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private FileMacFI file;
 
     private String description;
@@ -51,7 +52,7 @@ public class Waiver {
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
-    public Waiver( FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
+    public Waiver(FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
         this.file = file;
         this.description = description;
         this.sendDate = sendDate;

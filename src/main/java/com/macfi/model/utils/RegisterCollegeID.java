@@ -18,21 +18,18 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class RegisterCollegeID {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-
     protected String identifier;
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateStarted;
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateFinished;
     protected boolean isActive;
-
     @OneToOne(mappedBy = "register")
     protected Person person;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     public RegisterCollegeID(String identifier, Date dateStarted, Date dateFinished, boolean isActive, Person person) {
         this.identifier = identifier;
