@@ -27,4 +27,6 @@ public class AttendanceStatusDto implements Serializable {
     AttendanceDto attendance;
     @NotNull(message = "successfulPings must not be null")
     List<PingDto> successfulPings;
+    @NotNull(message = "unsuccessfulPings must not be null")
+    List<PingDto> unsuccessfulPings;
 }
