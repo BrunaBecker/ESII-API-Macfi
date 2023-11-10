@@ -2,16 +2,15 @@ package com.macfi.payload;
 
 import com.macfi.model.Notification;
 import com.macfi.model.utils.enums_class.StatusNotification;
-import com.macfi.payload.PersonDto;
 import jakarta.validation.constraints.NotNull;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * DTO for {@link Notification}
  */
-@Value
+@Data
 public class NotificationDto implements Serializable {
     @NotNull(message = "id must not be null")
     Long id;

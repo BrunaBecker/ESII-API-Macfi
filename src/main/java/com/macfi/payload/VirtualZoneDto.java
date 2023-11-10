@@ -3,12 +3,8 @@ package com.macfi.payload;
 import com.macfi.model.VirtualZone;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * DTO for {@link VirtualZone}

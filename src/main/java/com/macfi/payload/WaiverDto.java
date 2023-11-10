@@ -3,7 +3,6 @@ package com.macfi.payload;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
 import java.util.Date;

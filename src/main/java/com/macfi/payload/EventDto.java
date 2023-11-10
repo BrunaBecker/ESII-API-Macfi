@@ -4,7 +4,7 @@ import com.macfi.model.utils.enums_class.EventStatus;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * DTO for {@link com.macfi.model.Event}
  */
-@Value
+@Data
 public class EventDto implements Serializable {
     @NotNull
     Long id;

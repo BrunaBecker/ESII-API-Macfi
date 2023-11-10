@@ -59,7 +59,7 @@ public class StudentController {
     @PutMapping("{identifier}/attendance/{idAttendance}")
     public ResponseEntity<StudentDto> addAttendance(@PathVariable("idAttendance") Long idAttendance, @PathVariable("identifier") String identifier) {
         Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
-        Attendance a =  modelMapping.getInstance().mapToEntity(attendanceService.getAttendanceById(idAttendance), Attendance.class);
+        Attendance a = modelMapping.getInstance().mapToEntity(attendanceService.getAttendanceById(idAttendance), Attendance.class);
         if (student != null && a != null) {
             student.getAttendances().add(a);
             return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
@@ -103,6 +103,7 @@ public class StudentController {
         List<StudentDto> students = studentService.getStudentsByAttendance(idAttendance);
         return ResponseEntity.ok(students);
     }
+
     @GetMapping("waiver/{idWaiver}")
     public ResponseEntity<StudentDto> getStudentByWaiver(@PathVariable("idWaiver") Long idWaiver) {
         StudentDto student = modelMapping.getInstance().mapToDto(studentService.getStudentByWaiver(idWaiver), StudentDto.class);
@@ -111,7 +112,7 @@ public class StudentController {
 
     @GetMapping("/{idStudent}")
     public ResponseEntity<StudentDto> getStudentById(@PathVariable("idStudent") Long id) {
-        return  ResponseEntity.ok(studentService.getStudentById(id));
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
     @GetMapping("byIdentifier/{identifier}")

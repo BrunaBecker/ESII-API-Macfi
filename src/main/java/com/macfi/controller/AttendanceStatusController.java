@@ -1,6 +1,5 @@
 package com.macfi.controller;
 
-import com.macfi.model.AttendanceStatus;
 import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.service.AttendanceStatusService;
 import org.springframework.beans.factory.annotation.Autowired;

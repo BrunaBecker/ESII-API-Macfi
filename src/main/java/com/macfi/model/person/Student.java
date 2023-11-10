@@ -1,8 +1,5 @@
 package com.macfi.model.person;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.*;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;

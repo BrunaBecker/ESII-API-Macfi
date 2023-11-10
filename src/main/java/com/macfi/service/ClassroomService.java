@@ -31,12 +31,12 @@ public class ClassroomService {
 
     public List<ClassroomDto> getClassroomByProfessor(String identifier) {
         List<Classroom> classrooms = ClassroomRepository.findByProfessor(identifier);
-        return classrooms.stream().map(classroom -> modelMapping.getInstance().mapToDto(classroom, ClassroomDto.class)).collect(Collectors.toList())    ;
+        return classrooms.stream().map(classroom -> modelMapping.getInstance().mapToDto(classroom, ClassroomDto.class)).collect(Collectors.toList());
     }
 
     public List<ClassroomDto> getClassroomByStudent(String identifier) {
         List<Classroom> classrooms = ClassroomRepository.findByStudent(identifier);
-        return classrooms.stream().map(classroom -> modelMapping.getInstance().mapToDto(classroom, ClassroomDto.class)).collect(Collectors.toList())    ;
+        return classrooms.stream().map(classroom -> modelMapping.getInstance().mapToDto(classroom, ClassroomDto.class)).collect(Collectors.toList());
     }
 
     public ClassroomDto updateClassroom(ClassroomDto classroomDto) {

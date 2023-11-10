@@ -1,6 +1,5 @@
 package com.macfi.controller;
 
-import com.macfi.model.Waiver;
 import com.macfi.payload.WaiverDto;
 import com.macfi.service.WaiverService;
 import io.swagger.v3.oas.annotations.Operation;

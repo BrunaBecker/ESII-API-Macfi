@@ -7,7 +7,6 @@ import com.macfi.payload.StudentDto;
 import com.macfi.repository.PersonRepository;
 import com.macfi.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class StudentService {
     public StudentDto createStudent(StudentDto studentDto) {
         return modelMapping.getInstance().mapToDto(studentRepository.save(modelMapping.getInstance().mapToEntity(studentDto, Student.class)), StudentDto.class);
     }
-
 
 
     public StudentDto getStudentById(Long id) {
