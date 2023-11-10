@@ -2,6 +2,8 @@ package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.person.Student;
+import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.StudentDto;
 import com.macfi.repository.PersonRepository;
 import com.macfi.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -18,50 +21,60 @@ public class StudentService {
     @Autowired
     private PersonRepository<Student, Long> personRepository;
 
-    public Student createStudent(Student student) {
-        return studentRepository.save(student);
+    public StudentDto createStudent(StudentDto studentDto) {
+        return modelMapping.getInstance().mapToDto(studentRepository.save(modelMapping.getInstance().mapToEntity(studentDto, Student.class)), StudentDto.class);
     }
 
-    public void deleteStudent(Long id) {
-        getStudentById(id);
-        studentRepository.deleteById(id);
+
+
+    public StudentDto getStudentById(Long id) {
+        return modelMapping.getInstance().mapToDto(studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found")), StudentDto.class);
     }
 
-    public Student deleteStudent(Student student) {
-        Student aStudent = getStudentById(student.getId());
-        studentRepository.deleteById(aStudent.getId());
-        return aStudent;
+    public StudentDto getStudentByIdentifier(String identifier) {
+        return modelMapping.getInstance().mapToDto(studentRepository.findByIdentifier(identifier), StudentDto.class);
     }
 
-    public Student deleteStudentByIdentifier(String identifier) {
-        Student aStudent = getStudentByIdentifier(identifier);
-        studentRepository.deleteById(aStudent.getId());
-        return aStudent;
-    }
-
-    public Student getStudentById(Long id) {
-        return (Student) studentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Student não encontrado"));
-    }
-
-    public Student getStudentByIdentifier(String identifier) {
-        return studentRepository.findByIdentifier(identifier);
-    }
-
-    public Student updateStudent(Student Student) {
-        Student aStudent = getStudentById(Student.getId());
-        if (!Student.getId().equals(aStudent.getId())) {
-            studentRepository.findById(Student.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Student nao encontrado"));
+    public StudentDto updateStudent(StudentDto studentDto) {
+        Student aStudent = modelMapping.getInstance().mapToEntity(getStudentById(studentDto.getId()), Student.class);
+        if (!studentDto.getId().equals(aStudent.getId())) {
+            studentRepository.findById(studentDto.getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Student not found"));
         }
-        return studentRepository.save(Student);
+        return modelMapping.getInstance().mapToDto(studentRepository.save(aStudent), StudentDto.class);
     }
 
-    public List<Student> getStudents() {
-        return studentRepository.findAllByRepository();
+    public List<StudentDto> getStudents() {
+        List<Student> students = studentRepository.findAllByRepository();
+        return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
     }
 
-    public List<Student> getStudentsTest() {
-        return (List<Student>) (Object) studentRepository.findAll(Sort.by("id"));
+    public List<StudentDto> getStudentsByClassroom(Long id) {
+        List<Student> students = studentRepository.findByClassroomId(id);
+        return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
+    }
+
+    public StudentDto getStudentByWaiver(Long idWaiver) {
+        return modelMapping.getInstance().mapToDto(studentRepository.findAllByWaiverId(idWaiver), StudentDto.class);
+    }
+
+    public List<StudentDto> getStudentsByAttendance(Long idAttendance) {
+        List<Student> students = studentRepository.findAllByAttendanceId(idAttendance);
+        return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
+    }
+
+    public List<StudentDto> getStudentsByAttendanceHappening(Long idAttendance) {
+        List<Student> students = studentRepository.findAllByAttendanceHappeningId(idAttendance);
+        return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
+    }
+
+    public StudentDto getStudentByEmail(String email) {
+        return modelMapping.getInstance().mapToDto(studentRepository.findByEmail(email), StudentDto.class);
+    }
+
+    public List<StudentDto> getStudentsByClassroomCode(String code) {
+        List<Student> students = studentRepository.findAllByClassroomCode(code);
+        return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
     }
 }

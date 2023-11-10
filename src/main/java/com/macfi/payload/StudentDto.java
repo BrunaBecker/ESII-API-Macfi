@@ -4,6 +4,7 @@ import com.macfi.model.Notification;
 import com.macfi.model.person.Student;
 import com.macfi.payload.*;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * DTO for {@link Student}
  */
-@Value
+@Data
 public class StudentDto implements Serializable {
     @NotNull(message = "id must be a value")
     @Positive(message = "id must be a positive Long")
