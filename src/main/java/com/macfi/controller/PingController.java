@@ -5,11 +5,11 @@ import com.macfi.payload.PingDto;
 import com.macfi.service.PingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -28,8 +28,13 @@ public class PingController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping
-    public ResponseEntity<PingDto> createPing(PingDto pingDto) {
-        return ResponseEntity.ok(pingService.createPing(pingDto));
+    public ResponseEntity<PingDto> createPing(@Valid @RequestBody PingDto pingDto) {
+        return new ResponseEntity<>(pingService.createPing(pingDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PingDto> getPingById(@PathVariable(name = "id") Long id ) {
+        return ResponseEntity.ok(pingService.getPingById(id));
     }
 
 

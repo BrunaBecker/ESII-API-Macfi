@@ -52,5 +52,9 @@ public class PingService {
         return modelMapping.getInstance().mapToDto(ping, PingDto.class);
     }
 
+    public PingDto getPingById(Long id) {
+        Ping ping = pingRepository.findById(id).orElseThrow(() -> new RuntimeException("Ping not found"));
+        return modelMapping.getInstance().mapToDto(ping, PingDto.class);
+    }
 
 }
