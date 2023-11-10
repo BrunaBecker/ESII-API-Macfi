@@ -1,6 +1,7 @@
 package com.macfi.repository;
 
 import com.macfi.model.person.Student;
+import com.macfi.payload.StudentDto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +34,6 @@ public interface StudentRepository extends PersonRepository<Student, Long> {
         //    @Query("select ps from Professor ps left join fetch Person p where p.id = ps.id order by ps.register.id asc")
     List<Student> findAllByRepository();
 
-
+    @Query("select s from Student s left join fetch Person p left join fetch Classroom c where s.register.identifier = p.register.identifier and c.id = :id")
+    List<Student> findByClassroomId(Long id);
 }
