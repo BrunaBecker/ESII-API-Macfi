@@ -21,7 +21,7 @@ public class AttendanceStatusController {
     @GetMapping //localhost:8080/attendanceStatus
     public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatus() {
         List<AttendanceStatusDto> attendanceStatuses = attendanceStatusService.getAttendanceStatus();
-        return ResponseEntity.ok(attendanceStatusService.getAttendanceStatus());
+        return ResponseEntity.ok(attendanceStatuses);
     }
 
     @Operation(
@@ -50,7 +50,7 @@ public class AttendanceStatusController {
     @GetMapping("attendance/{idAttendance}") //localhost:8080/attendanceStatus/attendance/1
     public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatusByAttendanceId(@PathVariable("idAttendance") Long attendanceid) {
         List<AttendanceStatusDto> attendanceStatuses = attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid);
-        return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid));
+        return ResponseEntity.ok(attendanceStatuses);
     }
 
     @GetMapping("byAttendanceAndStudent")

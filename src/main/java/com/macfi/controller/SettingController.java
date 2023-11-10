@@ -26,10 +26,12 @@ public class SettingController {
     public ResponseEntity<SettingDto> getSettingById(@Valid @PathParam("id") Long id) {
         return ResponseEntity.ok(settingService.getSetting(id));
     }
+
     @GetMapping
-    public  ResponseEntity<List<SettingDto>> getSettings(){
+    public ResponseEntity<List<SettingDto>> getSettings() {
         return ResponseEntity.ok(settingService.getSettings());
     }
+
     @Operation(
             summary = "Create Setting REST API",
             description = "Create Setting REST API is used to save post into database"
