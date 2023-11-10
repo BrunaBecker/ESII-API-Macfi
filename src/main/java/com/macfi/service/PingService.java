@@ -6,6 +6,7 @@ import com.macfi.model.AttendanceStatus;
 import com.macfi.model.Ping;
 import com.macfi.model.utils.enums_class.StatusPing;
 import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.PingDto;
 import com.macfi.repository.PingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class PingService {
     private AttendanceStatusService attendanceStatusService;
 
     public PingDto createPing(PingDto pingDto) {
-        AttendanceStatus attendanceStatus = attendanceStatusService.getAttendanceStatusById(pingDto.getAttendanceStatusId());
+        AttendanceStatusDto attendanceStatusDto = attendanceStatusService.getAttendanceStatusById(pingDto.getAttendanceStatusId());
+        AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
         Attendance attendance = attendanceStatus.getAttendance();
 
         Ping ping = modelMapping.getInstance().mapToEntity(pingDto, Ping.class);
