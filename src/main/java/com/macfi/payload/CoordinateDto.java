@@ -1,6 +1,7 @@
 package com.macfi.payload;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
