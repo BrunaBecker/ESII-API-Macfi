@@ -11,6 +11,8 @@ import com.macfi.service.AttendanceService;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.StudentService;
 import com.macfi.service.WaiverService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,17 +35,40 @@ public class StudentController {
     @Autowired
     private AttendanceService attendanceService;
 
+    @Operation(
+            summary = "Get Student REST API",
+            description = "Get Student REST API is used to get all post from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
     @GetMapping
     public ResponseEntity<List<StudentDto>> getStudents() {
         return ResponseEntity.ok(studentService.getStudents());
     }
 
+    @Operation(
+            summary = "Create Student REST API",
+            description = "Create Student REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto) {
         return new ResponseEntity<>(studentService.createStudent(studentDto), org.springframework.http.HttpStatus.CREATED);
     }
 
-
+    @Operation(
+            summary = "Update Student REST API",
+            description = "Update Student REST API is used to delete post from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
     @PutMapping
     public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto) {
         return ResponseEntity.ok(studentService.updateStudent(studentDto));

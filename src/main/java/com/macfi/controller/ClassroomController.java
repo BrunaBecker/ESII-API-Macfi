@@ -4,6 +4,8 @@ import com.macfi.payload.ClassroomDto;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.ProfessorService;
 import com.macfi.service.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,14 @@ public class ClassroomController {
         return ResponseEntity.ok(classroomService.getClassrooms());
     }
 
+    @Operation(
+            summary = "Create Classroom REST API",
+            description = "Create Classroom REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
     public ResponseEntity<ClassroomDto> createClassroom(@Valid @RequestBody ClassroomDto classroomDto) {
         return new ResponseEntity<>(classroomService.createClassroom(classroomDto), HttpStatus.CREATED);

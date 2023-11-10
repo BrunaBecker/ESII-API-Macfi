@@ -2,6 +2,8 @@ package com.macfi.controller;
 
 import com.macfi.payload.AttendanceDto;
 import com.macfi.service.AttendanceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,14 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.getAttendances());
     }
 
+    @Operation(
+            summary = "Create Attendance REST API",
+            description = "Create Attendance REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping//localhost:8080/attendance
     public ResponseEntity<AttendanceDto> createAttendance(@Valid @RequestBody AttendanceDto attendance) {
         return new ResponseEntity<>(attendanceService.createAttendance(attendance), HttpStatus.CREATED);

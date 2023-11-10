@@ -11,7 +11,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     @Query(value = "select n from Notification n where n.person.id = :personId and n.isActive = true",
             countQuery = "select count(n) from Notification n where n.person.id = :personId and n.isActive = true")
-    List<Notification> getActiveNotificationByPersonId(Long personId);
+    List<Notification> findByPersonIdAndIsActive(Long personId);
 
 
 }

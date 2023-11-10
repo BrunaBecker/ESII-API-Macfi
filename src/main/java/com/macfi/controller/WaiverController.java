@@ -29,11 +29,23 @@ public class WaiverController {
         return new ResponseEntity<>(waiverService.createWaiver(waiverDto), org.springframework.http.HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Get Waiver byStudentAndClassroom REST API",
+            description = "Get Waiver REST API is used to get all post from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
     @GetMapping("byStudentAndClassroom") //http://localhost:8080/waiver/byStudentAndClassroom?idStudent=1&idClassroom=1
     public ResponseEntity<WaiverDto> getWaiverByStudentAndClassroom(@RequestParam Long idStudent, @RequestParam Long idClassroom) {
         return ResponseEntity.ok(waiverService.getWaiverByStudentAndClassroom(idStudent, idClassroom));
     }
 
+    @Operation(
+            summary = "Get Waiver By Id REST API",
+            description = "Get Waiver REST API is used to get all post from database"
+    )
     @GetMapping("{id}") //http://localhost:8080/waiver/1
     public ResponseEntity<WaiverDto> getWaiverById(@PathVariable Long id) {
         return ResponseEntity.ok(waiverService.getWaiverById(id));
