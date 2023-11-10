@@ -2,7 +2,6 @@ package com.macfi.payload;
 
 import com.macfi.model.Attendance;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
 import java.time.Duration;

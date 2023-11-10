@@ -1,6 +1,5 @@
 package com.macfi.controller;
 
-import com.macfi.model.Attendance;
 import com.macfi.payload.AttendanceDto;
 import com.macfi.service.AttendanceService;
 import jakarta.validation.Valid;

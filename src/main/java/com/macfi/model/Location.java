@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-//import org.locationtech.jts.geom.Coordinates;
 
 import java.util.List;
 

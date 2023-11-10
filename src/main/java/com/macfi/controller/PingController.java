@@ -33,13 +33,9 @@ public class PingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PingDto> getPingById(@PathVariable(name = "id") Long id ) {
+    public ResponseEntity<PingDto> getPingById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(pingService.getPingById(id));
     }
-
-
-
-
 
 
 }

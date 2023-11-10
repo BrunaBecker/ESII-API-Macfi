@@ -2,7 +2,7 @@ package com.macfi.payload;
 
 import com.macfi.model.AttendanceStatus;
 import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;

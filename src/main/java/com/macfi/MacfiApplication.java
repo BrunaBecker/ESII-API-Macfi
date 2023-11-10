@@ -2,27 +2,11 @@ package com.macfi;
 
 import com.macfi.controller.ProfessorController;
 import com.macfi.controller.StudentController;
-import com.macfi.model.*;
-import com.macfi.model.person.Professor;
-import com.macfi.model.person.RegisterProfessor;
-import com.macfi.model.person.RegisterStudent;
-import com.macfi.model.person.Student;
-import com.macfi.model.utils.*;
-import com.macfi.model.utils.enums_class.EventStatus;
-import com.macfi.model.utils.enums_class.StatusNotification;
-import com.macfi.model.utils.enums_class.StatusPing;
-import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
 import com.macfi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class MacfiApplication implements CommandLineRunner {
@@ -60,27 +44,27 @@ public class MacfiApplication implements CommandLineRunner {
 
 
     /*
-    *   Person
-    *   Professor
-    *   Student
-    *   RegisterCollegeID
-    *   RegisterProfessor
-    *   RegisterStudent
-    *   Classroom
-    *   Coordinate
-    *   Location
-    *   Setting
-    *   FileMacFi
-    *   Picture
-    *   Atendance
-    *   AttendanceStatus
-    *   Calendar
-    *   Event
-    *   Notification
-    *   Ping
-    *   VirtualZone
-    *   Waiver
-    */
+     *   Person
+     *   Professor
+     *   Student
+     *   RegisterCollegeID
+     *   RegisterProfessor
+     *   RegisterStudent
+     *   Classroom
+     *   Coordinate
+     *   Location
+     *   Setting
+     *   FileMacFi
+     *   Picture
+     *   Atendance
+     *   AttendanceStatus
+     *   Calendar
+     *   Event
+     *   Notification
+     *   Ping
+     *   VirtualZone
+     *   Waiver
+     */
 
     @Override
     public void run(String... args) {

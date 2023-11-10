@@ -24,6 +24,7 @@ public final class modelMapping {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(entity, TDto);
     }
+
     public <TDto, TEntity> TEntity mapToEntity(TDto tDto, Class<TEntity> TEntity) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(tDto, TEntity);

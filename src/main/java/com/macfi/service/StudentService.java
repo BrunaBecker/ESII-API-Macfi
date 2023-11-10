@@ -1,7 +1,6 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
-import com.macfi.model.person.Person;
 import com.macfi.model.person.Student;
 import com.macfi.repository.PersonRepository;
 import com.macfi.repository.StudentRepository;

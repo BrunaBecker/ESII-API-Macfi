@@ -23,7 +23,7 @@ public class VirtualZone {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="location_id", referencedColumnName = "id")
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
     @OneToOne(mappedBy = "virtualZone")
@@ -31,7 +31,7 @@ public class VirtualZone {
     @JsonIdentityReference(alwaysAsId = true)
     private Attendance attendance;
 
-    public VirtualZone( Location location, Attendance attendance) {
+    public VirtualZone(Location location, Attendance attendance) {
         this.location = location;
         this.attendance = attendance;
     }

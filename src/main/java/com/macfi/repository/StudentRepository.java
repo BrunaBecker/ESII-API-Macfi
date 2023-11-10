@@ -1,9 +1,6 @@
 package com.macfi.repository;
 
-import com.macfi.model.Classroom;
-import com.macfi.model.person.Professor;
 import com.macfi.model.person.Student;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +30,7 @@ public interface StudentRepository extends PersonRepository<Student, Long> {
 
 
     @Query("select s from Student s join fetch Person p on p.id = s.id order by s.register.id asc")
-    //    @Query("select ps from Professor ps left join fetch Person p where p.id = ps.id order by ps.register.id asc")
+        //    @Query("select ps from Professor ps left join fetch Person p where p.id = ps.id order by ps.register.id asc")
     List<Student> findAllByRepository();
 
 

@@ -3,10 +3,9 @@ package com.macfi.payload;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,8 +30,6 @@ public class ClassroomDto implements Serializable {
     @NotNull
     @Size(min = 1, max = 200)
     List<StudentDto> students;
-
-
 
 
 }

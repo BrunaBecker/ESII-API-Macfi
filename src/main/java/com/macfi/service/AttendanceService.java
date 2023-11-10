@@ -62,7 +62,7 @@ public class AttendanceService {
         try {
             date = Dateformater.format(dateStr);
             List<Attendance> attendances = attendanceRepository.findByClassroomIdAndDate(classroomid, date);
-           return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+            return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

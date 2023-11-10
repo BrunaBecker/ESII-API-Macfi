@@ -36,7 +36,7 @@ public class Classroom {
     private String endHour;
 
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy = "classroom")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "classroom")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private Location defaultLocation;

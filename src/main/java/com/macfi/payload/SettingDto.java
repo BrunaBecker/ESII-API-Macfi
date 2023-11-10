@@ -1,7 +1,7 @@
 package com.macfi.payload;
 
 import com.macfi.model.Setting;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 

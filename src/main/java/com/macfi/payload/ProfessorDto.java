@@ -1,11 +1,8 @@
 package com.macfi.payload;
 
 import com.macfi.model.person.Professor;
-import com.macfi.payload.PictureDto;
-import com.macfi.payload.RegisterCollegeIDDto;
-import com.macfi.payload.SettingDto;
 import jakarta.validation.constraints.*;
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;

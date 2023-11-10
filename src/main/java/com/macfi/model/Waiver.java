@@ -1,8 +1,5 @@
 package com.macfi.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.person.Student;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.FileMacFI;
@@ -55,7 +52,7 @@ public class Waiver {
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
-    public Waiver( FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
+    public Waiver(FileMacFI file, String description, Date sendDate, Date acceptionDate, boolean isAccepted, Comment comment, Student student, AttendanceStatus attendanceStatus) {
         this.file = file;
         this.description = description;
         this.sendDate = sendDate;

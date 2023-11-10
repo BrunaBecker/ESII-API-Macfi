@@ -1,7 +1,5 @@
 package com.macfi.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.macfi.model.utils.Coordinate;
 import com.macfi.model.utils.GeoLocation;
 import com.macfi.model.utils.enums_class.StatusPing;
