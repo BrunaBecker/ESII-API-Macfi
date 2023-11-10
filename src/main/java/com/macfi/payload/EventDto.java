@@ -16,6 +16,7 @@ import java.util.Date;
 public class EventDto implements Serializable {
     @NotNull
     Long id;
+    @NotNull(message = "name must be not null")
     String name;
     @NotNull(message = "date must be not null")
     @FutureOrPresent(message = "date cannot be in past")

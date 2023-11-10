@@ -1,7 +1,6 @@
 package com.macfi.controller;
 
 
-import com.macfi.model.Event;
 import com.macfi.payload.EventDto;
 import com.macfi.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
