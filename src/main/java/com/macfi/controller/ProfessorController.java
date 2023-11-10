@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3599")
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("professor")
 //@RequestMapping("Professors")
@@ -40,16 +40,17 @@ public class ProfessorController {
         return professorService.updateProfessor(professor);
     }
 
-    @GetMapping("{idProfessor}") //localhost:3599/professor/1
+    @GetMapping("{idProfessor}") //localhost:8080/professor/1
     public Professor getProfessorById(@PathVariable("idProfessor") Long id) {
         return professorService.getProfessorById(id);
     }
 
-    @GetMapping("byIdentifier/{identifier}") //localhost:3599/professor/byIdentifier/1
+    @GetMapping("byIdentifier/{identifier}") //localhost:8080/professor/byIdentifier/1
     public Professor getProfessorByIdentifier(@PathVariable("identifier") String identifier) {
         return professorService.getProfessorByIdentifier(identifier);
     }
 
+    @GetMapping("byClassroomCode/{code}") //localhost:8080/professor/byClassroomCode/1
     public Professor getProfessorByClassroomCode(@PathVariable("code") String code) {
         return professorService.getProfessorByClassroomCode(code);
     }

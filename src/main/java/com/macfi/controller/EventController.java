@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3599")
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("event")
 public class EventController {

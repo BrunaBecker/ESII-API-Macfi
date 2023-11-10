@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * DTO for {@link Ping}
  */
-@Value
+@Data
 public class PingDto implements Serializable {
     Long id;
     @NotEmpty(message = "ip is required")

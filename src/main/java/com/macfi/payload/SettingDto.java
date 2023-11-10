@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * DTO for {@link Setting}
  */
-@Value
+@Data
 public class SettingDto implements Serializable {
     Long id;
     boolean automaticSaveLocalization;

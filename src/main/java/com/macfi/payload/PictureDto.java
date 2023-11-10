@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * DTO for {@link com.macfi.model.utils.Picture}
  */
-@Value
+@Data
 public class PictureDto implements Serializable {
     Long id;
     String linkFile;

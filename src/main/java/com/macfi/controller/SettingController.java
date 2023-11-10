@@ -7,7 +7,7 @@ import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:3599")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("setting")
 public class SettingController {

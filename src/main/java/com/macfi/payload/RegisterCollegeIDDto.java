@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * DTO for {@link com.macfi.model.utils.RegisterCollegeID}
  */
-@Value
+@Data
 public class RegisterCollegeIDDto implements Serializable {
     Long id;
     String identifier;

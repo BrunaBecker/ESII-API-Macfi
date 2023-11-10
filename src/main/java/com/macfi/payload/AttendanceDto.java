@@ -1,6 +1,7 @@
 package com.macfi.payload;
 
 import com.macfi.model.Attendance;
+import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.Date;
 /**
  * DTO for {@link Attendance}
  */
-@Value
+@Data
 public class AttendanceDto implements Serializable {
     Long id;
     Date date;
@@ -21,4 +22,6 @@ public class AttendanceDto implements Serializable {
     Duration duration;
     boolean isAutomatic;
     boolean isHappening;
+    VirtualZoneDto virtualZoneId;
+    ClassroomDto classroomId;
 }

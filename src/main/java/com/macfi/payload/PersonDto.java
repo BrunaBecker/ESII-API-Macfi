@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * DTO for {@link com.macfi.model.person.Person}
  */
-@Value
+@Data
 public class PersonDto implements Serializable {
     Long id;
     String name;

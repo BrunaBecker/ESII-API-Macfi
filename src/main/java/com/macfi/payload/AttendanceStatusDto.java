@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * DTO for {@link AttendanceStatus}
  */
-@Value
+@Data
 public class AttendanceStatusDto implements Serializable {
     Long id;
     StudentAtAttendanceState studentState;

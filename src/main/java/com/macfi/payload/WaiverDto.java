@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * DTO for {@link Waiver}
  */
-@Value
+@Data
 public class WaiverDto implements Serializable {
     Long id;
     String description;

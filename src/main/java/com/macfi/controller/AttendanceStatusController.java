@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3599")
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("attendanceStatus")
 public class AttendanceStatusController {
@@ -15,33 +15,33 @@ public class AttendanceStatusController {
     @Autowired
     private AttendanceStatusService attendanceStatusService;
 
-    @GetMapping //localhost:3599/attendanceStatus
+    @GetMapping //localhost:8080/attendanceStatus
     public List<AttendanceStatus> getAttendanceStatus() {
         return attendanceStatusService.getAttendanceStatus();
     }
 
-    @PostMapping //localhost:3599/attendanceStatus
+    @PostMapping //localhost:8080/attendanceStatus
     public AttendanceStatus createAttendanceStatus(@RequestBody AttendanceStatus attendanceStatus) {
         return attendanceStatusService.createAttendanceStatus(attendanceStatus);
     }
 
-    @GetMapping("{idAttendanceStatus}") //localhost:3599/attendanceStatus/1
+    @GetMapping("{idAttendanceStatus}") //localhost:8080/attendanceStatus/1
     public AttendanceStatus getAttendanceStatusById(@PathVariable("idAttendanceStatus") Long id) {
         return attendanceStatusService.getAttendanceStatusById(id);
     }
 
-    @PutMapping //localhost:3599/attendanceStatus
+    @PutMapping //localhost:8080/attendanceStatus
     public AttendanceStatus updateAttendanceStatus(@RequestBody AttendanceStatus attendanceStatus) {
         return attendanceStatusService.updateAttendanceStatus(attendanceStatus);
     }
 
-    @GetMapping("attendance/{idAttendance}") //localhost:3599/attendanceStatus/attendance/1
+    @GetMapping("attendance/{idAttendance}") //localhost:8080/attendanceStatus/attendance/1
     public List<AttendanceStatus> getAttendanceStatusByAttendanceId(@PathVariable("idAttendance") Long attendanceid) {
         return attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid);
     }
 
     @GetMapping("byAttendanceAndStudent")
-    //localhost:3599/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
+    //localhost:8080/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
     public AttendanceStatus getAttendanceStatusByAttendanceIdAndStudentId(@RequestParam("attendanceid") Long attendanceid, @RequestParam("studentid") Long studentid) {
         return attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid);
     }

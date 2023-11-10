@@ -9,6 +9,7 @@ import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
 import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
@@ -42,26 +44,21 @@ public abstract class Person {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "register_id")
-
     protected RegisterCollegeID register;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "setting_id")
-
     protected Setting setting;
 
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_image_id")
-
     protected Picture profileImage;
 
     @OneToMany(mappedBy = "author")
-
     protected List<Comment> comments;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-
     protected List<Notification> notifications;
 
     //todo [RF-013]

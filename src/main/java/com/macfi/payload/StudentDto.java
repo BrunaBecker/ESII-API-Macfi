@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * DTO for {@link com.macfi.model.person.Student}
  */
-@Value
+@Data
 public class StudentDto implements Serializable {
     Long id;
     String name;
@@ -25,3 +25,4 @@ public class StudentDto implements Serializable {
     List<CommentDto> comments;
     List<WaiverDto> waivers;
 }
+
