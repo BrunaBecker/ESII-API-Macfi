@@ -1,6 +1,9 @@
 package com.macfi.service;
 
+import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.AttendanceStatus;
+import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.repository.AttendanceRepository;
 import com.macfi.repository.AttendanceStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,36 +20,41 @@ public class AttendanceStatusService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-    public AttendanceStatus createAttendanceStatus(AttendanceStatus attendanceStatus) {
-        return attendanceStatusRepository.save(attendanceStatus);
+    public AttendanceStatusDto createAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
+        AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
+        return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
+
     }
 
-    public AttendanceStatus getAttendanceStatusById(Long id) {
+    public AttendanceStatusDto getAttendanceStatusById(Long id) {
         return attendanceStatusRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("AttendanceStatus não encontrada"));
+                .map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class))
+                .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus não encontrada"));
     }
 
-    public AttendanceStatus updateAttendanceStatus(AttendanceStatus attendanceStatus) {
-        AttendanceStatus aAttendanceStatus = getAttendanceStatusById(attendanceStatus.getId());
+    public AttendanceStatusDto updateAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
+        AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
 
-        if (!(attendanceStatus.getAttendance().getId().equals(aAttendanceStatus.getAttendance().getId()))) {
+        if (!(attendanceStatus.getAttendance().getId().equals(attendanceStatusDto.getAttendance().getId()))) {
             attendanceRepository.findById(attendanceStatus.getAttendance().getId())
                     .orElseThrow(() -> new RuntimeException("AttendanceStatus não encontrada"));
         }
-        return attendanceStatusRepository.save(attendanceStatus);
+        return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
     }
 
-    public List<AttendanceStatus> getAttendanceStatusByAttendanceId(Long attendanceid) {
-        return attendanceStatusRepository.FindByAttendanceId(attendanceid);
+    public List<AttendanceStatusDto> getAttendanceStatusByAttendanceId(Long attendanceid) {
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.FindByAttendanceId(attendanceid);
+        return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
-    public AttendanceStatus getAttendanceStatusByAttendanceIdAndStudentId(Long attendanceid, Long studentid) {
-        return attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid);
+    public AttendanceStatusDto getAttendanceStatusByAttendanceIdAndStudentId(Long attendanceid, Long studentid) {
+        return modelMapping.getInstance().mapToDto(attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid), AttendanceStatusDto.class);
     }
 
 
-    public List<AttendanceStatus> getAttendanceStatus() {
-        return attendanceStatusRepository.findAll();
+    public List<AttendanceStatusDto> getAttendanceStatus() {
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.findAll();
+        return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
 }

@@ -1,7 +1,5 @@
 package com.macfi.model.utils;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,7 @@ public class Coordinate {
     private Double latitude;
     private Double longitude;
 
-    public Coordinate( Double latitude, Double longitude) {
+    public Coordinate(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
