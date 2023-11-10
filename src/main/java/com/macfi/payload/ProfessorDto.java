@@ -31,6 +31,7 @@ public class ProfessorDto implements Serializable {
     String email;
     @NotEmpty
     String password;
+
     RegisterCollegeIDDto register;
     SettingDto setting;
     PictureDto profileImage;

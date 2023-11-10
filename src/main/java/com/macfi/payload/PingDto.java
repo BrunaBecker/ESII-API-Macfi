@@ -3,6 +3,7 @@ package com.macfi.payload;
 import com.macfi.model.Ping;
 import com.macfi.model.utils.enums_class.StatusPing;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -27,8 +28,9 @@ public class PingDto implements Serializable {
     @NotEmpty(message = "isContinuos is required")
     boolean isContinuos;
 
-
+    @NotNull
     Long coordinateId;
+    @NotNull
     Long attendanceStatusId;
 
 
