@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * DTO for {@link com.macfi.model.utils.Coordinate}
  */
-@Value
+@Data
 public class CoordinateDto implements Serializable {
     Long id;
     @NotNull(message = "Latitude cannot be null")

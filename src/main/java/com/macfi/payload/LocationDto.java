@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * DTO for {@link com.macfi.model.Location}
  */
-@Value
+@Data
 public class LocationDto implements Serializable {
     @NotNull(message = "Id cannot be null")
     @Positive(message = "Id must be positive")
