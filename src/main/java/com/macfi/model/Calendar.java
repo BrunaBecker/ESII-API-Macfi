@@ -2,10 +2,7 @@ package com.macfi.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @ToString
 @Table(name = "calendar")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

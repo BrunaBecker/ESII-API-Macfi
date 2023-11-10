@@ -2,8 +2,10 @@ package com.macfi.controller;
 
 
 import com.macfi.model.Event;
+import com.macfi.payload.EventDto;
 import com.macfi.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,15 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping()
-    public List<Event> getEvents() {
-        return eventService.getEvents();
+    public ResponseEntity<List<EventDto>> getEvents() {
+        List<EventDto> events = eventService.getEvents();
+        return ResponseEntity.ok(events);
     }
 
 
     @GetMapping("byDateBetween")
-    public List<Event> getByDateBetween(@RequestParam String startDate, @RequestParam String endDate) {
-        return eventService.getEventByDateBetween(startDate, endDate);
+    public ResponseEntity<List<EventDto>> getByDateBetween(@RequestParam String startDate, @RequestParam String endDate) {
+        List<EventDto> events = eventService.getEventByDateBetween(startDate, endDate);
+        return ResponseEntity.ok(events);
     }
 }
