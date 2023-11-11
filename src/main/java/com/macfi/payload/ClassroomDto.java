@@ -28,7 +28,7 @@ public class ClassroomDto implements Serializable {
     String endHour;
     @NotNull
     ProfessorDto professor;
-    @NotNull
+
     @Size(min = 1, max = 200)
     List<StudentDto> students;
 

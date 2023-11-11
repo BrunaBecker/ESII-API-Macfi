@@ -62,4 +62,13 @@ public class ClassroomController {
         return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
     }
 
+    @PutMapping("addStudent/{id}")
+    public ResponseEntity<ClassroomDto> addStudent(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
+        return ResponseEntity.ok(classroomService.addStudent(id, classroomDto));
+    }
+
+    @PutMapping("addProfessor/{id}")
+    public ResponseEntity<ClassroomDto> addProfessor(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
+        return ResponseEntity.ok(classroomService.addProfessor(id, classroomDto));
+    }
 }

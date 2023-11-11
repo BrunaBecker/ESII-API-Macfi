@@ -37,14 +37,14 @@ public class PingService {
                     ping.getCoordinate().getLongitude(),
                     attendance.getVirtualZone().getLocation().getCoordinate().getLatitude(),
                     attendance.getVirtualZone().getLocation().getCoordinate().getLongitude())) {
-
-                if (attendanceStatus.addSuccessfulPing(ping)) {
-                    ping.setStatus(StatusPing.successful);
-                } else {
+                ping.setStatus(StatusPing.successful);
+                if (!attendanceStatus.addSuccessfulPing(ping)) {
                     ping.setStatus(StatusPing.unsuccessful);
+                    attendanceStatus.addUnsuccessfulPing(ping);
                 }
             } else {
                 ping.setStatus(StatusPing.unsuccessful);
+                attendanceStatus.addUnsuccessfulPing(ping);
             }
 
         } else {

@@ -53,4 +53,15 @@ public class ClassroomService {
         return classrooms.stream().map(classroom -> modelMapping.getInstance().mapToDto(classroom, ClassroomDto.class)).collect(Collectors.toList());
     }
 
+    public ClassroomDto addStudent(Long id, ClassroomDto classroomDto) {
+        Classroom classroom = modelMapping.getInstance().mapToEntity(getClassroomById(id), Classroom.class);
+        classroom.getStudents().add(modelMapping.getInstance().mapToEntity(classroomDto.getStudents().get(0), com.macfi.model.person.Student.class));
+        return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
+    }
+
+    public ClassroomDto addProfessor(Long id, ClassroomDto classroomDto) {
+        Classroom classroom = modelMapping.getInstance().mapToEntity(getClassroomById(id), Classroom.class);
+        classroom.setProfessor(modelMapping.getInstance().mapToEntity(classroomDto.getProfessor(), com.macfi.model.person.Professor.class));
+        return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
+    }
 }
