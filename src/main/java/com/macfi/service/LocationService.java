@@ -1,6 +1,7 @@
 package com.macfi.service;
 
 import com.macfi.model.Location;
+import com.macfi.model.VirtualZone;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.LocationDto;
 import com.macfi.repository.LocationRepository;
@@ -15,6 +16,9 @@ public class LocationService {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private VirtualZoneService virtualZoneService;
 
     public LocationDto createLocation(LocationDto Location) {
         return modelMapping.getInstance().mapToDto(locationRepository.save(modelMapping.getInstance().mapToEntity(Location, Location.class)), LocationDto.class);
@@ -44,4 +48,10 @@ public class LocationService {
         return locations.stream().map(location -> modelMapping.getInstance().mapToDto(location, LocationDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
+    public LocationDto addVirtualZone(Long virtualZoneId, LocationDto location) {
+        VirtualZone v = modelMapping.getInstance().mapToEntity(virtualZoneService.getVirtualZoneById(virtualZoneId), VirtualZone.class);
+        Location l = modelMapping.getInstance().mapToEntity(location, Location.class);
+        l.getVirtualZones().add(v);
+        return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
+    }
 }
