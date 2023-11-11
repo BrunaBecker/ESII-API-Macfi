@@ -8,6 +8,8 @@ import com.macfi.repository.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CalendarService {
 
@@ -23,10 +25,9 @@ public class CalendarService {
         return modelMapping.getInstance().mapToDto(calendarRepository.save(calendar), CalendarDto.class);
     }
 
-    public CalendarDto getCalendar(CalendarDto calendarDto) {
-        Calendar c = modelMapping.getInstance().mapToEntity(calendarDto, Calendar.class);
-
-        return modelMapping.getInstance().mapToDto(calendarRepository.findById(c.getId()).orElseThrow(() -> new EntityNotFoundException("Calendar not found")), CalendarDto.class);
+    public List<CalendarDto> getCalendars() {
+        List<Calendar> calendars = calendarRepository.findAll();
+        return calendars.stream().map(calendar -> modelMapping.getInstance().mapToDto(calendar, CalendarDto.class)).toList();
     }
 
     public CalendarDto getById(Long id) {
