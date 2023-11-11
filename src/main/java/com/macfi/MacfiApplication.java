@@ -2,6 +2,7 @@ package com.macfi;
 
 import com.macfi.controller.ProfessorController;
 import com.macfi.controller.StudentController;
+import com.macfi.model.utils.StorageProperties;
 import com.macfi.repository.*;
 import com.macfi.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
