@@ -34,7 +34,7 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.updateCalendar(calendarDto));
     }
 
-    @GetMapping("byId/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CalendarDto> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(calendarService.getById(id));
     }
