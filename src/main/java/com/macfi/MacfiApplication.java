@@ -13,18 +13,21 @@ import com.macfi.model.utils.enums_class.StatusNotification;
 import com.macfi.model.utils.enums_class.StatusPing;
 import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
 import com.macfi.repository.*;
+import com.macfi.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class MacfiApplication implements CommandLineRunner {
 
     @Autowired
@@ -56,7 +59,13 @@ public class MacfiApplication implements CommandLineRunner {
     }
 
 
-
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+//            storageService.deleteAll();
+//            storageService.init();
+        };
+    }
 
 
     /*
@@ -171,8 +180,5 @@ public class MacfiApplication implements CommandLineRunner {
         } catch (Exception e){
             System.out.println(e.getLocalizedMessage());
         }
-
-
     }
-
 }
