@@ -31,7 +31,7 @@ public class AttendanceDto implements Serializable {
     @NotNull(message = "isHappening must not be null")
     boolean isHappening;
     @NotNull(message = "virtualZoneId must not be null")
-    VirtualZoneDto virtualZoneId;
+    VirtualZoneDto virtualZoneDto;
     @NotNull(message = "classroomId must not be null")
-    ClassroomDto classroomId;
+    ClassroomDto classroomDto;
 }
