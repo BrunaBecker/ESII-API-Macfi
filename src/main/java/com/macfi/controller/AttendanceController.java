@@ -81,8 +81,4 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.updateAttendance(attendanceDto));
     }
 
-    @GetMapping("/happening/{id}") //localhost:8080/attendance/happening/1
-    public ResponseEntity<AttendanceDto> getAttendanceHappeningById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(attendanceService.getAttendanceHappeningById(id));
-    }
 }

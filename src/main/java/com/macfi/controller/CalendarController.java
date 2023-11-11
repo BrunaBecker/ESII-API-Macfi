@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("calendar")
@@ -18,8 +20,8 @@ public class CalendarController {
     private CalendarService calendarService;
 
     @GetMapping
-    public ResponseEntity<CalendarDto> getCalendar(@Valid @RequestBody CalendarDto calendarDto) {
-        return ResponseEntity.ok(calendarService.getCalendar(calendarDto));
+    public ResponseEntity<List<CalendarDto>> getCalendars() {
+        return ResponseEntity.ok(calendarService.getCalendars());
     }
 
     @PostMapping
