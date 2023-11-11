@@ -59,5 +59,4 @@ public class AttendanceStatusController {
         return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid));
     }
 
-
 }
