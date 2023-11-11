@@ -43,6 +43,10 @@ public class LocationController {
         return ResponseEntity.ok(LocationService.updateLocation(Location));
     }
 
+    @PutMapping("addVirtualZone/{id}")
+    public ResponseEntity<LocationDto> addVirtualZone(@PathVariable("id") Long virtualZoneId, @RequestBody LocationDto Location) {
+        return ResponseEntity.ok(LocationService.addVirtualZone(virtualZoneId, Location));
+    }
 
     @GetMapping("byProfessor/{identifier}")
     public ResponseEntity<List<LocationDto>> getLocationByProfessor(@PathVariable("identifier") String identifier) {

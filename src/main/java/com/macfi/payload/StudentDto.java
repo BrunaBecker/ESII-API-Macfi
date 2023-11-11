@@ -34,7 +34,7 @@ public class StudentDto implements Serializable {
     @NotEmpty(message = "password must not be empty")
     String password;
     @NotNull
-    RegisterCollegeIDDto register;
+    RegisterCollegeIDDto matricula;
     @NotNull
     SettingDto setting;
     @NotNull

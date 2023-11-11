@@ -1,5 +1,6 @@
 package com.macfi.payload;
 
+import com.macfi.model.utils.FileMacFI;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * DTO for {@link com.macfi.model.utils.FileMacFI}
+ * DTO for {@link FileMacFI}
  */
 @Data
 public class FileMacFIDto implements Serializable {

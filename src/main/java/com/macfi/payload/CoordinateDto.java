@@ -1,13 +1,13 @@
 package com.macfi.payload;
 
+import com.macfi.model.utils.Coordinate;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
 
 /**
- * DTO for {@link com.macfi.model.utils.Coordinate}
+ * DTO for {@link Coordinate}
  */
 @Data
 public class CoordinateDto implements Serializable {
