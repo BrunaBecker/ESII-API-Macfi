@@ -2,13 +2,19 @@ package com.macfi;
 
 import com.macfi.controller.ProfessorController;
 import com.macfi.controller.StudentController;
+import com.macfi.model.utils.StorageProperties;
 import com.macfi.repository.*;
+import com.macfi.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class MacfiApplication implements CommandLineRunner {
 
     @Autowired
@@ -40,7 +46,13 @@ public class MacfiApplication implements CommandLineRunner {
     }
 
 
-
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+//            storageService.deleteAll();
+//            storageService.init();
+        };
+    }
 
 
     /*
@@ -68,6 +80,7 @@ public class MacfiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
 
 //        try {
 //            System.out.println("Criando Professores...");
@@ -156,7 +169,5 @@ public class MacfiApplication implements CommandLineRunner {
 //            System.out.println(e.getLocalizedMessage());
 //        }
 
-
     }
-
 }
