@@ -1,8 +1,5 @@
 package com.macfi.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,8 +50,6 @@ public class Attendance {
 
     @OneToMany(mappedBy = "attendance", cascade = CascadeType.ALL)
     @ToString.Exclude
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
     private List<AttendanceStatus> attendancesStatuses;
 
 
