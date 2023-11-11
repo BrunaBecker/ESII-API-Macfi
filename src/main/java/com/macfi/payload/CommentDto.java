@@ -1,12 +1,13 @@
 package com.macfi.payload;
 
+import com.macfi.model.utils.Comment;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * DTO for {@link com.macfi.model.utils.Comment}
+ * DTO for {@link Comment}
  */
 @Data
 public class CommentDto implements Serializable {

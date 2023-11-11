@@ -1,5 +1,6 @@
 package com.macfi.payload;
 
+import com.macfi.model.Waiver;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * DTO for {@link com.macfi.model.Waiver}
+ * DTO for {@link Waiver}
  */
 @Data
 public class WaiverDto implements Serializable {

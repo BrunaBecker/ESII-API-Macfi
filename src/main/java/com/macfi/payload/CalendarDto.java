@@ -1,5 +1,6 @@
 package com.macfi.payload;
 
+import com.macfi.model.Calendar;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO for {@link com.macfi.model.Calendar}
+ * DTO for {@link Calendar}
  */
 @Data
 public class CalendarDto implements Serializable {

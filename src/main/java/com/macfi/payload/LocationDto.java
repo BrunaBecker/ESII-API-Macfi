@@ -1,16 +1,16 @@
 package com.macfi.payload;
 
+import com.macfi.model.Location;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO for {@link com.macfi.model.Location}
+ * DTO for {@link Location}
  */
 @Data
 public class LocationDto implements Serializable {

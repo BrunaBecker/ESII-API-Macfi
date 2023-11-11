@@ -1,5 +1,6 @@
 package com.macfi.payload;
 
+import com.macfi.model.Classroom;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO for {@link com.macfi.model.Classroom}
+ * DTO for {@link Classroom}
  */
 @Data
 public class ClassroomDto implements Serializable {
