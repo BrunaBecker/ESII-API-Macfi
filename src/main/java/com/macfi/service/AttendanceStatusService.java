@@ -57,4 +57,11 @@ public class AttendanceStatusService {
         return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
+    //TODO receive attendance status for a student ID must be verified here
+    public List<AttendanceStatusDto> getAttendanceStatusByStudentId(Long studentid) {
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.FindByStudentId(studentid);
+        return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
+    }
+
+
 }

@@ -29,6 +29,7 @@ public class Professor extends Person {
 
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Classroom> classrooms;
 
     public Professor(String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Location> locations, List<Classroom> classrooms) {
@@ -36,4 +37,5 @@ public class Professor extends Person {
         this.locations = locations;
         this.classrooms = classrooms;
     }
+
 }

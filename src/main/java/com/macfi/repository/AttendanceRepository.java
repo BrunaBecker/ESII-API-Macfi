@@ -15,25 +15,23 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select a from Attendance a where a.id = :id")
-    Optional<Attendance> findByIdLock(Long id);
-
-    @Query("select a from Attendance a left join fetch a.classroom where a.id = :id")
+    @Query("select a from Attendance a where a.classroom.id = :id")
     List<Attendance> findByClassroomId(Long id);
-
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.isHappening = true")
     List<Attendance> findAttendanceHappening();
 
-
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.isHappening = true and a.classroom.id = :id")
     List<Attendance> findAttendanceHappeningByClassroom(Long id);
 
-
-    @Query("select a from Attendance a left join fetch a.classroom c left join fetch c.students s where a.isHappening = true and s.id = :id")
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select a from Attendance a left join fetch Student s on a.id = s.id where s.id = :id and a.isHappening = true")
     List<Attendance> findAttendanceHappeningByStudent(Long id);
-
-    @Query("select a from Attendance a left join fetch a.classroom where a.date = :date and a.classroom.id = :id")
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select a from Attendance a where a.date = :date and a.classroom.id = :id")
     List<Attendance> findByClassroomIdAndDate(Long id, Date date);
 
 }

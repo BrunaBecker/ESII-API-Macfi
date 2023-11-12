@@ -35,14 +35,14 @@ public class Student extends Person {
     @OneToMany
     @JoinColumn(name = "attendance_id", referencedColumnName = "id")
     @ToString.Exclude
-    private List<Attendance> attendances;
+    private List<AttendanceStatus> attendanceStatuses;
 
 
-    public Student(String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List<Waiver> waivers, List<Attendance> attendances) {
+    public Student(String name, String socialName, Date birthDate, Boolean isActive, String cpf, String email, String password, RegisterCollegeID register, Setting setting, Picture profileImagem, List<Comment> commentList, List<Notification> notificationList, List<Classroom> classrooms, List<Waiver> waivers, List<AttendanceStatus> attendances) {
         super(name, socialName, birthDate, isActive, cpf, email, password, register, setting, profileImagem, commentList, notificationList);
         this.classrooms = classrooms;
         this.waivers = waivers;
-        this.attendances = attendances;
+        this.attendanceStatuses = attendances;
     }
 
 

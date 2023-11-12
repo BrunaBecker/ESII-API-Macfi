@@ -1,16 +1,15 @@
 package com.macfi.controller;
 
 import com.macfi.model.Attendance;
+import com.macfi.model.AttendanceStatus;
 import com.macfi.model.Classroom;
 import com.macfi.model.Waiver;
 import com.macfi.model.person.Student;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.ClassroomDto;
 import com.macfi.payload.StudentDto;
-import com.macfi.service.AttendanceService;
-import com.macfi.service.ClassroomService;
-import com.macfi.service.StudentService;
-import com.macfi.service.WaiverService;
+import com.macfi.repository.AttendanceStatusRepository;
+import com.macfi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,9 @@ public class StudentController {
     private WaiverService waiverService;
 
     @Autowired
-    private AttendanceService attendanceService;
+    private AttendanceStatusService attendanceStatusService;
+    @Autowired
+    private AttendanceStatusRepository attendanceStatusRepository;
 
     @Operation(
             summary = "Get Student REST API",
@@ -84,9 +85,9 @@ public class StudentController {
     @PutMapping("{identifier}/attendance/{idAttendance}")
     public ResponseEntity<StudentDto> addAttendance(@PathVariable("idAttendance") Long idAttendance, @PathVariable("identifier") String identifier) {
         Student student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
-        Attendance a = modelMapping.getInstance().mapToEntity(attendanceService.getAttendanceById(idAttendance), Attendance.class);
+        AttendanceStatus a = modelMapping.getInstance().mapToEntity(attendanceStatusService.getAttendanceStatusById(idAttendance), AttendanceStatus.class);
         if (student != null && a != null) {
-            student.getAttendances().add(a);
+            student.getAttendanceStatuses().add(a);
             return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
         } else {
             return null;

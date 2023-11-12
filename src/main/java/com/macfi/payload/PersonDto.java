@@ -1,6 +1,7 @@
 package com.macfi.payload;
 
 import com.macfi.model.person.Person;
+import com.macfi.model.utils.enums_class.UserType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -27,4 +28,8 @@ public class PersonDto implements Serializable {
     String cpf;
     @NotEmpty(message = "email must not be empty")
     String email;
+    @NotNull(message = "register must not be null")
+    RegisterCollegeIDDto register;
+
+
 }

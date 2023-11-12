@@ -38,11 +38,6 @@ public abstract class Person {
     protected String email;
     protected String password;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "register_id")
-    protected RegisterCollegeID register;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "setting_id")
     protected Setting setting;
@@ -57,6 +52,11 @@ public abstract class Person {
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected List<Notification> notifications;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "register_id")
+    protected RegisterCollegeID register;
 
     //todo [RF-013]
 
