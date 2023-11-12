@@ -18,8 +18,8 @@ public interface StudentRepository extends PersonRepository<Student, Long> {
 
     @Query("select s from Student s join s.classrooms cs where cs.code = :code ")
     List<Student> findAllByClassroomCode(String code);
-    //FIX
-    @Query("select s from Student s left join s.attendanceStatuses ats where ats.attendance.id = :id ")
+
+    @Query("select s from Student s inner join AttendanceStatus ats on s.id = ats.student.id  where ats.attendance.id = :id")
     List<Student> findAllByAttendanceId(Long id);
 
     @Query("select s from Student s  join fetch s.waivers ws where ws.id = :id ")
