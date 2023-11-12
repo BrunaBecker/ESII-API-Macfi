@@ -54,7 +54,7 @@ public class StudentService {
     }
 
     public StudentDto getStudentByWaiver(Long idWaiver) {
-        return modelMapping.getInstance().mapToDto(studentRepository.findAllByWaiverId(idWaiver), StudentDto.class);
+        return modelMapping.getInstance().mapToDto(studentRepository.findByWaiverId(idWaiver), StudentDto.class);
     }
 
     public List<StudentDto> getStudentsByAttendance(Long idAttendance) {
@@ -63,7 +63,7 @@ public class StudentService {
     }
 
     public List<StudentDto> getStudentsByAttendanceHappening(Long idAttendance) {
-        List<Student> students = studentRepository.findAllByAttendanceHappeningId(idAttendance);
+        List<Student> students = studentRepository.findAllByAttendanceIsHappeningId(idAttendance);
         return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
     }
 

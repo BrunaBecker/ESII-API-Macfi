@@ -29,9 +29,8 @@ public class AttendanceStatus {
 
     private boolean validated;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
-
     private Student student;
 
     @ManyToOne

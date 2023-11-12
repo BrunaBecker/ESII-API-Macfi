@@ -9,17 +9,17 @@ import java.util.List;
 @Repository
 public interface ProfessorRepository extends PersonRepository<Professor, Long> {
 
-    @Query("select a from Professor a left join fetch Person p where a.register.identifier = :identifier and p.register.identifier = :identifier")
+    @Query("select p from Person p where type(p) = Professor and p.register.identifier = :identifier")
     Professor findByIdentifier(String identifier);
 
 
-    @Query("select a from Professor a left join fetch Person p where a.email = :email and p.email = :email")
+    @Query("select a from Professor a left join fetch Person p on a.email = :email and p.email = :email")
     Professor findByEmail(String email);
 
 
-    @Query("select p from Professor p left join fetch Person ps left join fetch Classroom c  where p.id = ps.id and c.code = :code")
+    @Query("select professor from Professor professor left join fetch Person person on person.id = professor.id left join fetch Classroom c on c.professor.id = professor.id where c.code = :code")
     Professor findByClassroomCode(String code);
 
-    @Query("select ps from Professor ps join fetch Person p on p.id = ps.id order by ps.register.id asc")
+    @Query("select p from Person p where type(p) = Professor")
     List<Professor> findAllByRepository();
 }

@@ -8,31 +8,30 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends PersonRepository<Student, Long> {
-    @Query("select s from Student s left join fetch Person p where s.register.identifier = :identifier and p.register.identifier = :identifier")
+    @Query("select s from Student s where s.register.identifier = :identifier ")
     Student findByIdentifier(String identifier);
 
 
-    @Query("select s from Student s left join fetch Person p where s.email = :email and p.email = :email")
+    @Query("select p from Person p where type(p) = Student and p.email = :email")
     Student findByEmail(String email);
 
 
-    @Query("select s from Student s left join fetch Person p left join fetch Classroom c where s.register.identifier = p.register.identifier and c.code = :code")
+    @Query("select s from Student s join s.classrooms cs where cs.code = :code ")
     List<Student> findAllByClassroomCode(String code);
-
-    @Query("select s from Student s left join fetch Person  p left join fetch Attendance a where s.register.identifier = p.register.identifier and a.id = :id")
+    //FIX
+    @Query("select s from Student s left join s.attendanceStatuses ats where ats.attendance.id = :id ")
     List<Student> findAllByAttendanceId(Long id);
 
-    @Query("select s from Student s left join fetch Person p left join fetch Waiver w where s.register.identifier = p.register.identifier and w.id = :id")
-    Student findAllByWaiverId(Long id);
+    @Query("select s from Student s  join fetch s.waivers ws where ws.id = :id ")
+    Student findByWaiverId(Long id);
+    //FIX
+    @Query("select s from Student s join fetch s.attendanceStatuses ats where ats.attendance.id = :id and ats.attendance.isHappening = true")
+    List<Student> findAllByAttendanceIsHappeningId(Long id);
 
-    @Query("select s from Student s left join fetch Person  p left join fetch Attendance a where s.register.identifier = p.register.identifier and a.id = :id and a.isHappening = true")
-    List<Student> findAllByAttendanceHappeningId(Long id);
 
-
-    @Query("select s from Student s join fetch Person p on p.id = s.id order by s.register.id asc")
-        //    @Query("select ps from Professor ps left join fetch Person p where p.id = ps.id order by ps.register.id asc")
+    @Query("select p from Person p where type(p) = Student order by p.name asc")
     List<Student> findAllByRepository();
 
-    @Query("select s from Student s left join fetch Person p left join fetch Classroom c where s.register.identifier = p.register.identifier and c.id = :id")
+    @Query("select s from Student s join fetch s.classrooms c where c.id = :id")
     List<Student> findByClassroomId(Long id);
 }

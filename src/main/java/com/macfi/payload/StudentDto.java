@@ -1,6 +1,7 @@
 package com.macfi.payload;
 
 import com.macfi.model.person.Student;
+import com.macfi.model.utils.enums_class.UserType;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -34,9 +35,11 @@ public class StudentDto implements Serializable {
     @NotEmpty(message = "password must not be empty")
     String password;
     @NotNull
-    RegisterCollegeIDDto matricula;
+    RegisterCollegeIDDto register;
     @NotNull
     SettingDto setting;
     @NotNull
     PictureDto profileImage;
+
+    final UserType type = UserType.student;
 }

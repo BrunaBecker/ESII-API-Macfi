@@ -40,6 +40,15 @@ public class Ping {
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 
+    public Ping(String s, Date date, StatusPing statusPing, boolean b, Coordinate coordinate, AttendanceStatus attendanceStatus) {
+        this.ip = s;
+        this.date = date;
+        this.status = statusPing;
+        this.isContinuos = b;
+        this.coordinate = coordinate;
+        this.attendanceStatus = attendanceStatus;
+    }
+
     public boolean inCorrectLocation(double lat1, double lon1, double lat2, double lon2) {
         return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
     }

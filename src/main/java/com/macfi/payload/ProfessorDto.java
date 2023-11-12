@@ -1,6 +1,7 @@
 package com.macfi.payload;
 
 import com.macfi.model.person.Professor;
+import com.macfi.model.utils.enums_class.UserType;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -31,9 +32,10 @@ public class ProfessorDto implements Serializable {
     String email;
     @NotEmpty
     String password;
-
-    RegisterCollegeIDDto siape;
+    @NotNull
+    RegisterCollegeIDDto register;
     SettingDto setting;
     PictureDto profileImage;
 
+    final UserType type = UserType.professor;
 }
