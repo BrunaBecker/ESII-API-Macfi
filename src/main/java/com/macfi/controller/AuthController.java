@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @GetMapping("login/student")
-    public ResponseEntity<Object> loginStudent(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
+    public ResponseEntity<StudentDto> loginStudent(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
         StudentDto studentDto = authService.loginStudent(identifier, password);
 
         if (studentDto == null) {
