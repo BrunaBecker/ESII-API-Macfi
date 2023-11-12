@@ -47,4 +47,16 @@ public class ProfessorService {
     public ProfessorDto getProfessorByClassroomCode(String code) {
         return modelMapping.getInstance().mapToDto(professorRepository.findByClassroomCode(code), ProfessorDto.class);
     }
+
+    public ProfessorDto login(String identifier, String password) {
+
+        ProfessorDto professorDto = getProfessorByIdentifier(identifier);
+        if (professorDto.getPassword().equals(password) && professorDto.getIsActive()) {
+            return professorDto;
+        } else {
+            return null;
+        }
+
+
+    }
 }
