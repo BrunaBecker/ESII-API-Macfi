@@ -75,4 +75,13 @@ public class StudentService {
         List<Student> students = studentRepository.findAllByClassroomCode(code);
         return students.stream().map(student -> modelMapping.getInstance().mapToDto(student, StudentDto.class)).collect(Collectors.toList());
     }
+
+    public StudentDto login(String identifier, String password) {
+        StudentDto studentDto = getStudentByIdentifier(identifier);
+        if (studentDto.getPassword().equals(password) && studentDto.getIsActive()) {
+            return studentDto;
+        } else {
+            return null;
+        }
+    }
 }
