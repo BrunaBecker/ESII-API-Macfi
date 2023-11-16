@@ -50,6 +50,11 @@ public class Ping {
     }
 
     public boolean inCorrectLocation(double lat1, double lon1, double lat2, double lon2) {
-        return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
+        try {
+            return GeoLocation.inRadiusMacfi(lat1, lon1, lat2, lon2);
+        } catch (Exception e) {
+            throw new RuntimeException("Error inCorrectLocation " + e.getMessage());
+        }
+
     }
 }

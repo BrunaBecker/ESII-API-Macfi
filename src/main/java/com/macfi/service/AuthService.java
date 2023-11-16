@@ -1,5 +1,6 @@
 package com.macfi.service;
 
+import com.macfi.exception.EntityNotFoundException;
 import com.macfi.payload.ProfessorDto;
 import com.macfi.payload.StudentDto;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -16,9 +17,13 @@ public class AuthService {
     private StudentService studentService;
 
     public Object loginPerson(String identifier, String password) {
+
         Object object = professorService.login(identifier, password);
         if (object == null) {
             object = studentService.login(identifier, password);
+        }
+        if (object == null) {
+            throw new EntityNotFoundException("User not found");
         }
         return object;
     }

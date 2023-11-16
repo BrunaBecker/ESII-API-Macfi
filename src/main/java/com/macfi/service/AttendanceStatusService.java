@@ -29,7 +29,7 @@ public class AttendanceStatusService {
     public AttendanceStatusDto getAttendanceStatusById(Long id) {
         return attendanceStatusRepository.findById(id)
                 .map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class))
-                .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus not found"));
     }
 
     public AttendanceStatusDto updateAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
@@ -37,7 +37,7 @@ public class AttendanceStatusService {
 
         if (!(attendanceStatus.getAttendance().getId().equals(attendanceStatusDto.getAttendance().getId()))) {
             attendanceRepository.findById(attendanceStatus.getAttendance().getId())
-                    .orElseThrow(() -> new RuntimeException("AttendanceStatus não encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus not found"));
         }
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
     }
@@ -48,6 +48,12 @@ public class AttendanceStatusService {
     }
 
     public AttendanceStatusDto getAttendanceStatusByAttendanceIdAndStudentId(Long attendanceid, Long studentid) {
+        AttendanceStatus ats = attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid);
+
+        if (ats == null) {
+            throw new EntityNotFoundException("AttendanceStatus not found");
+        }
+
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid), AttendanceStatusDto.class);
     }
 

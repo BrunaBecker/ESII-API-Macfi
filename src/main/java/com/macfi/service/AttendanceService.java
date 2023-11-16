@@ -1,6 +1,7 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.InvalidBodyCreateException;
 import com.macfi.model.Attendance;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.modelMapper.modelMapping;
@@ -22,7 +23,11 @@ public class AttendanceService {
     private AttendanceRepository attendanceRepository;
 
     public AttendanceDto createAttendance(AttendanceDto attendanceDto) {
+
         Attendance a = modelMapping.getInstance().mapToEntity(attendanceDto, Attendance.class);
+        if (a == null) {
+            throw new InvalidBodyCreateException("Invalid body");
+        }
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(a), AttendanceDto.class);
     }
 
@@ -33,14 +38,14 @@ public class AttendanceService {
 
     public AttendanceDto getAttendanceById(Long id) {
         return modelMapping.getInstance().mapToDto(attendanceRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Attendance não encontrada")), AttendanceDto.class);
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found")), AttendanceDto.class);
     }
 
     public AttendanceDto updateAttendance(AttendanceDto attendanceDto) {
         Attendance attendance = modelMapping.getInstance().mapToEntity(getAttendanceById(attendanceDto.getId()), Attendance.class);
         if (!attendanceDto.getId().equals(attendance.getId())) {
             attendanceRepository.findById(attendance.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Attendance não encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
         }
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
     }
@@ -86,6 +91,6 @@ public class AttendanceService {
 
     public AttendanceDto getAttendanceHappeningById(Long id) {
         return modelMapping.getInstance().mapToDto(attendanceRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Attendance não encontrada")), AttendanceDto.class);
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found")), AttendanceDto.class);
     }
 }

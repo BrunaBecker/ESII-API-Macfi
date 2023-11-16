@@ -28,22 +28,48 @@ public class VirtualZoneController {
     )
     @GetMapping
     public ResponseEntity<List<VirtualZoneDto>> getVirtualZones() {
-        return ResponseEntity.ok(virtualZoneService.getVirtualZones());
+        try {
+            List<VirtualZoneDto> virtualZoneDto = virtualZoneService.getVirtualZones();
+            return ResponseEntity.ok(virtualZoneDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
-
+    @Operation(
+            summary = "Create VirtualZone REST API",
+            description = "Create VirtualZone REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
     public ResponseEntity<VirtualZoneDto> createVirtualZone(@RequestBody VirtualZoneDto virtualZoneDto) {
-        return new ResponseEntity<>(virtualZoneService.createVirtualZone(virtualZoneDto), org.springframework.http.HttpStatus.CREATED);
+        try {
+            VirtualZoneDto virtualZoneDto1 = virtualZoneService.createVirtualZone(virtualZoneDto);
+            return new ResponseEntity<>(virtualZoneDto1, org.springframework.http.HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping
     public ResponseEntity<VirtualZoneDto> updateVirtualZone(@RequestBody VirtualZoneDto virtualZoneDto) {
-        return ResponseEntity.ok(virtualZoneService.updateVirtualZone(virtualZoneDto));
+       try {
+              VirtualZoneDto virtualZoneDto1 = virtualZoneService.updateVirtualZone(virtualZoneDto);
+              return ResponseEntity.ok(virtualZoneDto1);
+         } catch (Exception e) {
+              return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @GetMapping("/{virtualZoneId}")
     public ResponseEntity<VirtualZoneDto> getVirtualZoneById(@PathVariable Long virtualZoneId) {
-        return ResponseEntity.ok(virtualZoneService.getVirtualZoneById(virtualZoneId));
+        try {
+            return ResponseEntity.ok(virtualZoneService.getVirtualZoneById(virtualZoneId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }

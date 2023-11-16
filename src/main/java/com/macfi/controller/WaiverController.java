@@ -26,7 +26,12 @@ public class WaiverController {
     )
     @PostMapping
     public ResponseEntity<WaiverDto> createWaiver(@RequestBody WaiverDto waiverDto) {
-        return new ResponseEntity<>(waiverService.createWaiver(waiverDto), org.springframework.http.HttpStatus.CREATED);
+       try {
+              WaiverDto waiverDto1 = waiverService.createWaiver(waiverDto);
+              return new ResponseEntity<>(waiverDto1, org.springframework.http.HttpStatus.CREATED);
+         } catch (Exception e) {
+              return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @Operation(
@@ -39,7 +44,11 @@ public class WaiverController {
     )
     @GetMapping("byStudentAndClassroom") //http://localhost:8080/waiver/byStudentAndClassroom?idStudent=1&idClassroom=1
     public ResponseEntity<WaiverDto> getWaiverByStudentAndClassroom(@RequestParam Long idStudent, @RequestParam Long idClassroom) {
-        return ResponseEntity.ok(waiverService.getWaiverByStudentAndClassroom(idStudent, idClassroom));
+        try {
+            return ResponseEntity.ok(waiverService.getWaiverByStudentAndClassroom(idStudent, idClassroom));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -48,7 +57,11 @@ public class WaiverController {
     )
     @GetMapping("{id}") //http://localhost:8080/waiver/1
     public ResponseEntity<WaiverDto> getWaiverById(@PathVariable Long id) {
-        return ResponseEntity.ok(waiverService.getWaiverById(id));
+        try {
+            return ResponseEntity.ok(waiverService.getWaiverById(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 

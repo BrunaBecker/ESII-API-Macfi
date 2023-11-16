@@ -5,6 +5,7 @@ import com.macfi.service.AttendanceStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,13 @@ public class AttendanceStatusController {
 
     @GetMapping //localhost:8080/attendanceStatus
     public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatus() {
-        List<AttendanceStatusDto> attendanceStatuses = attendanceStatusService.getAttendanceStatus();
-        return ResponseEntity.ok(attendanceStatuses);
+
+        try {
+            List<AttendanceStatusDto> attendanceStatuses = attendanceStatusService.getAttendanceStatus();
+            return ResponseEntity.ok(attendanceStatuses);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -34,29 +40,55 @@ public class AttendanceStatusController {
     )
     @PostMapping //localhost:8080/attendanceStatus
     public ResponseEntity<AttendanceStatusDto> createAttendanceStatus(@RequestBody AttendanceStatusDto attendanceStatusDto) {
-        return ResponseEntity.ok(attendanceStatusService.createAttendanceStatus(attendanceStatusDto));
+        AttendanceStatusDto a;
+
+        try {
+            a = attendanceStatusService.createAttendanceStatus(attendanceStatusDto);
+            return new ResponseEntity<>(a, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
     }
 
     @GetMapping("{idAttendanceStatus}") //localhost:8080/attendanceStatus/1
     public ResponseEntity<AttendanceStatusDto> getAttendanceStatusById(@PathVariable("idAttendanceStatus") Long id) {
-        return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusById(id));
+        try {
+            return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusById(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping //localhost:8080/attendanceStatus
     public ResponseEntity<AttendanceStatusDto> updateAttendanceStatus(@RequestBody AttendanceStatusDto attendanceStatusDto) {
-        return ResponseEntity.ok(attendanceStatusService.updateAttendanceStatus(attendanceStatusDto));
+        AttendanceStatusDto a;
+
+        try {
+            a = attendanceStatusService.updateAttendanceStatus(attendanceStatusDto);
+            return ResponseEntity.ok(a);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("attendance/{idAttendance}") //localhost:8080/attendanceStatus/attendance/1
     public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatusByAttendanceId(@PathVariable("idAttendance") Long attendanceid) {
-        List<AttendanceStatusDto> attendanceStatuses = attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid);
-        return ResponseEntity.ok(attendanceStatuses);
+        try {
+            return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceId(attendanceid));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("byAttendanceAndStudent")
     //localhost:8080/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
     public ResponseEntity<AttendanceStatusDto> getAttendanceStatusByAttendanceIdAndStudentId(@RequestParam("attendanceid") Long attendanceid, @RequestParam("studentid") Long studentid) {
-        return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid));
+        try {
+            return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }

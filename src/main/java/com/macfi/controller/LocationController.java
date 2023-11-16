@@ -20,7 +20,11 @@ public class LocationController {
 
     @GetMapping
     public ResponseEntity<List<LocationDto>> getLocations() {
-        return ResponseEntity.ok(LocationService.getLocations());
+        try {
+            return ResponseEntity.ok(LocationService.getLocations());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -34,23 +38,47 @@ public class LocationController {
 
     @PostMapping
     public ResponseEntity<LocationDto> createLocation(@RequestBody LocationDto Location) {
-        return new ResponseEntity<>(LocationService.createLocation(Location), org.springframework.http.HttpStatus.CREATED);
+       LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.createLocation(Location);
+            return new ResponseEntity<>(LocationDto1, org.springframework.http.HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 
     @PutMapping
     public ResponseEntity<LocationDto> updateLocation(@RequestBody LocationDto Location) {
-        return ResponseEntity.ok(LocationService.updateLocation(Location));
+        LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.updateLocation(Location);
+            return ResponseEntity.ok(LocationDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("addVirtualZone/{id}")
     public ResponseEntity<LocationDto> addVirtualZone(@PathVariable("id") Long virtualZoneId, @RequestBody LocationDto Location) {
-        return ResponseEntity.ok(LocationService.addVirtualZone(virtualZoneId, Location));
+        LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.addVirtualZone(virtualZoneId, Location);
+            return ResponseEntity.ok(LocationDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("byProfessor/{identifier}")
     public ResponseEntity<List<LocationDto>> getLocationByProfessor(@PathVariable("identifier") String identifier) {
-        List<LocationDto> locations = LocationService.getLocationByProfessor(identifier);
-        return ResponseEntity.ok(locations);
+        List<LocationDto> locationDto1;
+
+        try {
+            locationDto1 = LocationService.getLocationByProfessor(identifier);
+            return ResponseEntity.ok(LocationService.getLocationByProfessor(identifier));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

@@ -24,12 +24,20 @@ public class SettingController {
 
     @GetMapping("{id}")
     public ResponseEntity<SettingDto> getSettingById(@Valid @PathParam("id") Long id) {
-        return ResponseEntity.ok(settingService.getSetting(id));
+        try {
+            return ResponseEntity.ok(settingService.getSetting(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<SettingDto>> getSettings() {
-        return ResponseEntity.ok(settingService.getSettings());
+        try {
+            return ResponseEntity.ok(settingService.getSettings());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -42,17 +50,37 @@ public class SettingController {
     )
     @PostMapping
     public ResponseEntity<SettingDto> createSetting(@RequestBody SettingDto setting) {
-        return new ResponseEntity<>(settingService.createSetting(setting), org.springframework.http.HttpStatus.CREATED);
+
+        SettingDto a;
+        try {
+            a = settingService.createSetting(setting);
+            return new ResponseEntity<>(a, org.springframework.http.HttpStatus.CREATED);
+         } catch (Exception e) {
+              return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @PutMapping
     public ResponseEntity<SettingDto> updateSetting(@RequestBody SettingDto setting) {
-        return ResponseEntity.ok(settingService.updateSetting(setting));
+        SettingDto settingDto1;
+        try {
+            settingDto1 = settingService.updateSetting(setting);
+            return ResponseEntity.ok(settingDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/person/{identify}")
     public ResponseEntity<SettingDto> getSettingByPersonIdentifier(@PathVariable Long identify) {
-        return ResponseEntity.ok(settingService.getSettingByPersonIdentifier(identify));
+        SettingDto  settingDto;
+
+        try {
+            settingDto = settingService.getSettingByPersonIdentifier(identify);
+            return ResponseEntity.ok(settingDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }

@@ -36,9 +36,7 @@ public class StudentDto implements Serializable {
     String password;
     @NotNull
     RegisterCollegeIDDto register;
-    @NotNull
     SettingDto setting;
-    @NotNull
     PictureDto profileImage;
 
     final UserType type = UserType.student;

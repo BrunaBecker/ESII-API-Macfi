@@ -35,50 +35,92 @@ public class AttendanceController {
     )
     @PostMapping//localhost:8080/attendance
     public ResponseEntity<AttendanceDto> createAttendance(@Valid @RequestBody AttendanceDto attendance) {
-        return new ResponseEntity<>(attendanceService.createAttendance(attendance), HttpStatus.CREATED);
+        AttendanceDto attendanceDto1;
+        try {
+            attendanceDto1 = attendanceService.createAttendance(attendance);
+            return new ResponseEntity<>(attendanceDto1, HttpStatus.CREATED);
+        } catch (Exception e) {
+          return ResponseEntity.badRequest().body(null);
+        }
+
     }
 
     @GetMapping("classroom/{id}") //localhost:8080/attendance/classroom/1
     public ResponseEntity<List<AttendanceDto>> getAttendancesByClassroom(@PathVariable("id") Long id) {
-        List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroom(id);
-        return ResponseEntity.ok(attendances);
+
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroom(id);
+            return ResponseEntity.ok(attendances);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
     }
 
     //yyyy-MM-dd hh:mm:ss
 
     @GetMapping("inClassroomByDate") //localhost:8080/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
     public ResponseEntity<List<AttendanceDto>> getAttendancesByClassroomAndDate(@RequestParam("classroomid") Long classroomid, @RequestParam("date") String date) {
-        List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
-        return ResponseEntity.ok(attendances);
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
+            return ResponseEntity.ok(attendances);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("happening") //localhost:8080/attendance/happenings
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappening() {
-        List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
-        return ResponseEntity.ok(attendances);
+       try {
+           List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
+           return ResponseEntity.ok(attendances);
+       } catch (Exception e) {
+           return ResponseEntity.badRequest().body(null);
+       }
     }
 
 
     @GetMapping("happeningByClassroom/{id}") //localhost:8080/attendance/happeningByClassroom/1
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
-        List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
-        return ResponseEntity.ok(attendances);
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
+            return ResponseEntity.ok(attendances);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("happeningByStudent/{id}") //localhost:8080/attendance/happeningByStudent/1
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
-        List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
-        return ResponseEntity.ok(attendances);
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
+            return ResponseEntity.ok(attendances);
+        } catch (Exception e) {
+            ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/{id}") //localhost:8080/attendance/1
     public ResponseEntity<AttendanceDto> getAttendanceById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(attendanceService.getAttendanceById(id));
+        AttendanceDto attendanceDto;
+
+        try {
+            attendanceDto = attendanceService.getAttendanceById(id);
+            return ResponseEntity.ok(attendanceDto);
+        } catch (Exception e ) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping //localhost:8080/attendance/attendanceobj
     public ResponseEntity<AttendanceDto> updateAttendance(@Valid @RequestBody AttendanceDto attendanceDto) {
-        return ResponseEntity.ok(attendanceService.updateAttendance(attendanceDto));
+        AttendanceDto attendanceDto1;
+        try {
+            attendanceDto1 = attendanceService.updateAttendance(attendanceDto);
+            return ResponseEntity.ok(attendanceDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }
