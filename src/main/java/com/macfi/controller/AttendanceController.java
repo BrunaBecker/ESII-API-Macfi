@@ -96,7 +96,7 @@ public class AttendanceController {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
             return ResponseEntity.ok(attendances);
         } catch (Exception e) {
-            ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
