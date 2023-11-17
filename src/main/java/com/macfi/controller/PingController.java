@@ -29,12 +29,22 @@ public class PingController {
     )
     @PostMapping
     public ResponseEntity<PingDto> createPing(@Valid @RequestBody PingDto pingDto) {
-        return new ResponseEntity<>(pingService.createPing(pingDto), HttpStatus.CREATED);
+        PingDto pingDto1;
+        try {
+            pingDto1 = pingService.createPing(pingDto);
+            return new ResponseEntity<>(pingDto1, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PingDto> getPingById(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(pingService.getPingById(id));
+        try {
+            return ResponseEntity.ok(pingService.getPingById(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 

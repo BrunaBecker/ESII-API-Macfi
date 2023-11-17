@@ -3,8 +3,11 @@ package com.macfi.controller;
 
 import com.macfi.payload.CalendarDto;
 import com.macfi.service.CalendarService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +24,50 @@ public class CalendarController {
 
     @GetMapping
     public ResponseEntity<List<CalendarDto>> getCalendars() {
-        return ResponseEntity.ok(calendarService.getCalendars());
+        try {
+            return ResponseEntity.ok(calendarService.getCalendars());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
-
+    @Operation(
+            summary = "Create Calendar REST API",
+            description = "Create Calendar REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
     public ResponseEntity<CalendarDto> createCalendar(@Valid @RequestBody CalendarDto calendarDto) {
-        return ResponseEntity.ok(calendarService.createCalendar(calendarDto));
+       CalendarDto calendarDto1;
+        try {
+          calendarDto1 = calendarService.createCalendar(calendarDto);
+          return new ResponseEntity<>(calendarDto1, HttpStatus.CREATED);
+       } catch (Exception e) {
+              return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @PutMapping
     public ResponseEntity<CalendarDto> updateCalendar(@Valid @RequestBody CalendarDto calendarDto) {
-        return ResponseEntity.ok(calendarService.updateCalendar(calendarDto));
+        CalendarDto calendarDto1;
+        try {
+            calendarDto1 = calendarService.updateCalendar(calendarDto);
+            return ResponseEntity.ok(calendarDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CalendarDto> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(calendarService.getById(id));
+        CalendarDto calendarDto;
+        try {
+            calendarDto = calendarService.getById(id);
+            return ResponseEntity.ok(calendarDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

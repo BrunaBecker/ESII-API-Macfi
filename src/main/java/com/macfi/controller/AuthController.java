@@ -18,35 +18,38 @@ public class AuthController {
 
     @GetMapping("login")
     public ResponseEntity<Object> login(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
-        Object object = authService.loginPerson(identifier, password);
+        Object object;
 
-        if (object == null) {
-            return ResponseEntity.badRequest().body("Login inválido");
-        } else {
+        try {
+            object = authService.loginPerson(identifier, password);
             return ResponseEntity.ok(object);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
 
     @GetMapping("login/professor")
     public ResponseEntity<ProfessorDto> loginProfessor(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
-        ProfessorDto professorDto = authService.loginProfessor(identifier, password);
+        ProfessorDto professorDto;
 
-        if (professorDto == null) {
-            return ResponseEntity.badRequest().body(null);
-        } else {
+        try {
+            professorDto = authService.loginProfessor(identifier, password);
             return ResponseEntity.ok(professorDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
+
     }
 
     @GetMapping("login/student")
     public ResponseEntity<StudentDto> loginStudent(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
-        StudentDto studentDto = authService.loginStudent(identifier, password);
-
-        if (studentDto == null) {
-            return ResponseEntity.badRequest().body(null);
-        } else {
+      StudentDto  studentDto;
+        try {
+            studentDto = authService.loginStudent(identifier, password);
             return ResponseEntity.ok(studentDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

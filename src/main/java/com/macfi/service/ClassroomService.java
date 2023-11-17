@@ -26,7 +26,7 @@ public class ClassroomService {
 
     public ClassroomDto getClassroomById(Long id) {
         return modelMapping.getInstance().mapToDto(ClassroomRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Classroom não encontrada")), ClassroomDto.class);
+                .orElseThrow(() -> new EntityNotFoundException("Classroom not found")), ClassroomDto.class);
     }
 
     public List<ClassroomDto> getClassroomByProfessor(String identifier) {
@@ -43,7 +43,7 @@ public class ClassroomService {
         Classroom aClassroom = modelMapping.getInstance().mapToEntity(getClassroomById(classroomDto.getId()), Classroom.class);
         if (!classroomDto.getId().equals(aClassroom.getId())) {
             ClassroomRepository.findById(classroomDto.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Classroom não encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         }
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(aClassroom), ClassroomDto.class);
     }
@@ -63,5 +63,10 @@ public class ClassroomService {
         Classroom classroom = modelMapping.getInstance().mapToEntity(getClassroomById(id), Classroom.class);
         classroom.setProfessor(modelMapping.getInstance().mapToEntity(classroomDto.getProfessor(), com.macfi.model.person.Professor.class));
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
+    }
+
+    public ClassroomDto getClassroomByCode(String code) {
+        return modelMapping.getInstance().mapToDto(ClassroomRepository.findByCode(code)
+                .orElseThrow(() -> new EntityNotFoundException("Classroom not found")), ClassroomDto.class);
     }
 }

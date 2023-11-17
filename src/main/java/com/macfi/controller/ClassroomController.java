@@ -43,32 +43,61 @@ public class ClassroomController {
     )
     @PostMapping
     public ResponseEntity<ClassroomDto> createClassroom(@Valid @RequestBody ClassroomDto classroomDto) {
-        return new ResponseEntity<>(classroomService.createClassroom(classroomDto), HttpStatus.CREATED);
+        ClassroomDto classroomDto1;
+        try {
+            classroomDto1 = classroomService.createClassroom(classroomDto);
+            return new ResponseEntity<>(classroomDto1, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
     }
 
     @PutMapping
     public ResponseEntity<ClassroomDto> updateClassroom(@Valid @RequestBody ClassroomDto classroomDto) {
-        return ResponseEntity.ok(classroomService.updateClassroom(classroomDto));
+        ClassroomDto classroomDto1;
+        try {
+            classroomDto1 = classroomService.updateClassroom(classroomDto);
+            return ResponseEntity.ok(classroomDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 
     @GetMapping("professor/{identifier}")
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
-        return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
+       try  {
+              return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
+         } catch (Exception e) {
+              return ResponseEntity.badRequest().body(null);
+         }
     }
 
     @GetMapping("student/{identifier}")
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
-        return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
+        try {
+            return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("addStudent/{id}")
     public ResponseEntity<ClassroomDto> addStudent(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
-        return ResponseEntity.ok(classroomService.addStudent(id, classroomDto));
+        try {
+            return ResponseEntity.ok(classroomService.addStudent(id, classroomDto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("addProfessor/{id}")
     public ResponseEntity<ClassroomDto> addProfessor(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
-        return ResponseEntity.ok(classroomService.addProfessor(id, classroomDto));
+        try {
+            return ResponseEntity.ok(classroomService.addProfessor(id, classroomDto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

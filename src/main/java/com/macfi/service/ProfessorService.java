@@ -23,11 +23,15 @@ public class ProfessorService {
 
     public ProfessorDto getProfessorById(Long id) {
         return modelMapping.getInstance().mapToDto(professorRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("professor não encontrado")), ProfessorDto.class);
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found")), ProfessorDto.class);
     }
 
     public ProfessorDto getProfessorByIdentifier(String identifier) {
-        return modelMapping.getInstance().mapToDto(professorRepository.findByIdentifier(identifier), ProfessorDto.class);
+        Professor p = professorRepository.findByIdentifier(identifier);
+        if (p == null) {
+            throw new EntityNotFoundException("Professor not found");
+        }
+        return modelMapping.getInstance().mapToDto(p, ProfessorDto.class);
     }
 
     public ProfessorDto updateProfessor(ProfessorDto professor) {

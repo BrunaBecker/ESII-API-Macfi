@@ -1,10 +1,12 @@
 package com.macfi.controller;
 
 import com.macfi.payload.NotificationDto;
+import com.macfi.repository.ProfessorRepository;
 import com.macfi.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,8 @@ public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Operation(
             summary = "Get Notification REST API",
@@ -28,7 +32,12 @@ public class NotificationController {
     )
     @GetMapping("{idPerson}") //localhost:8080/notification/1
     public ResponseEntity<List<NotificationDto>> getActiveNotificationByPersonId(@PathVariable("idPerson") Long personId) {
-        return ResponseEntity.ok(notificationService.getActiveNotificationByPersonId(personId));
+        try {
+            List<NotificationDto> notificationDto = notificationService.getActiveNotificationByPersonId(personId);
+            return ResponseEntity.ok(notificationDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -40,9 +49,15 @@ public class NotificationController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping
-    public NotificationDto createNotification(@RequestBody NotificationDto notification) {
-        return notificationService.createNotification(notification);
-    }
+    public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notification) {
+        NotificationDto notificationDto;
+        try {
+            notificationDto = notificationService.createNotification(notification);
+            return new ResponseEntity<>(notificationDto, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+}
 
     @Operation(
             summary = "Delete Notification REST API",
@@ -80,7 +95,10 @@ public class NotificationController {
     )
     @PutMapping
     public ResponseEntity<NotificationDto> updateNotification(@RequestBody NotificationDto notification) {
-
-        return ResponseEntity.ok(notificationService.updateNotification(notification));
+        try {
+            return ResponseEntity.ok(notificationService.updateNotification(notification));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

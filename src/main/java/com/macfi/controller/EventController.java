@@ -5,6 +5,7 @@ import com.macfi.payload.EventDto;
 import com.macfi.service.EventService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,24 +21,43 @@ public class EventController {
 
     @GetMapping()
     public ResponseEntity<List<EventDto>> getEvents() {
-        List<EventDto> events = eventService.getEvents();
-        return ResponseEntity.ok(events);
+        try {
+            List<EventDto> events = eventService.getEvents();
+            return ResponseEntity.ok(eventService.getEvents());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping
     public ResponseEntity<EventDto> updateEvent(@Valid @RequestBody EventDto eventDto) {
-         ;
-        return ResponseEntity.ok(eventService.updateEvent(eventDto));
+        try {
+            EventDto eventDto1 = eventService.updateEvent(eventDto);
+            return ResponseEntity.ok(eventDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PostMapping
     public ResponseEntity<EventDto> createEvent(@Valid @RequestBody EventDto eventDto) {
-        return ResponseEntity.ok(eventService.createEvent(eventDto));
+
+        EventDto eventDto1;
+        try {
+            eventDto1 = eventService.createEvent(eventDto);
+            return new ResponseEntity<>(eventDto1, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("byDateBetween")
     public ResponseEntity<List<EventDto>> getByDateBetween(@RequestParam String startDate, @RequestParam String endDate) {
-        List<EventDto> events = eventService.getEventByDateBetween(startDate, endDate);
-        return ResponseEntity.ok(events);
+        try {
+            List<EventDto> events = eventService.getEventByDateBetween(startDate, endDate);
+            return ResponseEntity.ok(events);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

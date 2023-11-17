@@ -31,7 +31,11 @@ public class StudentService {
     }
 
     public StudentDto getStudentByIdentifier(String identifier) {
-        return modelMapping.getInstance().mapToDto(studentRepository.findByIdentifier(identifier), StudentDto.class);
+        Student s = studentRepository.findByIdentifier(identifier);
+        if (s == null) {
+            throw new EntityNotFoundException("Student not found");
+        }
+        return modelMapping.getInstance().mapToDto(s, StudentDto.class);
     }
 
     public StudentDto updateStudent(StudentDto studentDto) {
