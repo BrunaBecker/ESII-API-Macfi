@@ -111,4 +111,24 @@ public class NotificationController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @Operation(
+            summary = "Set Read Notification REST API",
+            description = "Set Read Notification REST API is used to set read post into database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
+    @PutMapping("read/{id}")//localhost:8080/notification/read/1
+    public ResponseEntity<NotificationDto> setReadNotification(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(notificationService.setReadNotification(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

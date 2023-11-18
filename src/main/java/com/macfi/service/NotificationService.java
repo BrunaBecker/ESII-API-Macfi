@@ -40,6 +40,22 @@ public class NotificationService {
     }
 
     public NotificationDto updateNotification(NotificationDto notification) {
-        return modelMapping.getInstance().mapToDto(notificationRepository.save(modelMapping.getInstance().mapToEntity(notification, Notification.class)), NotificationDto.class);
+        Notification notification1 =  notificationRepository.findById(notification.getId()).orElseThrow(EntityNotFoundException::new);
+        if (notification.getPersonId() == null || (!notification1.getPerson().getId().equals(notification.getPersonId()))) throw new IllegalArgumentException("person id must not be null");
+
+        notification1.setStatusNotification(notification.getStatusNotification());
+        notification1.setSupportingText(notification.getSupportingText());
+        notification1.setTitle(notification.getTitle());
+        notification1.setActive(notification.isActive());
+        notification1.setRead(notification.isRead());
+
+
+        return modelMapping.getInstance().mapToDto( notificationRepository.save(notification1), NotificationDto.class);
+    }
+
+    public NotificationDto setReadNotification(Long id) {
+        Notification notification = notificationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        notification.setRead(true);
+        return modelMapping.getInstance().mapToDto(notificationRepository.save(notification), NotificationDto.class);
     }
 }
