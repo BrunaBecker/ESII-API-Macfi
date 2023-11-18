@@ -1,11 +1,13 @@
 package com.macfi.controller;
 
 import com.macfi.payload.VirtualZoneDto;
-import com.macfi.repository.VirtualZoneRepository;
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.service.VirtualZoneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,10 @@ public class VirtualZoneController {
         try {
             List<VirtualZoneDto> virtualZoneDto = virtualZoneService.getVirtualZones();
             return ResponseEntity.ok(virtualZoneDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -48,7 +53,10 @@ public class VirtualZoneController {
         try {
             VirtualZoneDto virtualZoneDto1 = virtualZoneService.createVirtualZone(virtualZoneDto);
             return new ResponseEntity<>(virtualZoneDto1, org.springframework.http.HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -67,7 +75,10 @@ public class VirtualZoneController {
     public ResponseEntity<VirtualZoneDto> getVirtualZoneById(@PathVariable Long virtualZoneId) {
         try {
             return ResponseEntity.ok(virtualZoneService.getVirtualZoneById(virtualZoneId));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

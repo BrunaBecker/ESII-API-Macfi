@@ -1,6 +1,7 @@
 package com.macfi.controller;
 
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.EventDto;
 import com.macfi.service.EventService;
 import jakarta.validation.Valid;
@@ -24,7 +25,10 @@ public class EventController {
         try {
             List<EventDto> events = eventService.getEvents();
             return ResponseEntity.ok(eventService.getEvents());
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -34,7 +38,10 @@ public class EventController {
         try {
             EventDto eventDto1 = eventService.updateEvent(eventDto);
             return ResponseEntity.ok(eventDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -46,7 +53,10 @@ public class EventController {
         try {
             eventDto1 = eventService.createEvent(eventDto);
             return new ResponseEntity<>(eventDto1, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -56,7 +66,10 @@ public class EventController {
         try {
             List<EventDto> events = eventService.getEventByDateBetween(startDate, endDate);
             return ResponseEntity.ok(events);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

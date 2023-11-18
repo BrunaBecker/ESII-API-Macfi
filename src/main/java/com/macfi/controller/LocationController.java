@@ -5,8 +5,11 @@ import com.macfi.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 
 import java.util.List;
 
@@ -22,7 +25,10 @@ public class LocationController {
     public ResponseEntity<List<LocationDto>> getLocations() {
         try {
             return ResponseEntity.ok(LocationService.getLocations());
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -42,7 +48,10 @@ public class LocationController {
         try {
             LocationDto1 = LocationService.createLocation(Location);
             return new ResponseEntity<>(LocationDto1, org.springframework.http.HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -54,7 +63,10 @@ public class LocationController {
         try {
             LocationDto1 = LocationService.updateLocation(Location);
             return ResponseEntity.ok(LocationDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -65,7 +77,10 @@ public class LocationController {
         try {
             LocationDto1 = LocationService.addVirtualZone(virtualZoneId, Location);
             return ResponseEntity.ok(LocationDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -77,7 +92,10 @@ public class LocationController {
         try {
             locationDto1 = LocationService.getLocationByProfessor(identifier);
             return ResponseEntity.ok(LocationService.getLocationByProfessor(identifier));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

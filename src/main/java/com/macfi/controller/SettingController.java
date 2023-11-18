@@ -1,6 +1,7 @@
 package com.macfi.controller;
 
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.SettingDto;
 import com.macfi.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +28,10 @@ public class SettingController {
     public ResponseEntity<SettingDto> getSettingById(@Valid @PathParam("id") Long id) {
         try {
             return ResponseEntity.ok(settingService.getSetting(id));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -35,7 +40,10 @@ public class SettingController {
     public ResponseEntity<List<SettingDto>> getSettings() {
         try {
             return ResponseEntity.ok(settingService.getSettings());
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -54,7 +62,7 @@ public class SettingController {
         SettingDto a;
         try {
             a = settingService.createSetting(setting);
-            return new ResponseEntity<>(a, org.springframework.http.HttpStatus.CREATED);
+            return new ResponseEntity<>(a, HttpStatus.CREATED);
          } catch (Exception e) {
               return ResponseEntity.badRequest().body(null);
        }
@@ -66,7 +74,10 @@ public class SettingController {
         try {
             settingDto1 = settingService.updateSetting(setting);
             return ResponseEntity.ok(settingDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -78,7 +89,10 @@ public class SettingController {
         try {
             settingDto = settingService.getSettingByPersonIdentifier(identify);
             return ResponseEntity.ok(settingDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

@@ -1,5 +1,7 @@
 package com.macfi.controller;
 
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.model.AttendanceStatus;
 import com.macfi.model.Classroom;
 import com.macfi.model.Waiver;
@@ -14,6 +16,7 @@ import com.macfi.service.WaiverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +51,10 @@ public class StudentController {
     public ResponseEntity<List<StudentDto>> getStudents() {
         try {
             return ResponseEntity.ok(studentService.getStudents());
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -67,8 +73,11 @@ public class StudentController {
         StudentDto studentDto1;
         try {
             studentDto1 = studentService.createStudent(studentDto);
-            return new ResponseEntity<>(studentDto1, org.springframework.http.HttpStatus.CREATED);
-        } catch (Exception e) {
+            return new ResponseEntity<>(studentDto1, HttpStatus.CREATED);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -88,7 +97,10 @@ public class StudentController {
         try {
             studentDto1 = studentService.updateStudent(studentDto);
             return ResponseEntity.ok(studentDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -105,7 +117,10 @@ public class StudentController {
         Classroom c;
         try {
             c = modelMapping.getInstance().mapToEntity(classroomService.getClassroomById(classroomDto.getId()), Classroom.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
         student.getClassrooms().add(modelMapping.getInstance().mapToEntity(classroomDto, Classroom.class));
@@ -117,14 +132,20 @@ public class StudentController {
         Student student;
         try {
             student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
         try {
             AttendanceStatus a = modelMapping.getInstance().mapToEntity(attendanceStatusService.getAttendanceStatusById(idAttendance), AttendanceStatus.class);
             student.getAttendanceStatuses().add(a);
             return ResponseEntity.ok(studentService.updateStudent(modelMapping.getInstance().mapToDto(student, StudentDto.class)));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -137,14 +158,20 @@ public class StudentController {
         try {
             student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
 
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
         Waiver w ;
         try {
             w = modelMapping.getInstance().mapToEntity(waiverService.getWaiverById(idWaiver), Waiver.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
         if (student != null && w != null) {
@@ -160,13 +187,19 @@ public class StudentController {
         Student student;
         try {
             student = modelMapping.getInstance().mapToEntity(studentService.getStudentByIdentifier(identifier), Student.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
         Classroom c;
         try {
            c  = modelMapping.getInstance().mapToEntity(classroomService.getClassroomById(idClass), Classroom.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -190,7 +223,10 @@ public class StudentController {
         try {
             List<StudentDto> students = studentService.getStudentsByClassroom(idClass);
             return ResponseEntity.ok(students);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -200,7 +236,10 @@ public class StudentController {
     public ResponseEntity<List<StudentDto>> getStudentsByAttendance(@PathVariable("idAttendance") Long idAttendance) {
         try {
             attendanceStatusService.getAttendanceStatusById(idAttendance);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -208,7 +247,10 @@ public class StudentController {
         try {
             students = studentService.getStudentsByAttendance(idAttendance);
             return ResponseEntity.ok(students);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -218,14 +260,20 @@ public class StudentController {
     public ResponseEntity<StudentDto> getStudentByWaiver(@PathVariable("idWaiver") Long idWaiver) {
         try {
             waiverService.getWaiverById(idWaiver);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
         try {
             StudentDto student = modelMapping.getInstance().mapToDto(studentService.getStudentByWaiver(idWaiver), StudentDto.class);
             return ResponseEntity.ok(student);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -237,7 +285,10 @@ public class StudentController {
         try {
             studentDto = studentService.getStudentById(id);
             return ResponseEntity.ok(studentDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -248,7 +299,10 @@ public class StudentController {
         try {
             studentDto = studentService.getStudentByIdentifier(identifier);
             return ResponseEntity.ok(studentDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -257,7 +311,10 @@ public class StudentController {
     public ResponseEntity<List<StudentDto>> getStudentsByAttendanceHappening(@PathVariable("idAttendance") Long idAttendance) {
         try {
             attendanceStatusService.getAttendanceStatusById(idAttendance);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -265,7 +322,10 @@ public class StudentController {
         try {
             students = studentService.getStudentsByAttendanceHappening(idAttendance);
             return ResponseEntity.ok(students);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -276,7 +336,10 @@ public class StudentController {
         try {
             studentDto = studentService.getStudentByEmail(email);
             return ResponseEntity.ok(studentDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -285,7 +348,10 @@ public class StudentController {
     public ResponseEntity<List<StudentDto>> getStudentsByClassroomCode(@PathVariable("code") String code) {
         try {
             ClassroomDto  c = classroomService.getClassroomByCode(code);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -293,7 +359,10 @@ public class StudentController {
         try {
             students = studentService.getStudentsByClassroomCode(code);
             return ResponseEntity.ok(students);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
