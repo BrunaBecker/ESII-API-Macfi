@@ -86,7 +86,7 @@ public class StudentService {
         if (studentDto.getPassword().equals(password) && studentDto.getIsActive()) {
             return studentDto;
         } else {
-            throw new UserUnauthorized("password or identify incorrect");    ;
+            throw new UserUnauthorized("password or identify incorrect"); 
         }
     }
 }
