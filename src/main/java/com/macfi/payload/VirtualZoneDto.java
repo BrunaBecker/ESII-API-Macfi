@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 @Data
 public class VirtualZoneDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "locationId must not be null")
     Long locationId;

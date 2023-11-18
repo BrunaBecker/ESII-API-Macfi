@@ -12,7 +12,6 @@ import java.util.List;
  */
 @Data
 public class CalendarDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull
     List<EventDto> events;

@@ -14,7 +14,6 @@ import java.util.Date;
  */
 @Data
 public class PersonDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "name must not be null")
     @NotEmpty(message = "name must not be empty")

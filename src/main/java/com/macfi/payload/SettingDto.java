@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 @Data
 public class SettingDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "automaticSaveLocalization must not be null")
     boolean automaticSaveLocalization;

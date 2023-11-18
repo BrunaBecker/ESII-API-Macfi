@@ -13,7 +13,6 @@ import java.util.Date;
  */
 @Data
 public class RegisterCollegeIDDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "identifier must not be null")
     @NotEmpty(message = "identifier must not be empty")

@@ -29,7 +29,8 @@ public abstract class RegisterCollegeID {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateFinished;
     protected boolean isActive;
-    @OneToOne(mappedBy = "register")
+
+    @OneToOne(mappedBy = "register", fetch = FetchType.EAGER)
     protected Person person;
 
 

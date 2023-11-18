@@ -125,7 +125,7 @@ public class MacfiApplication implements CommandLineRunner {
 
                 ArrayList<Student> students = new ArrayList<Student>();
                 students.add(student);
-                Classroom classroom = new Classroom("classroom " + i, "" + i, "223", null, professor, students, new ArrayList<Attendance>());
+                Classroom classroom = new Classroom("classroom " + i, "A" +i,"" + i, "223", LocalTime.now(), LocalTime.now(), new Location(), professor, students, new ArrayList<Attendance>());
 
                 Attendance attendance = new Attendance(new Date(), "supportText", LocalTime.now(), LocalTime.now(), Duration.ofHours(2), false, false, null, classroom, new ArrayList<AttendanceStatus>());
                 AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, true, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
