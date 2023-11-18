@@ -1,5 +1,6 @@
 package com.macfi.controller;
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.ClassroomDto;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.ProfessorService;
@@ -47,7 +48,10 @@ public class ClassroomController {
         try {
             classroomDto1 = classroomService.createClassroom(classroomDto);
             return new ResponseEntity<>(classroomDto1, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -59,7 +63,10 @@ public class ClassroomController {
         try {
             classroomDto1 = classroomService.updateClassroom(classroomDto);
             return ResponseEntity.ok(classroomDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -78,7 +85,10 @@ public class ClassroomController {
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
         try {
             return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -87,7 +97,10 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> addStudent(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
         try {
             return ResponseEntity.ok(classroomService.addStudent(id, classroomDto));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -96,7 +109,10 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> addProfessor(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
         try {
             return ResponseEntity.ok(classroomService.addProfessor(id, classroomDto));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

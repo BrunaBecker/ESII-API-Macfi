@@ -26,7 +26,10 @@ public class AuthController {
         try {
             object = authService.loginPerson(identifier, password);
             return ResponseEntity.ok(object);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

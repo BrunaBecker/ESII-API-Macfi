@@ -1,11 +1,13 @@
 package com.macfi.controller;
 
+
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.model.Classroom;
 import com.macfi.model.person.Professor;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.ClassroomDto;
 import com.macfi.payload.ProfessorDto;
-import com.macfi.repository.ProfessorRepository;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,7 +72,10 @@ public class ProfessorController {
         try {
             professorDto = professorService.updateProfessor(professor);
             return new ResponseEntity<>(professorDto, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -82,12 +87,18 @@ public class ProfessorController {
         Classroom c;
         try {
              professor = modelMapping.getInstance().mapToEntity(professorService.getProfessorByIdentifier(identifier), Professor.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
         try {
             c = modelMapping.getInstance().mapToEntity(classroomService.getClassroomById(classroom.getId()), Classroom.class);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -103,7 +114,10 @@ public class ProfessorController {
         try {
             professorDto = professorService.getProfessorById(id);
             return ResponseEntity.ok(professorDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -118,7 +132,10 @@ public class ProfessorController {
         try {
             professorDto = professorService.getProfessorByIdentifier(identifier);
             return ResponseEntity.ok(professorDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 

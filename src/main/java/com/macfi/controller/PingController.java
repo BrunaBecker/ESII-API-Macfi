@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 
 @RestController
 @RequestMapping("ping")
@@ -33,7 +34,10 @@ public class PingController {
         try {
             pingDto1 = pingService.createPing(pingDto);
             return new ResponseEntity<>(pingDto1, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -42,7 +46,10 @@ public class PingController {
     public ResponseEntity<PingDto> getPingById(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(pingService.getPingById(id));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

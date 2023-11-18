@@ -1,5 +1,6 @@
 package com.macfi.controller;
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.NotificationDto;
 import com.macfi.repository.ProfessorRepository;
 import com.macfi.service.NotificationService;
@@ -35,7 +36,10 @@ public class NotificationController {
         try {
             List<NotificationDto> notificationDto = notificationService.getActiveNotificationByPersonId(personId);
             return ResponseEntity.ok(notificationDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -54,7 +58,10 @@ public class NotificationController {
         try {
             notificationDto = notificationService.createNotification(notification);
             return new ResponseEntity<>(notificationDto, HttpStatus.CREATED);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 }
@@ -97,7 +104,10 @@ public class NotificationController {
     public ResponseEntity<NotificationDto> updateNotification(@RequestBody NotificationDto notification) {
         try {
             return ResponseEntity.ok(notificationService.updateNotification(notification));
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

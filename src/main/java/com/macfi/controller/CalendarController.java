@@ -1,6 +1,7 @@
 package com.macfi.controller;
 
-
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.CalendarDto;
 import com.macfi.service.CalendarService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +27,10 @@ public class CalendarController {
     public ResponseEntity<List<CalendarDto>> getCalendars() {
         try {
             return ResponseEntity.ok(calendarService.getCalendars());
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -55,7 +59,10 @@ public class CalendarController {
         try {
             calendarDto1 = calendarService.updateCalendar(calendarDto);
             return ResponseEntity.ok(calendarDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -66,7 +73,10 @@ public class CalendarController {
         try {
             calendarDto = calendarService.getById(id);
             return ResponseEntity.ok(calendarDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

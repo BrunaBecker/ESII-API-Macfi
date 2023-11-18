@@ -1,5 +1,7 @@
 package com.macfi.controller;
 
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.AttendanceDto;
 import com.macfi.service.AttendanceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,7 +53,10 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroom(id);
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -64,7 +69,10 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -85,7 +93,10 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -95,7 +106,10 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -118,7 +132,10 @@ public class AttendanceController {
         try {
             attendanceDto1 = attendanceService.updateAttendance(attendanceDto);
             return ResponseEntity.ok(attendanceDto1);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
