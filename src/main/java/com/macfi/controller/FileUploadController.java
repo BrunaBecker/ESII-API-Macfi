@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@CrossOrigin("http://localhost:3599")
+@CrossOrigin("http://localhost:8080")
 @RequestMapping("file")
 public class FileUploadController {
 
