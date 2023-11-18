@@ -1,6 +1,7 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.model.person.Professor;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.ProfessorDto;
@@ -58,7 +59,7 @@ public class ProfessorService {
         if (professorDto.getPassword().equals(password) && professorDto.getIsActive()) {
             return professorDto;
         } else {
-            return null;
+            throw new UserUnauthorized("Password or identifier incorrect");
         }
 
 

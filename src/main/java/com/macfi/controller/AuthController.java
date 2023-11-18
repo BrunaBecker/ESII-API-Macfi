@@ -1,9 +1,12 @@
 package com.macfi.controller;
 
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.ProfessorDto;
 import com.macfi.payload.StudentDto;
 import com.macfi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,8 @@ public class AuthController {
         try {
             professorDto = authService.loginProfessor(identifier, password);
             return ResponseEntity.ok(professorDto);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -48,7 +53,10 @@ public class AuthController {
         try {
             studentDto = authService.loginStudent(identifier, password);
             return ResponseEntity.ok(studentDto);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
