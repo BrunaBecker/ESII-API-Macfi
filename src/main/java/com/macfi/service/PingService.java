@@ -8,6 +8,7 @@ import com.macfi.model.utils.enums_class.StatusPing;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.PingDto;
+import com.macfi.repository.AttendanceStatusRepository;
 import com.macfi.repository.PingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,10 @@ public class PingService {
 
 
     @Autowired
-    private AttendanceStatusService attendanceStatusService;
+    private AttendanceStatusRepository attendanceStatusRepository;
 
     public PingDto createPing(PingDto pingDto) {
-        AttendanceStatusDto attendanceStatusDto = attendanceStatusService.getAttendanceStatusById(pingDto.getAttendanceStatusId());
-        AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
+        AttendanceStatus attendanceStatus = attendanceStatusRepository.findById(pingDto.getAttendanceStatusId()).orElseThrow(() -> new RuntimeException("AttendanceStatus not found"));
         Attendance attendance = attendanceStatus.getAttendance();
 
         Ping ping = modelMapping.getInstance().mapToEntity(pingDto, Ping.class);
@@ -58,5 +58,8 @@ public class PingService {
         Ping ping = pingRepository.findById(id).orElseThrow(() -> new RuntimeException("Ping not found"));
         return modelMapping.getInstance().mapToDto(ping, PingDto.class);
     }
+
+
+
 
 }

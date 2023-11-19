@@ -1,6 +1,7 @@
 package com.macfi.service;
 
 
+import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.Event;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.modelMapper.modelMapping;
@@ -20,10 +21,26 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+
+    public EventDto createEvent(EventDto eventDto) {
+        Event event = modelMapping.getInstance().mapToEntity(eventDto, Event.class);
+        return modelMapping.getInstance().mapToDto(eventRepository.save(event), EventDto.class);
+    }
+
+    public EventDto updateEvent(EventDto eventDto) {
+        eventRepository.findById(eventDto.getId()).orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        return modelMapping.getInstance().mapToDto(eventRepository.save(modelMapping.getInstance().mapToEntity(eventDto, Event.class)), EventDto.class);
+    }
+
+
+    public List<EventDto> getEvents() {
+        List<Event> events = eventRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
+    }
+
     public List<EventDto> getEventByDateBetween(String start, String end) {
         Date dateStart;
         Date dateEnd;
-
         try {
             dateStart = Dateformater.format(start);
             dateEnd = Dateformater.format(end);
@@ -34,23 +51,19 @@ public class EventService {
         }
     }
 
-    public EventDto createEvent(EventDto eventDto) {
-        Event event = modelMapping.getInstance().mapToEntity(eventDto, Event.class);
-        return modelMapping.getInstance().mapToDto(eventRepository.save(event), EventDto.class);
+
+    public List<EventDto> getEventByDateBetweenAndClassroomId(String startDate, String endDate, Long classroomId) {
+        Date dateStart;
+        Date dateEnd;
+        try {
+            dateStart = Dateformater.format(startDate);
+            dateEnd = Dateformater.format(endDate);
+            List<Event> events = eventRepository.findByClassroomIdAndDateBetween(classroomId, dateStart, dateEnd);
+            return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public EventDto updateEvent(EventDto eventDto) {
-        Event event = modelMapping.getInstance().mapToEntity(eventDto, Event.class);
-        return modelMapping.getInstance().mapToDto(eventRepository.save(event), EventDto.class);
-    }
 
-    public EventDto getEventByDate(Date date) {
-        return modelMapping.getInstance().mapToDto(eventRepository.findByDate(date), EventDto.class);
-    }
-
-
-    public List<EventDto> getEvents() {
-        List<Event> events = eventRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
-    }
 }
