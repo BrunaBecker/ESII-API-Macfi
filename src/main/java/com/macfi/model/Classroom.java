@@ -35,9 +35,7 @@ public class Classroom {
     @Temporal(TemporalType.TIME)
     private LocalTime endHour;
 
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "classroom")
-
     private Location defaultLocation;
 
     @ManyToOne
@@ -49,11 +47,12 @@ public class Classroom {
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
-
     private List<Attendance> attendances;
 
+    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
+    private List<Event> events;
 
-    public Classroom(String courseName, String className,String code, String semester, LocalTime startHour, LocalTime endHour ,Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances) {
+    public Classroom(String courseName, String className,String code, String semester, LocalTime startHour, LocalTime endHour ,Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
         this.courseName = courseName;
         this.code = code;
         this.className = className;
@@ -64,5 +63,6 @@ public class Classroom {
         this.professor = professor;
         this.students = students;
         this.attendances = attendances;
+        this.events = events;
     }
 }

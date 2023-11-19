@@ -22,33 +22,27 @@ public class Waiver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @JoinColumn(name = "file_id", referencedColumnName = "id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private FileMacFI file;
-
     private String description;
-
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
-
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date acceptionDate;
-
     private boolean isAccepted;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_id", referencedColumnName = "id")
+    @ToString.Exclude
+    private FileMacFI file;
+
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attendance_status_id", referencedColumnName = "id")
     private AttendanceStatus attendanceStatus;
 

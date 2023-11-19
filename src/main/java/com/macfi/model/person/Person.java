@@ -4,7 +4,6 @@ import com.macfi.model.Notification;
 import com.macfi.model.Setting;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
-import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,10 +46,10 @@ public abstract class Person {
     @JoinColumn(name = "profile_image_id")
     protected Picture profileImage;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     protected List<Comment> comments;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     protected List<Notification> notifications;
 
 

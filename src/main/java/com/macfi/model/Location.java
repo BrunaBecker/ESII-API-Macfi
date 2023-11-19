@@ -35,7 +35,6 @@ public class Location {
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     @ToString.Exclude
-
     private List<VirtualZone> virtualZones;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -6,7 +6,6 @@ import com.macfi.model.Notification;
 import com.macfi.model.Setting;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
-import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
 import lombok.*;
 

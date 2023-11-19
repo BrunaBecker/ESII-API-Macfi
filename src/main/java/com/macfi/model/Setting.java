@@ -23,11 +23,9 @@ public class Setting {
     private boolean usePredefinedCalendarForAttendance;
     private boolean silentMode;
 
-    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER, cascade = CascadeType.MERGE )
     private Person person;
-    //create a method to take de localization from professor
 
-    //todo Setting repository
 
 
     public Setting(boolean automaticSaveLocalization, boolean usePredefinedCalendarForAttendance, boolean silentMode, Person person) {
