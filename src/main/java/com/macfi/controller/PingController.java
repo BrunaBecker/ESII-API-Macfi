@@ -38,6 +38,7 @@ public class PingController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -50,6 +51,7 @@ public class PingController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

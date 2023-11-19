@@ -28,10 +28,10 @@ public class SettingController {
     public ResponseEntity<SettingDto> getSettingById(@Valid @PathParam("id") Long id) {
         try {
             return ResponseEntity.ok(settingService.getSetting(id));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -40,10 +40,10 @@ public class SettingController {
     public ResponseEntity<List<SettingDto>> getSettings() {
         try {
             return ResponseEntity.ok(settingService.getSettings());
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -57,44 +57,59 @@ public class SettingController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping
-    public ResponseEntity<SettingDto> createSetting(@RequestBody SettingDto setting) {
+    public ResponseEntity<SettingDto> createSetting(@Valid @RequestBody SettingDto setting) {
 
         SettingDto a;
         try {
             a = settingService.createSetting(setting);
             return new ResponseEntity<>(a, HttpStatus.CREATED);
-         } catch (Exception e) {
-              return ResponseEntity.badRequest().body(null);
-       }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping
-    public ResponseEntity<SettingDto> updateSetting(@RequestBody SettingDto setting) {
+    public ResponseEntity<SettingDto> updateSetting(@Valid @RequestBody SettingDto setting) {
         SettingDto settingDto1;
         try {
             settingDto1 = settingService.updateSetting(setting);
             return ResponseEntity.ok(settingDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @GetMapping("/person/{identify}")
     public ResponseEntity<SettingDto> getSettingByPersonIdentifier(@PathVariable Long identify) {
-        SettingDto  settingDto;
+        SettingDto settingDto;
 
         try {
             settingDto = settingService.getSettingByPersonIdentifier(identify);
             return ResponseEntity.ok(settingDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PutMapping("/updateSettingPerson") //localhost:8080/setting/updateSettingPerson?idSetting=1&idPerson=1
+    public ResponseEntity<SettingDto> updateSettingByPersonId(@RequestParam Long idSetting,  @RequestParam Long idPerson) {
+        SettingDto settingDto1;
+        try {
+            settingDto1 = settingService.updateSettingByPersonId(idSetting, idPerson);
+            return ResponseEntity.ok(settingDto1);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
 }

@@ -1,15 +1,17 @@
 package com.macfi.controller;
 
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.UserUnauthorized;
+import com.macfi.payload.CoordinateDto;
 import com.macfi.payload.LocationDto;
 import com.macfi.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.macfi.exception.EntityNotFoundException;
-import com.macfi.exception.UserUnauthorized;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class LocationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -43,7 +46,7 @@ public class LocationController {
     )
 
     @PostMapping
-    public ResponseEntity<LocationDto> createLocation(@RequestBody LocationDto Location) {
+    public ResponseEntity<LocationDto> createLocation(@Valid @RequestBody LocationDto Location) {
        LocationDto LocationDto1;
         try {
             LocationDto1 = LocationService.createLocation(Location);
@@ -52,13 +55,14 @@ public class LocationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
 
     @PutMapping
-    public ResponseEntity<LocationDto> updateLocation(@RequestBody LocationDto Location) {
+    public ResponseEntity<LocationDto> updateLocation(@Valid @RequestBody LocationDto Location) {
         LocationDto LocationDto1;
         try {
             LocationDto1 = LocationService.updateLocation(Location);
@@ -67,20 +71,22 @@ public class LocationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PutMapping("addVirtualZone/{id}")
-    public ResponseEntity<LocationDto> addVirtualZone(@PathVariable("id") Long virtualZoneId, @RequestBody LocationDto Location) {
+    @PutMapping("setVirtualZone/{id}")
+    public ResponseEntity<LocationDto> setVirtualZone(@PathVariable("id") Long virtualZoneId, @RequestBody LocationDto Location) {
         LocationDto LocationDto1;
         try {
-            LocationDto1 = LocationService.addVirtualZone(virtualZoneId, Location);
+            LocationDto1 = LocationService.setVirtualZone(virtualZoneId, Location);
             return ResponseEntity.ok(LocationDto1);
         } catch (EntityNotFoundException | UserUnauthorized ae){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -96,7 +102,58 @@ public class LocationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PutMapping("addCoordinate") //localhost:8080/location/addCoordinate?idLocation=1
+    public ResponseEntity<LocationDto> addCoordinate(@RequestParam("idLocation") Long id, @RequestBody CoordinateDto coordinateDto) {
+        LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.addCoordinate(id, coordinateDto);
+            return ResponseEntity.ok(LocationDto1);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setVirtualZoneById") //localhost:8080/location/setVirtualZone?idLocation=1&idVirtualZone=1
+    public ResponseEntity<LocationDto> setVirtualZoneById(@RequestParam("idLocation") Long idLocation, @RequestParam("idVirtualZone") Long idVirtualZone) {
+        LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.setVirtualZoneById(idLocation, idVirtualZone);
+            return ResponseEntity.ok(LocationDto1);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setClassroom")//localhost:8080/location/setClassroom?idLocation=1&idClassroom=1
+    public ResponseEntity<LocationDto> setClassroom(@RequestParam("idLocation") Long idLocation, @RequestParam("idClassroom") Long idClassroom) {
+        LocationDto LocationDto1;
+        try {
+            LocationDto1 = LocationService.setClassroom(idLocation, idClassroom);
+            return ResponseEntity.ok(LocationDto1);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+
+
+
 }

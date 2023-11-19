@@ -52,6 +52,7 @@ public class ClassroomController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -67,12 +68,13 @@ public class ClassroomController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
 
-    @GetMapping("professor/{identifier}")
+    @GetMapping("professor/{identifier}") //localhost:8080/classroom/professor/12345670
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
        try  {
               return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
@@ -81,39 +83,107 @@ public class ClassroomController {
          }
     }
 
-    @GetMapping("student/{identifier}")
+    @GetMapping("student/{identifier}") //localhost:8080/classroom/student/123456790
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
         try {
             return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
         } catch (EntityNotFoundException | UserUnauthorized ae){
+            System.out.println(ae.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PutMapping("addStudent/{id}")
-    public ResponseEntity<ClassroomDto> addStudent(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
+    @PutMapping("addStudent") //localhost:8080/classroom/addStudent?idClassroom=1&idStudent=1
+    public ResponseEntity<ClassroomDto> addStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
-            return ResponseEntity.ok(classroomService.addStudent(id, classroomDto));
+            return ResponseEntity.ok(classroomService.addStudent(idClassroom, idStudent));
         } catch (EntityNotFoundException | UserUnauthorized ae){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PutMapping("addProfessor/{id}")
-    public ResponseEntity<ClassroomDto> addProfessor(@PathVariable("id") Long id, @RequestBody ClassroomDto classroomDto) {
+
+    @DeleteMapping("removeStudent") //localhost:8080/classroom/removeStudent?idClassroom=1&idStudent=1
+    public ResponseEntity<ClassroomDto> removeStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
-            return ResponseEntity.ok(classroomService.addProfessor(id, classroomDto));
+            return ResponseEntity.ok(classroomService.removeStudent(idClassroom, idStudent));
         } catch (EntityNotFoundException | UserUnauthorized ae){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+@   PutMapping("setEvent") //localhost:8080/classroom/setEvent?idClassroom=1&idEvent=1
+    public ResponseEntity<ClassroomDto> setEvent(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idEvent) {
+        try {
+            return ResponseEntity.ok(classroomService.setEvent(idClassroom, idEvent));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @DeleteMapping("removeEvent") //localhost:8080/classroom/removeEvent?idClassroom=1&idEvent=1
+    public ResponseEntity<ClassroomDto> removeEvent(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idEvent) {
+        try {
+            return ResponseEntity.ok(classroomService.removeEvent(idClassroom, idEvent));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+    @Operation(
+            summary = "Add/Change Location REST API",
+            description = "Add/Change Location REST API is used to add a location to a classroom"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 OK"
+    )
+    @PutMapping("setLocation") //localhost:8080/classroom/addLocation?idClassroom=1&idLocation=1
+    public ResponseEntity<ClassroomDto> setLocation(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idLocation) {
+        try {
+            return ResponseEntity.ok(classroomService.setLocation(idClassroom, idLocation));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setAttendance") //localhost:8080/classroom/setAttendance?idClassroom=1&idAttendance=1
+    public ResponseEntity<ClassroomDto> setAttendance(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idAttendance){
+        try {
+            return ResponseEntity.ok(classroomService.setAttendance(idClassroom, idAttendance ));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    //TODO verify if has getClassroomByCode in some place because I have to change to CLassroom to List<Classroom>
 }

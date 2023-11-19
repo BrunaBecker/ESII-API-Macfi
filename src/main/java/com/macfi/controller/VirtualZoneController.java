@@ -1,11 +1,12 @@
 package com.macfi.controller;
 
-import com.macfi.payload.VirtualZoneDto;
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
+import com.macfi.payload.VirtualZoneDto;
 import com.macfi.service.VirtualZoneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ public class VirtualZoneController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -49,7 +51,7 @@ public class VirtualZoneController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping
-    public ResponseEntity<VirtualZoneDto> createVirtualZone(@RequestBody VirtualZoneDto virtualZoneDto) {
+    public ResponseEntity<VirtualZoneDto> createVirtualZone(@Valid @RequestBody VirtualZoneDto virtualZoneDto) {
         try {
             VirtualZoneDto virtualZoneDto1 = virtualZoneService.createVirtualZone(virtualZoneDto);
             return new ResponseEntity<>(virtualZoneDto1, org.springframework.http.HttpStatus.CREATED);
@@ -57,12 +59,13 @@ public class VirtualZoneController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping
-    public ResponseEntity<VirtualZoneDto> updateVirtualZone(@RequestBody VirtualZoneDto virtualZoneDto) {
+    public ResponseEntity<VirtualZoneDto> updateVirtualZone(@Valid @RequestBody VirtualZoneDto virtualZoneDto) {
        try {
               VirtualZoneDto virtualZoneDto1 = virtualZoneService.updateVirtualZone(virtualZoneDto);
               return ResponseEntity.ok(virtualZoneDto1);
@@ -79,8 +82,10 @@ public class VirtualZoneController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
 
 }

@@ -57,6 +57,7 @@ public class AttendanceController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -73,6 +74,7 @@ public class AttendanceController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -97,6 +99,7 @@ public class AttendanceController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -110,6 +113,7 @@ public class AttendanceController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -136,8 +140,66 @@ public class AttendanceController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PutMapping("start/{id}") //localhost:8080/attendance/start/1
+    public ResponseEntity<AttendanceDto> startAttendance(@PathVariable("id") Long id) {
+        AttendanceDto attendanceDto;
+        try {
+            attendanceDto = attendanceService.startAttendance(id);
+            return ResponseEntity.ok(attendanceDto);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("end/{id}") //localhost:8080/attendance/end/1
+    public ResponseEntity<AttendanceDto> endAttendance(@PathVariable("id") Long id) {
+        AttendanceDto attendanceDto;
+        try {
+            attendanceDto = attendanceService.endAttendance(id);
+            return ResponseEntity.ok(attendanceDto);
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setVirtualZone") //localhost:8080/attendance/setVirtualZone/1
+    public ResponseEntity<AttendanceDto> setVirtualZone(@RequestParam("idAttendance") Long idAttendance, @RequestParam("idVirtualZone") Long idVirtualZone) {
+        try {
+           return ResponseEntity.ok(attendanceService.setVirtualZone(idAttendance, idVirtualZone));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("addAttendanceStatus") //localhost:8080/attendance/setAttendanceStatus?idAttendance=1&idAttendanceStatus=1
+    public ResponseEntity<AttendanceDto> setAttendanceStatus(@RequestParam("idAttendance") Long idAttendance, @RequestParam("idAttendanceStatus") Long idAttendanceStatus) {
+        try {
+            return ResponseEntity.ok(attendanceService.setAttendanceStatus(idAttendance, idAttendanceStatus));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
 }
