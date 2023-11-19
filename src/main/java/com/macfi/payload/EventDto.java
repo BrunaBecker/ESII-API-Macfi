@@ -24,7 +24,7 @@ public class EventDto implements Serializable {
     @NotNull
     @Size(message = "max characteres 500", max = 500)
     String description;
-    ClassroomDto classroom;
+    Long classroomId;
     @NotNull(message = "event must be a status")
     EventStatus status;
 }

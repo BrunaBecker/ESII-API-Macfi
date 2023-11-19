@@ -29,8 +29,8 @@ public class AttendanceDto implements Serializable {
     boolean isAutomatic;
     @NotNull(message = "isHappening must not be null")
     boolean isHappening;
-    @NotNull(message = "virtualZoneId must not be null")
+
     VirtualZoneDto virtualZoneDto;
-    @NotNull(message = "classroomId must not be null")
+
     ClassroomDto classroomDto;
 }

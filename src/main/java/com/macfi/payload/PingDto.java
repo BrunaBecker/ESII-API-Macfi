@@ -28,9 +28,7 @@ public class PingDto implements Serializable {
     @NotEmpty(message = "isContinuos is required")
     boolean isContinuos;
 
-    @NotNull
     Long coordinateId;
-    @NotNull
     Long attendanceStatusId;
 
 

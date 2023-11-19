@@ -1,6 +1,6 @@
 package com.macfi.payload;
 
-import com.macfi.model.utils.RegisterCollegeID;
+import com.macfi.model.person.RegisterCollegeID;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
