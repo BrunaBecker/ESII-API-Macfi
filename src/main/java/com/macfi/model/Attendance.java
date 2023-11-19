@@ -39,7 +39,7 @@ public class Attendance {
     private boolean isAutomatic;
     private boolean isHappening;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "virtual_zone_id", referencedColumnName = "id")
     private VirtualZone virtualZone;
 

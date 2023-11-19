@@ -12,7 +12,6 @@ import java.io.Serializable;
  */
 @Data
 public class NotificationDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "title must not be null")
     String title;

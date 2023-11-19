@@ -7,6 +7,8 @@ import com.macfi.model.utils.Dateformater;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.AttendanceDto;
 import com.macfi.repository.AttendanceRepository;
+import com.macfi.repository.AttendanceStatusRepository;
+import com.macfi.repository.VirtualZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,11 @@ public class AttendanceService {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
+    @Autowired
+    private VirtualZoneRepository virtualZoneRepository;
+    @Autowired
+    private AttendanceStatusRepository attendanceStatusRepository;
+
 
     public AttendanceDto createAttendance(AttendanceDto attendanceDto) {
 
@@ -42,12 +49,10 @@ public class AttendanceService {
     }
 
     public AttendanceDto updateAttendance(AttendanceDto attendanceDto) {
-        Attendance attendance = modelMapping.getInstance().mapToEntity(getAttendanceById(attendanceDto.getId()), Attendance.class);
-        if (!attendanceDto.getId().equals(attendance.getId())) {
-            attendanceRepository.findById(attendance.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
-        }
-        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
+        attendanceRepository.findById(attendanceDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        Attendance attendance1 =  modelMapping.getInstance().mapToEntity(attendanceDto, Attendance.class);
+        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance1), AttendanceDto.class);
     }
 
     public List<AttendanceDto> getAttendances() {
@@ -63,7 +68,7 @@ public class AttendanceService {
 
     public List<AttendanceDto> getAttendancesByClassroomAndDate(Long classroomid, String dateStr) {
 
-        Date date = null;
+        Date date;
         try {
             date = Dateformater.format(dateStr);
             List<Attendance> attendances = attendanceRepository.findByClassroomIdAndDate(classroomid, date);
@@ -89,8 +94,36 @@ public class AttendanceService {
         return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
     }
 
-    public AttendanceDto getAttendanceHappeningById(Long id) {
-        return modelMapping.getInstance().mapToDto(attendanceRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Attendance not found")), AttendanceDto.class);
+
+    public AttendanceDto endAttendance(Long id) {
+        Attendance attendance = attendanceRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        attendance.setHappening(false);
+        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
+    }
+
+    public AttendanceDto startAttendance(Long id) {
+        Attendance attendance = attendanceRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        attendance.setHappening(true);
+        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
+    }
+
+    public AttendanceDto setAttendanceStatus(Long idAttendance, Long idAttendanceStatus) {
+        Attendance attendance = attendanceRepository.findById(idAttendance)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        attendance.getAttendancesStatuses().add(attendanceStatusRepository.findById(idAttendanceStatus)
+                .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus not found")));
+
+        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
+    }
+
+
+    public AttendanceDto setVirtualZone(Long idAttendance, Long idVirtualZone) {
+        Attendance attendance = attendanceRepository.findById(idAttendance)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        attendance.setVirtualZone(virtualZoneRepository.findById(idVirtualZone)
+                .orElseThrow(() -> new EntityNotFoundException("VirtualZone not found")));
+        return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
     }
 }

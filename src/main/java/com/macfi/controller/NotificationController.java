@@ -1,11 +1,12 @@
 package com.macfi.controller;
+
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.NotificationDto;
-import com.macfi.repository.ProfessorRepository;
 import com.macfi.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,6 @@ public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
-    @Autowired
-    private ProfessorRepository professorRepository;
 
     @Operation(
             summary = "Get Notification REST API",
@@ -40,6 +39,7 @@ public class NotificationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -53,7 +53,7 @@ public class NotificationController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping
-    public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notification) {
+    public ResponseEntity<NotificationDto> createNotification(@Valid @RequestBody NotificationDto notification) {
         NotificationDto notificationDto;
         try {
             notificationDto = notificationService.createNotification(notification);
@@ -62,6 +62,7 @@ public class NotificationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 }
@@ -75,7 +76,7 @@ public class NotificationController {
             description = "Http Status 200 OK"
     )
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteNotification(@RequestBody NotificationDto notification) {
+    public ResponseEntity<Boolean> deleteNotification(@Valid @RequestBody NotificationDto notification) {
         return ResponseEntity.ok(notificationService.deleteNotification(notification));
     }
 
@@ -101,13 +102,14 @@ public class NotificationController {
             description = "Http Status 200 OK"
     )
     @PutMapping
-    public ResponseEntity<NotificationDto> updateNotification(@RequestBody NotificationDto notification) {
+    public ResponseEntity<NotificationDto> updateNotification(@Valid @RequestBody NotificationDto notification) {
         try {
             return ResponseEntity.ok(notificationService.updateNotification(notification));
         } catch (EntityNotFoundException | UserUnauthorized ae){
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -128,6 +130,7 @@ public class NotificationController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

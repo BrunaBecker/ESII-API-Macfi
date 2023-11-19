@@ -13,7 +13,6 @@ import java.util.Date;
  */
 @Data
 public class ProfessorDto implements Serializable {
-    @NotNull
     Long id;
     @NotEmpty(message = "name must be not empty")
     String name;

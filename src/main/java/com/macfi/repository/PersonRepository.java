@@ -7,16 +7,16 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface PersonRepository<T extends Person, L extends Number> extends JpaRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("select p from Person p where p.register.identifier = :identifier")
-    T findByIdentifier(String identifier);
+    Person findByIdentifier(String identifier);
 
     @Query("select p from Person p where p.email = :email")
-    T findByEmail(String email);
+    Person findByEmail(String email);
 
     @Query("select p from Person p where p.register.identifier = :identifier and p.password = :password")
-    T findByIdentifierAndPassword(String identifier, String password);
+    Person findByIdentifierAndPassword(String identifier, String password);
 
 
 }

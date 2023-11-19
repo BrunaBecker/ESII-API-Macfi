@@ -6,6 +6,7 @@ import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.service.AttendanceStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -44,7 +46,7 @@ public class AttendanceStatusController {
             description = "Http Status 201 CREATED"
     )
     @PostMapping //localhost:8080/attendanceStatus
-    public ResponseEntity<AttendanceStatusDto> createAttendanceStatus(@RequestBody AttendanceStatusDto attendanceStatusDto) {
+    public ResponseEntity<AttendanceStatusDto> createAttendanceStatus(@Valid @RequestBody AttendanceStatusDto attendanceStatusDto) {
         AttendanceStatusDto a;
 
         try {
@@ -54,6 +56,7 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -67,12 +70,13 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping //localhost:8080/attendanceStatus
-    public ResponseEntity<AttendanceStatusDto> updateAttendanceStatus(@RequestBody AttendanceStatusDto attendanceStatusDto) {
+    public ResponseEntity<AttendanceStatusDto> updateAttendanceStatus(@Valid @RequestBody AttendanceStatusDto attendanceStatusDto) {
         AttendanceStatusDto a;
 
         try {
@@ -82,6 +86,7 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -94,6 +99,7 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -107,8 +113,123 @@ public class AttendanceStatusController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @PutMapping("validate/{idAttendanceStatus}") //localhost:8080/attendanceStatus/validate/1
+    public ResponseEntity<AttendanceStatusDto> validateAttendanceStatus(@PathVariable("idAttendanceStatus") Long id) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.validateAttendanceStatus(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("invalidate/{idAttendanceStatus}") //localhost:8080/attendanceStatus/invalidate/1
+    public ResponseEntity<AttendanceStatusDto> invalidateAttendanceStatus(@PathVariable("idAttendanceStatus") Long id) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.invalidateAttendanceStatus(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("respond/{idAttendanceStatus}") //localhost:8080/attendanceStatus/respond/1
+    public ResponseEntity<AttendanceStatusDto> respondAttendanceStatus(@PathVariable("idAttendanceStatus") Long id) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.respondAttendanceStatus(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setWaiver") //localhost:8080/attendanceStatus/setWaiver?idAttendanceStatus=1&idWaiver=1
+    public ResponseEntity<AttendanceStatusDto> setWaiver(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idWaiver") Long idWaiver) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.setWaiver(idAttendanceStatus, idWaiver));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+    @PutMapping("setSuccessfulPing") //localhost:8080/attendanceStatus/addPing?idAttendanceStatus=1&idPing=1
+    public ResponseEntity<AttendanceStatusDto> setSuccessfulPing(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idPing") Long idPing) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.setSuccessfulPing(idAttendanceStatus, idPing));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("setUnsuccessfulPing") //localhost:8080/attendanceStatus/addPing?idAttendanceStatus=1&idPing=1
+    public ResponseEntity<AttendanceStatusDto> setUnsuccessfulPing(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idPing") Long idPing) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.setUnsuccessfulPing(idAttendanceStatus, idPing));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+        }
+    }
+    @PutMapping("removeSuccessfulPing") //localhost:8080/attendanceStatus/removePing?idAttendanceStatus=1&idPing=1
+    public ResponseEntity<AttendanceStatusDto> removeSuccessfulPing(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idPing") Long idPing) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.removeSuccessfulPing(idAttendanceStatus, idPing));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+        }
+    }
+    @PutMapping("removeUnsuccessfulPing") //localhost:8080/attendanceStatus/removePing?idAttendanceStatus=1&idPing=1
+    public ResponseEntity<AttendanceStatusDto> removeUnsuccessfulPing(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idPing") Long idPing) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.removeUnsuccessfulPing(idAttendanceStatus, idPing));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+
+    @GetMapping("byStudent") //localhost:8080/attendanceStatus/byStudent?idStudent=1
+    public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatusByStudentId(@RequestParam("idStudent") Long studentid) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByStudentId(studentid));
+        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
 }

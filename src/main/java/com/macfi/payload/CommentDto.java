@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 @Data
 public class CommentDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "content must not be null")
     String content;

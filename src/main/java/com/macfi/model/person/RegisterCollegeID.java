@@ -1,6 +1,5 @@
-package com.macfi.model.utils;
+package com.macfi.model.person;
 
-import com.macfi.model.person.Person;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @Table(name = "register_college_id")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class RegisterCollegeID {
+public class RegisterCollegeID {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +27,8 @@ public abstract class RegisterCollegeID {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date dateFinished;
     protected boolean isActive;
-    @OneToOne(mappedBy = "register")
+
+    @OneToOne(mappedBy = "register", fetch = FetchType.EAGER)
     protected Person person;
 
 

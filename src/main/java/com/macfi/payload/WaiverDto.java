@@ -23,7 +23,6 @@ public class WaiverDto implements Serializable {
     Date sendDate;
     Date acceptionDate;
     boolean isAccepted;
-    @NotNull(message = "comment must be not null")
     CommentDto comment;
     @NotNull(message = "student must be not null")
     StudentDto student;

@@ -23,8 +23,7 @@ public class VirtualZone {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
-    @OneToOne(mappedBy = "virtualZone")
-
+    @OneToOne(mappedBy = "virtualZone", cascade = CascadeType.ALL)
     private Attendance attendance;
 
 

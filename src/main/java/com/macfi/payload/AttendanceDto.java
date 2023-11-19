@@ -14,7 +14,6 @@ import java.util.Date;
  */
 @Data
 public class AttendanceDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "date must not be null")
     Date date;
@@ -30,8 +29,8 @@ public class AttendanceDto implements Serializable {
     boolean isAutomatic;
     @NotNull(message = "isHappening must not be null")
     boolean isHappening;
-    @NotNull(message = "virtualZoneId must not be null")
+
     VirtualZoneDto virtualZoneDto;
-    @NotNull(message = "classroomId must not be null")
+
     ClassroomDto classroomDto;
 }

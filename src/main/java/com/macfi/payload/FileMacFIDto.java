@@ -14,7 +14,6 @@ import java.util.Date;
  */
 @Data
 public class FileMacFIDto implements Serializable {
-    @NotNull
     Long id;
     String linkFile;
     @NotEmpty(message = "name must not be null")

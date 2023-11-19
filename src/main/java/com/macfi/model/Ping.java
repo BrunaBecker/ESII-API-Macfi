@@ -32,7 +32,7 @@ public class Ping {
 
     private boolean isContinuos;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinate_id", referencedColumnName = "id")
     private Coordinate coordinate;
 

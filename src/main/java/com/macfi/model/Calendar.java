@@ -20,19 +20,13 @@ public class Calendar {
     private Long id;
 
 
-    @ManyToMany
-    @JoinTable(name = "calendar_event", joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "calendar", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Event> events;
+
 
     public Calendar(List<Event> events) {
         this.events = events;
     }
-
-    public boolean addEvent(Event event) {
-        return events.add(event);
-    }
-
 
 }

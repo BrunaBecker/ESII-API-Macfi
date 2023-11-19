@@ -3,7 +3,6 @@ package com.macfi.model.person;
 import com.macfi.model.*;
 import com.macfi.model.utils.Comment;
 import com.macfi.model.utils.Picture;
-import com.macfi.model.utils.RegisterCollegeID;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

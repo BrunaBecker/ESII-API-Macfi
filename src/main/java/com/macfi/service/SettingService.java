@@ -3,8 +3,10 @@ package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.model.Setting;
+import com.macfi.model.person.Person;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.SettingDto;
+import com.macfi.repository.PersonRepository;
 import com.macfi.repository.SettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class SettingService {
 
     @Autowired
     private SettingRepository settingRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
     public SettingDto getSetting(Long id) {
         return modelMapping.getInstance().mapToDto(settingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Setting not found")), SettingDto.class);
@@ -38,5 +42,13 @@ public class SettingService {
 
     public List<SettingDto> getSettings() {
         return settingRepository.findAll().stream().map(setting -> modelMapping.getInstance().mapToDto(setting, SettingDto.class)).toList();
+    }
+
+
+    public SettingDto updateSettingByPersonId(Long idSetting, Long idPerson) {
+        Setting s = settingRepository.findById(idSetting).orElseThrow(() -> new EntityNotFoundException("Setting not found"));
+        Person p = personRepository.findById(idPerson).orElseThrow(() -> new EntityNotFoundException("Person not found"));
+        s.setPerson(p);
+        return modelMapping.getInstance().mapToDto(settingRepository.save(s), SettingDto.class);
     }
 }

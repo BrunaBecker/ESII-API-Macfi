@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -21,20 +23,19 @@ public class Classroom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String courseName;
+    private String className;
     private String code;
     private String semester;
 
 
     @Temporal(TemporalType.TIME)
-    private String startHour;
+    private LocalTime startHour;
 
     @Temporal(TemporalType.TIME)
-    private String endHour;
-
+    private LocalTime endHour;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "classroom")
-
     private Location defaultLocation;
 
     @ManyToOne
@@ -46,17 +47,22 @@ public class Classroom {
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     @ToString.Exclude
-
     private List<Attendance> attendances;
 
+    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
+    private List<Event> events;
 
-    public Classroom(String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances) {
-        this.name = name;
+    public Classroom(String courseName, String className,String code, String semester, LocalTime startHour, LocalTime endHour ,Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
+        this.courseName = courseName;
         this.code = code;
+        this.className = className;
         this.semester = semester;
+        this.startHour = startHour;
+        this.endHour = endHour;
         this.defaultLocation = defaultLocation;
         this.professor = professor;
         this.students = students;
         this.attendances = attendances;
+        this.events = events;
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
  */
 @Data
 public class AttendanceStatusDto implements Serializable {
-    @NotNull(message = "id must not be null")
     Long id;
     @NotNull(message = "studentState must not be null")
     StudentAtAttendanceState studentState;
@@ -25,8 +24,6 @@ public class AttendanceStatusDto implements Serializable {
     StudentDto student;
     @NotNull(message = "attendance must not be null")
     AttendanceDto attendance;
-    @NotNull(message = "successfulPings must not be null")
     List<PingDto> successfulPings;
-    @NotNull(message = "unsuccessfulPings must not be null")
     List<PingDto> unsuccessfulPings;
 }
