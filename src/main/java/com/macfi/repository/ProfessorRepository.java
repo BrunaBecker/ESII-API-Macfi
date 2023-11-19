@@ -1,13 +1,14 @@
 package com.macfi.repository;
 
 import com.macfi.model.person.Professor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ProfessorRepository extends PersonRepository<Professor, Long> {
+public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     @Query("select p from Person p where type(p) = Professor and p.register.identifier = :identifier")
     Professor findByIdentifier(String identifier);

@@ -13,8 +13,8 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
     @Query("select t from Classroom t where t.professor.register.identifier = :identifier")
     List<Classroom> findByProfessor(String identifier);
 
-    @Query("select t from Classroom t join Student a where a.register.identifier = :identifier")
+    @Query("select t from Classroom t inner join t.students a where a.register.identifier = :identifier")
     List<Classroom> findByStudent(String identifier);
     @Query("select t from Classroom t where t.code = :code")
-    Optional<Classroom> findByCode(String code);
+    List<Classroom> findByCode(String code);
 }
