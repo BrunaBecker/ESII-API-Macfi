@@ -19,7 +19,6 @@ public class RegisterCollegeIDDto implements Serializable {
     String identifier;
     @NotNull(message = "dateStarted must not be null")
     Date dateStarted;
-    @NotNull(message = "dateFinished must not be null")
     Date dateFinished;
-    boolean isActive;
+    boolean isActive = true;
 }
