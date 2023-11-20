@@ -180,7 +180,7 @@ public class AttendanceController {
         }
     }
 
-    @PutMapping("addAttendanceStatus")
+    @PutMapping("setAttendanceStatus")
     //localhost:8080/attendance/setAttendanceStatus?idAttendance=1&idAttendanceStatus=1
     public ResponseEntity<AttendanceDto> setAttendanceStatus(@RequestParam("idAttendance") Long idAttendance, @RequestParam("idAttendanceStatus") Long idAttendanceStatus) {
         try {

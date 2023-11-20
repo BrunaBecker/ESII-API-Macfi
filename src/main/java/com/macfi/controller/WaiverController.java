@@ -2,6 +2,7 @@ package com.macfi.controller;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
+import com.macfi.payload.CommentDto;
 import com.macfi.payload.WaiverDto;
 import com.macfi.service.WaiverService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -104,6 +105,19 @@ public class WaiverController {
     public ResponseEntity<WaiverDto> setRejected(@RequestParam Long idWaiver) {
         try {
             WaiverDto waiverDto = waiverService.setRejected(idWaiver);
+            return new ResponseEntity<>(waiverDto, HttpStatus.OK);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("addComment") //http://localhost:8080/waiver/addComment?idWaiver=1
+    public ResponseEntity<WaiverDto> addComment(@RequestParam Long idWaiver, @RequestBody CommentDto commentDto) {
+        try {
+            WaiverDto waiverDto = waiverService.addComment(idWaiver, commentDto);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

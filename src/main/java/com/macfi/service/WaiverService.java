@@ -9,6 +9,7 @@ import com.macfi.model.utils.FileMacFI;
 import com.macfi.model.utils.FileMacFIRepository;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.AttendanceStatusDto;
+import com.macfi.payload.CommentDto;
 import com.macfi.payload.WaiverDto;
 import com.macfi.repository.AttendanceStatusRepository;
 import com.macfi.repository.CommentRepository;
@@ -53,6 +54,18 @@ public class WaiverService {
         }
         Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
         waiver.setAttendanceStatus(attendanceStatus);
+        return modelMapping.getInstance().mapToDto(waiverRepository.save(waiver), WaiverDto.class);
+    }
+
+    public WaiverDto addComment(Long idWaiver, CommentDto commentDto) {
+        Comment comment;
+        try {
+            comment = commentRepository.findById(commentDto.getId()).orElseThrow(() -> new EntityNotFoundException("Comment not found"));
+        } catch (Exception e) {
+            comment = modelMapping.getInstance().mapToEntity(commentDto, Comment.class);
+        }
+        Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
+        waiver.setComment(comment);
         return modelMapping.getInstance().mapToDto(waiverRepository.save(waiver), WaiverDto.class);
     }
 

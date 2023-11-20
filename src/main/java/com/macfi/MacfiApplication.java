@@ -139,8 +139,8 @@ public class MacfiApplication implements CommandLineRunner {
                         new ArrayList<Attendance>(),
                         new ArrayList<Event>()
                 );
-                Attendance attendance = new Attendance(new Date(), "supportText", LocalTime.now(), LocalTime.now(), Duration.ofHours(2), false, false, null, classroom, new ArrayList<AttendanceStatus>());
-                AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, true, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
+                Attendance attendance = new Attendance(new Date(), "supportText", LocalTime.now().plusHours(2), LocalTime.now(), Duration.ofHours(2), false, true, null, classroom, new ArrayList<AttendanceStatus>());
+                AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, false, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
                 Location location = new Location("location " + i, "location", false, null, professor, new ArrayList<VirtualZone>());
                 Coordinate coordinate = new Coordinate(1234.0, 1234.0);
                 Event event = new Event("Evento " + i, new Date(), "evento", classroom, EventStatus.classNormal, calendarRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("Calendar not found")));
@@ -155,6 +155,7 @@ public class MacfiApplication implements CommandLineRunner {
                 attendanceStatus.getSuccessfulPings().add(pingS);
                 attendanceStatus.setWaiver(waiver);
                 attendance.getAttendancesStatuses().add(attendanceStatus);
+                attendance.setVirtualZone(virtualZone);
                 location.getVirtualZones().add(virtualZone);
                 location.setCoordinate(coordinate);
                 classroom.setDefaultLocation(location);
