@@ -25,7 +25,7 @@ public class SettingController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<SettingDto> getSettingById(@Valid @PathParam("id") Long id) {
+    public ResponseEntity<SettingDto> getSettingById(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(settingService.getSetting(id));
         } catch (EntityNotFoundException | UserUnauthorized ae) {
