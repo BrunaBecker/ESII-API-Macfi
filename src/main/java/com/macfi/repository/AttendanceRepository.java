@@ -13,26 +13,18 @@ import java.util.List;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
-
-
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.classroom.id = :id")
     List<Attendance> findByClassroomId(Long id);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.isHappening = true")
     List<Attendance> findAttendanceHappening();
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.isHappening = true and a.classroom.id = :id")
     List<Attendance> findAttendanceHappeningByClassroom(Long id);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a left join fetch Student s on a.id = s.id where s.id = :id and a.isHappening = true")
     List<Attendance> findAttendanceHappeningByStudent(Long id);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.date = :date and a.classroom.id = :id")
     List<Attendance> findByClassroomIdAndDate(Long id, Date date);
-
 }
