@@ -13,6 +13,7 @@ import com.macfi.payload.WaiverDto;
 import com.macfi.repository.AttendanceStatusRepository;
 import com.macfi.repository.CommentRepository;
 import com.macfi.repository.WaiverRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -20,19 +21,15 @@ import java.util.Date;
 
 @Service
 public class WaiverService {
-
-    private final AttendanceStatusRepository attendanceStatusRepository;
-    private final CommentRepository commentRepository;
-    private final FileMacFIRepository fileMacFIRepository;
+    @Autowired
+    private  AttendanceStatusRepository attendanceStatusRepository;
+    @Autowired
+    private  CommentRepository commentRepository;
+    @Autowired
+    private  FileMacFIRepository fileMacFIRepository;
+    @Autowired
     public WaiverRepository waiverRepository;
 
-    public WaiverService(AttendanceStatusRepository attendanceStatusRepository,
-                         CommentRepository commentRepository,
-                         FileMacFIRepository fileMacFIRepository) {
-        this.attendanceStatusRepository = attendanceStatusRepository;
-        this.commentRepository = commentRepository;
-        this.fileMacFIRepository = fileMacFIRepository;
-    }
 
     public WaiverDto createWaiver(WaiverDto waiverDto) {
         return modelMapping.getInstance().mapToDto(waiverRepository.save(modelMapping.getInstance().mapToEntity(waiverDto, Waiver.class)), WaiverDto.class);
@@ -43,7 +40,7 @@ public class WaiverService {
     }
 
     public WaiverDto getWaiverById(Long id) {
-        return modelMapping.getInstance().mapToDto(waiverRepository.findById(id).isPresent(), WaiverDto.class);
+        return modelMapping.getInstance().mapToDto(waiverRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("waiver not found")), WaiverDto.class);
     }
 
 
