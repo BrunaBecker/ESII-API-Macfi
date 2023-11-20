@@ -1,6 +1,9 @@
 package com.macfi.modelMapper;
 
 import com.macfi.exception.MappingIllegalException;
+import com.macfi.model.person.Person;
+import com.macfi.model.person.Professor;
+import com.macfi.model.person.Student;
 import org.modelmapper.ModelMapper;
 
 public final class modelMapping {
@@ -22,7 +25,6 @@ public final class modelMapping {
 
 
     public <TDto, TEntity> TDto mapToDto(TEntity entity, Class<TDto> TDto) {
-
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
 
@@ -35,18 +37,25 @@ public final class modelMapping {
         }
 
     }
+    public <TDto, TEntity> Object mapToEntityAbstract(TDto tDto, Class<TEntity> TEntity) {
+        Class<?>[] classes = TEntity.getPermittedSubclasses();
+        for (Class<?> classi: classes) {
+            if (TEntity == classi) {
+                return mapToEntity(tDto, classi);
+            }
+        }
+        throw new MappingIllegalException("type must not be a abstract, Did you create your db correctly?");
+    }
 
-    public <TDto, TEntity> TEntity mapToEntity(TDto tDto, Class<TEntity> TEntity) {
+
+    public <TDto, TEntity> TEntity mapToEntity(TDto tDto, Class<TEntity> tEntity) {
         if (tDto == null)
             throw new IllegalArgumentException("Dto cannot be null");
         ModelMapper modelMapper = new ModelMapper();
         try {
-
-            modelMapper.getConfiguration().setDeepCopyEnabled(false);
-            return modelMapper.map(tDto, TEntity);
+            return modelMapper.map(tDto, tEntity);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new MappingIllegalException("Dto cannot be mapped");
+            throw new MappingIllegalException("dto cannot be mapped");
         }
 
     }

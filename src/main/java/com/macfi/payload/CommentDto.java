@@ -17,8 +17,8 @@ public class CommentDto implements Serializable {
     @Size(min = 1, max = 155, message = "content must be between 1 and 63 characters")
     String content;
 
-    @NotNull(message = "personId must not be null")
-    Long personId;
+    @NotNull(message = "author must not be null")
+    PersonDto author;
 
-    CommentDto comment;
+    CommentDto replyTo;
 }

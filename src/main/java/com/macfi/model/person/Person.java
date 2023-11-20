@@ -21,7 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Person {
+//TENTEI COLOCAR COMO ABSTRATO SEGUIDO AS REGRAS DE POO POREM SO DEU PROBLEMA
+// PROBLEMA DE TABELA BELEZA FOI CONSERTEI AI DEPOIS DEU PROBLEMA NAO SEI QUE LA NO REPOSITORY
+// FUI E ACERTEI AI DEU PROBLEMA NO CONTROLLER FUI CONSERTEI E DESISTO
+// PORQUE AGORA DA PROBLEMA NO MAPPING E EU NAO AGUENTO MAIS. FÉ STI
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

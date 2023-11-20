@@ -24,7 +24,7 @@ public class Comment {
     @JoinColumn(name = "author_id")
     private Person author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_comment_id")
 
     private Comment replyTo;
