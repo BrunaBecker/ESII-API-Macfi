@@ -32,7 +32,7 @@ public class ProfessorController {
             professorDto = professorService.getProfessors();
             return ResponseEntity.ok(professorDto);
         } catch (Exception e) {
-           return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
@@ -44,10 +44,9 @@ public class ProfessorController {
         try {
             professorDto = professorService.getProfessorById(id);
             return ResponseEntity.ok(professorDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -63,16 +62,14 @@ public class ProfessorController {
         try {
             professorDto = professorService.getProfessorByIdentifier(identifier);
             return ResponseEntity.ok(professorDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
     }
-
 
 
     @Operation(
@@ -91,7 +88,7 @@ public class ProfessorController {
             professorDto = professorService.createProfessor(professor);
             return new ResponseEntity<>(professorDto, HttpStatus.CREATED);
         } catch (Exception e) {
-           return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
@@ -103,15 +100,15 @@ public class ProfessorController {
         try {
             professorDto = professorService.updateProfessor(professor);
             return new ResponseEntity<>(professorDto, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
     }
+
     @Operation(
             summary = "Add Classroom REST API",
             description = "Add Classroom REST API is used to add a classroom to a professor by Identifier"
@@ -124,10 +121,9 @@ public class ProfessorController {
         try {
             professorDto = professorService.addClassroom(classroom, identifier);
             return new ResponseEntity<>(professorDto, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -157,26 +153,24 @@ public class ProfessorController {
         try {
             professorDto1 = professorService.setLocation(professorDto, idLocation);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping("addLocation") //localhost:8080/professor/addLocation?idProfessor=1
-    public ResponseEntity<ProfessorDto> setLocation(@RequestParam Long idProfessor, @RequestBody LocationDto locationDto){
+    public ResponseEntity<ProfessorDto> setLocation(@RequestParam Long idProfessor, @RequestBody LocationDto locationDto) {
         ProfessorDto professorDto1;
 
         try {
             professorDto1 = professorService.addLocation(idProfessor, locationDto);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -197,6 +191,7 @@ public class ProfessorController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @PutMapping("addSetting")
     public ResponseEntity<ProfessorDto> addSetting(@RequestParam("idProfessor") Long idProfessor, @RequestBody SettingDto settingDto) {
         ProfessorDto professorDto1;
@@ -220,10 +215,9 @@ public class ProfessorController {
         try {
             professorDto1 = professorService.setProfileImage(idProfessor, idProfileImage);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -237,14 +231,14 @@ public class ProfessorController {
         try {
             professorDto1 = professorService.addProfileImage(idProfessor, picture);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @PutMapping("setRegister")
     public ResponseEntity<ProfessorDto> setRegister(@RequestParam("idProfessor") Long idProfessor, @RequestParam("idRegister") Long idRegister) {
         ProfessorDto professorDto1;
@@ -259,6 +253,7 @@ public class ProfessorController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @PutMapping("addRegister")
     public ResponseEntity<ProfessorDto> addRegister(@RequestParam("idProfessor") Long idProfessor, @RequestBody RegisterCollegeIDDto registerCollegeID) {
         ProfessorDto professorDto1;
@@ -266,33 +261,31 @@ public class ProfessorController {
         try {
             professorDto1 = professorService.addRegister(idProfessor, registerCollegeID);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping("addComment") //localhost:8080/professor/addComment?idProfessor=1&idComment=1
-        public ResponseEntity<ProfessorDto> addComment(@RequestParam Long idProfessor, @Valid @RequestBody CommentDto commentDto){
+    public ResponseEntity<ProfessorDto> addComment(@RequestParam Long idProfessor, @Valid @RequestBody CommentDto commentDto) {
         ProfessorDto professorDto1;
 
         try {
             professorDto1 = professorService.addComment(idProfessor, commentDto);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping("setComment") //localhost:8080/professor/setComment?idProfessor=1&idComment=1
-    public ResponseEntity<ProfessorDto> setComment(@RequestParam Long idProfessor, @RequestParam Long idComment){
+    public ResponseEntity<ProfessorDto> setComment(@RequestParam Long idProfessor, @RequestParam Long idComment) {
         ProfessorDto professorDto1;
 
         try {
@@ -307,16 +300,15 @@ public class ProfessorController {
     }
 
     @PutMapping("addNotification") //localhost:8080/professor/addNotification?idProfessor=1
-    public ResponseEntity<ProfessorDto> addNotification(@RequestParam Long idProfessor, @RequestBody NotificationDto notification){
+    public ResponseEntity<ProfessorDto> addNotification(@RequestParam Long idProfessor, @RequestBody NotificationDto notification) {
         ProfessorDto professorDto1;
 
         try {
             professorDto1 = professorService.addNotification(idProfessor, notification);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -324,25 +316,19 @@ public class ProfessorController {
 
 
     @PutMapping("setNotification") //localhost:8080/professor/addNotification?idProfessor=1&idNotification=1
-    public ResponseEntity<ProfessorDto> setNotification(@RequestParam Long idNotification, @RequestParam Long idProfessor){
+    public ResponseEntity<ProfessorDto> setNotification(@RequestParam Long idNotification, @RequestParam Long idProfessor) {
         ProfessorDto professorDto1;
 
         try {
             professorDto1 = professorService.setNotification(idNotification, idProfessor);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
-
-
-
-
-
 
 
 }

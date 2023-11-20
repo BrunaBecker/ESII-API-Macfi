@@ -1,8 +1,11 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
-import com.macfi.model.*;
-import com.macfi.model.person.*;
+import com.macfi.model.Attendance;
+import com.macfi.model.Classroom;
+import com.macfi.model.Event;
+import com.macfi.model.Location;
+import com.macfi.model.person.Student;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.ClassroomDto;
 import com.macfi.repository.*;
@@ -18,7 +21,6 @@ public class ClassroomService {
 
     @Autowired
     private ClassroomRepository ClassroomRepository;
-
 
 
     @Autowired
@@ -81,14 +83,14 @@ public class ClassroomService {
     }
 
     public ClassroomDto removeStudent(Long idClassroom, Long idStudent) {
-        Student student = (Student) studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+        Student student = studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         classroom.getStudents().remove(student);
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
     }
 
     public ClassroomDto addStudent(Long idClassroom, Long idStudent) {
-        Student student = (Student) studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+        Student student = studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         classroom.getStudents().add(student);
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);

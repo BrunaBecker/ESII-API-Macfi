@@ -24,10 +24,9 @@ public class CalendarController {
         try {
             CalendarDto calendarDto1 = calendarService.updateCalendar(1L);
             return ResponseEntity.ok(calendarDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -39,26 +38,24 @@ public class CalendarController {
         try {
             calendarDto = calendarService.getById(1L);
             return ResponseEntity.ok(calendarDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
 
-   @PutMapping("setEvent") //localhost:8080/calendar/setEvent?idCalendar=1&idEvent=1
+    @PutMapping("setEvent") //localhost:8080/calendar/setEvent?idCalendar=1&idEvent=1
     public ResponseEntity<CalendarDto> setEvent(@RequestParam("idCalendar") Long idCalendar, @RequestParam("idEvent") Long idEvent) {
         CalendarDto calendarDto1;
         try {
             calendarDto1 = calendarService.setEvent(idCalendar, idEvent);
             return ResponseEntity.ok(calendarDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -70,10 +67,9 @@ public class CalendarController {
         try {
             calendarDto1 = calendarService.removeEvent(idCalendar, idEvent);
             return ResponseEntity.ok(calendarDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

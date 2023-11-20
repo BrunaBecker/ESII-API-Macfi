@@ -120,15 +120,15 @@ public class MacfiApplication implements CommandLineRunner {
             calendarRepository.save(calendar);
 //        Long id, String name, String code, String semester, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances
             for (int i = 1; i <= 10; i++) {
-                Professor professor = (Professor) professorRepository.findById((long) i).get();
-                Student student = (Student) studentRepository.findById((long) (i + 10)).get();
+                Professor professor = professorRepository.findById((long) i).get();
+                Student student = studentRepository.findById((long) (i + 10)).get();
 
 
                 ArrayList<Student> students = new ArrayList<Student>();
                 students.add(student);
                 Classroom classroom = new Classroom(
                         "classroom " + i,
-                        "A"+ i,
+                        "A" + i,
                         "TCC:" + i,
                         "223",
                         LocalTime.of(9, 0),
@@ -143,9 +143,9 @@ public class MacfiApplication implements CommandLineRunner {
                 AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, true, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
                 Location location = new Location("location " + i, "location", false, null, professor, new ArrayList<VirtualZone>());
                 Coordinate coordinate = new Coordinate(1234.0, 1234.0);
-                Event event = new Event("Evento "+i, new Date(), "evento", classroom, EventStatus.classNormal,calendarRepository.findById(1L).orElseThrow( ()->new EntityNotFoundException("Calendar not found")));
-                Notification notificationOne = new Notification("Evento "+i, "support text", StatusNotification.normal, true, false, professor);
-                Notification notificationTwo = new Notification("Evento "+(i+10), "support text", StatusNotification.normal, true, false, student);
+                Event event = new Event("Evento " + i, new Date(), "evento", classroom, EventStatus.classNormal, calendarRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("Calendar not found")));
+                Notification notificationOne = new Notification("Evento " + i, "support text", StatusNotification.normal, true, false, professor);
+                Notification notificationTwo = new Notification("Evento " + (i + 10), "support text", StatusNotification.normal, true, false, student);
                 Ping pingS = new Ping("123.456.789.000", new Date(), StatusPing.successful, false, coordinate, attendanceStatus);
                 VirtualZone virtualZone = new VirtualZone(location, attendance);
                 Waiver waiver = new Waiver(new FileMacFI("https://file.pdf", "file.pdf", "pdf", 10, new Date()),
@@ -184,7 +184,7 @@ public class MacfiApplication implements CommandLineRunner {
                 waiver.setComment(comment);
                 waiverRepository.save(waiver);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
 

@@ -30,12 +30,12 @@ public class WaiverController {
     )
     @PostMapping
     public ResponseEntity<WaiverDto> createWaiver(@Valid @RequestBody WaiverDto waiverDto) {
-       try {
-              WaiverDto waiverDto1 = waiverService.createWaiver(waiverDto);
-              return new ResponseEntity<>(waiverDto1, org.springframework.http.HttpStatus.CREATED);
-         } catch (Exception e) {
-              return ResponseEntity.badRequest().body(null);
-       }
+        try {
+            WaiverDto waiverDto1 = waiverService.createWaiver(waiverDto);
+            return new ResponseEntity<>(waiverDto1, org.springframework.http.HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Operation(
@@ -50,10 +50,9 @@ public class WaiverController {
     public ResponseEntity<WaiverDto> getWaiverByStudentAndClassroom(@RequestParam Long idStudent, @RequestParam Long idClassroom) {
         try {
             return ResponseEntity.ok(waiverService.getWaiverByStudentAndClassroom(idStudent, idClassroom));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -67,10 +66,9 @@ public class WaiverController {
     public ResponseEntity<WaiverDto> getWaiverById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(waiverService.getWaiverById(id));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -81,10 +79,9 @@ public class WaiverController {
         try {
             WaiverDto waiverDto = waiverService.setAttendanceStatus(idWaiver, idAttendance);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -95,10 +92,9 @@ public class WaiverController {
         try {
             WaiverDto waiverDto = waiverService.setAccepted(idWaiver);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -109,10 +105,9 @@ public class WaiverController {
         try {
             WaiverDto waiverDto = waiverService.setRejected(idWaiver);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -123,10 +118,9 @@ public class WaiverController {
         try {
             WaiverDto waiverDto = waiverService.setComment(idWaiver, comment);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -137,28 +131,26 @@ public class WaiverController {
         try {
             WaiverDto waiverDto = waiverService.setFile(idWaiver, fileId);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-    @PutMapping("setAcceptionDate") //http://localhost:8080/waiver/setAcceptionDate?idWaiver=1
-    public ResponseEntity<WaiverDto> setAcceptionDate(@RequestParam Long idWaiver, @RequestParam String acceptionDate) {
-        try {
-            WaiverDto waiverDto = waiverService.setAcceptionDate(idWaiver, acceptionDate);
-            return new ResponseEntity<>(waiverDto, HttpStatus.OK);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
+    @PutMapping("setAcceptionDate") //http://localhost:8080/waiver/setAcceptionDate?idWaiver=1
+    public ResponseEntity<WaiverDto> setAcceptionDate(@RequestParam Long idWaiver, @RequestParam String acceptionDate) {
+        try {
+            WaiverDto waiverDto = waiverService.setAcceptionDate(idWaiver, acceptionDate);
+            return new ResponseEntity<>(waiverDto, HttpStatus.OK);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
 
 }

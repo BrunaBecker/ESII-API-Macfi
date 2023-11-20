@@ -98,7 +98,7 @@ public class SettingController {
     }
 
     @PutMapping("/updateSettingPerson") //localhost:8080/setting/updateSettingPerson?idSetting=1&idPerson=1
-    public ResponseEntity<SettingDto> updateSettingByPersonId(@RequestParam Long idSetting,  @RequestParam Long idPerson) {
+    public ResponseEntity<SettingDto> updateSettingByPersonId(@RequestParam Long idSetting, @RequestParam Long idPerson) {
         SettingDto settingDto1;
         try {
             settingDto1 = settingService.updateSettingByPersonId(idSetting, idPerson);

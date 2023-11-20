@@ -42,7 +42,7 @@ public class AttendanceController {
             attendanceDto1 = attendanceService.createAttendance(attendance);
             return new ResponseEntity<>(attendanceDto1, HttpStatus.CREATED);
         } catch (Exception e) {
-          return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
 
     }
@@ -53,10 +53,9 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroom(id);
             return ResponseEntity.ok(attendances);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -70,10 +69,9 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
             return ResponseEntity.ok(attendances);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -81,12 +79,12 @@ public class AttendanceController {
 
     @GetMapping("happening") //localhost:8080/attendance/happenings
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappening() {
-       try {
-           List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
-           return ResponseEntity.ok(attendances);
-       } catch (Exception e) {
-           return ResponseEntity.badRequest().body(null);
-       }
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
+            return ResponseEntity.ok(attendances);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 
@@ -95,10 +93,9 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
             return ResponseEntity.ok(attendances);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -109,10 +106,9 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
             return ResponseEntity.ok(attendances);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -125,7 +121,7 @@ public class AttendanceController {
         try {
             attendanceDto = attendanceService.getAttendanceById(id);
             return ResponseEntity.ok(attendanceDto);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -136,10 +132,9 @@ public class AttendanceController {
         try {
             attendanceDto1 = attendanceService.updateAttendance(attendanceDto);
             return ResponseEntity.ok(attendanceDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -151,10 +146,9 @@ public class AttendanceController {
         try {
             attendanceDto = attendanceService.startAttendance(id);
             return ResponseEntity.ok(attendanceDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -166,10 +160,9 @@ public class AttendanceController {
         try {
             attendanceDto = attendanceService.endAttendance(id);
             return ResponseEntity.ok(attendanceDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -178,24 +171,23 @@ public class AttendanceController {
     @PutMapping("setVirtualZone") //localhost:8080/attendance/setVirtualZone/1
     public ResponseEntity<AttendanceDto> setVirtualZone(@RequestParam("idAttendance") Long idAttendance, @RequestParam("idVirtualZone") Long idVirtualZone) {
         try {
-           return ResponseEntity.ok(attendanceService.setVirtualZone(idAttendance, idVirtualZone));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return ResponseEntity.ok(attendanceService.setVirtualZone(idAttendance, idVirtualZone));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PutMapping("addAttendanceStatus") //localhost:8080/attendance/setAttendanceStatus?idAttendance=1&idAttendanceStatus=1
+    @PutMapping("addAttendanceStatus")
+    //localhost:8080/attendance/setAttendanceStatus?idAttendance=1&idAttendanceStatus=1
     public ResponseEntity<AttendanceDto> setAttendanceStatus(@RequestParam("idAttendance") Long idAttendance, @RequestParam("idAttendanceStatus") Long idAttendanceStatus) {
         try {
             return ResponseEntity.ok(attendanceService.setAttendanceStatus(idAttendance, idAttendanceStatus));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

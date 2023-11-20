@@ -3,7 +3,6 @@ package com.macfi.service;
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.payload.ProfessorDto;
 import com.macfi.payload.StudentDto;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

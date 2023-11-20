@@ -91,7 +91,6 @@ public class StudentService {
     }
 
 
-
     public StudentDto login(String identifier, String password) {
         StudentDto studentDto = getStudentByIdentifier(identifier);
         if (studentDto.getPassword().equals(password) && studentDto.getIsActive()) {
@@ -127,11 +126,11 @@ public class StudentService {
         }
 
         AttendanceStatus attendanceStatus;
-       try {
-           attendanceStatus = attendanceStatusRepository.findById(attendanceStatusDto.getId()).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
-       } catch (EntityNotFoundException e) {
-           attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
-       }
+        try {
+            attendanceStatus = attendanceStatusRepository.findById(attendanceStatusDto.getId()).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        } catch (EntityNotFoundException e) {
+            attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
+        }
         student.getAttendanceStatuses().add(attendanceStatus);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
     }

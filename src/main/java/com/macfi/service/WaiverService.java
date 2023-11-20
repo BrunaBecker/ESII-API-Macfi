@@ -21,10 +21,10 @@ import java.util.Date;
 @Service
 public class WaiverService {
 
-    public WaiverRepository waiverRepository;
     private final AttendanceStatusRepository attendanceStatusRepository;
     private final CommentRepository commentRepository;
     private final FileMacFIRepository fileMacFIRepository;
+    public WaiverRepository waiverRepository;
 
     public WaiverService(AttendanceStatusRepository attendanceStatusRepository,
                          CommentRepository commentRepository,

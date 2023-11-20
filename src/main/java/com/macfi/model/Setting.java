@@ -23,9 +23,8 @@ public class Setting {
     private boolean usePredefinedCalendarForAttendance;
     private boolean silentMode;
 
-    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER, cascade = CascadeType.MERGE )
+    @OneToOne(mappedBy = "setting", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Person person;
-
 
 
     public Setting(boolean automaticSaveLocalization, boolean usePredefinedCalendarForAttendance, boolean silentMode, Person person) {

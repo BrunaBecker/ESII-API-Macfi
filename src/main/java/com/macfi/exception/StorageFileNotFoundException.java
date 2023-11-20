@@ -1,8 +1,8 @@
 package com.macfi.exception;
 
-public class StorageFileNotFoundException extends StorageException{
+public class StorageFileNotFoundException extends StorageException {
 
-    public StorageFileNotFoundException(String message){
+    public StorageFileNotFoundException(String message) {
         super(message);
     }
 

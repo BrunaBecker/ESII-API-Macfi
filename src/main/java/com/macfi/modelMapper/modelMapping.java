@@ -38,14 +38,13 @@ public final class modelMapping {
 
     public <TDto, TEntity> TEntity mapToEntity(TDto tDto, Class<TEntity> TEntity) {
         if (tDto == null)
-            throw  new IllegalArgumentException("Dto cannot be null");
+            throw new IllegalArgumentException("Dto cannot be null");
         ModelMapper modelMapper = new ModelMapper();
         try {
 
             modelMapper.getConfiguration().setDeepCopyEnabled(false);
             return modelMapper.map(tDto, TEntity);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new MappingIllegalException("Dto cannot be mapped");
         }

@@ -18,7 +18,7 @@ public class VirtualZoneService {
 
 
     public List<VirtualZoneDto> getVirtualZones() {
-        List<VirtualZone>  virtualZones = virtualZoneRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<VirtualZone> virtualZones = virtualZoneRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return virtualZones.stream().map(virtualZone -> modelMapping.getInstance().mapToDto(virtualZone, VirtualZoneDto.class)).collect(Collectors.toList());
     }
 
@@ -26,6 +26,7 @@ public class VirtualZoneService {
         VirtualZone a = modelMapping.getInstance().mapToEntity(virtualZoneDto, VirtualZone.class);
         return modelMapping.getInstance().mapToDto(virtualZoneRepository.save(a), VirtualZoneDto.class);
     }
+
     public VirtualZoneDto updateVirtualZone(VirtualZoneDto virtualZoneDto) {
         return modelMapping.getInstance().mapToDto(virtualZoneRepository.save(modelMapping.getInstance().mapToEntity(virtualZoneDto, VirtualZone.class)), VirtualZoneDto.class);
     }

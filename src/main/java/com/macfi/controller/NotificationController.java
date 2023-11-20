@@ -35,10 +35,9 @@ public class NotificationController {
         try {
             List<NotificationDto> notificationDto = notificationService.getActiveNotificationByPersonId(personId);
             return ResponseEntity.ok(notificationDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -58,14 +57,13 @@ public class NotificationController {
         try {
             notificationDto = notificationService.createNotification(notification);
             return new ResponseEntity<>(notificationDto, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
-}
+    }
 
     @Operation(
             summary = "Delete Notification REST API",
@@ -105,10 +103,9 @@ public class NotificationController {
     public ResponseEntity<NotificationDto> updateNotification(@Valid @RequestBody NotificationDto notification) {
         try {
             return ResponseEntity.ok(notificationService.updateNotification(notification));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -126,10 +123,9 @@ public class NotificationController {
     public ResponseEntity<NotificationDto> setReadNotification(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(notificationService.setReadNotification(id));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

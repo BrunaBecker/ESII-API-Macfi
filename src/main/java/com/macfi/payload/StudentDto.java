@@ -13,6 +13,7 @@ import java.util.Date;
  */
 @Data
 public class StudentDto implements Serializable {
+    final UserType type = UserType.student;
     @NotNull(message = "id must be a value")
     @Positive(message = "id must be a positive Long")
     Long id;
@@ -38,6 +39,4 @@ public class StudentDto implements Serializable {
     RegisterCollegeIDDto register;
     SettingDto setting;
     PictureDto profileImage;
-
-    final UserType type = UserType.student;
 }

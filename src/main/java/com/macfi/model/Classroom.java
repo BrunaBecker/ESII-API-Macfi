@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class Classroom {
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    public Classroom(String courseName, String className,String code, String semester, LocalTime startHour, LocalTime endHour ,Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
+    public Classroom(String courseName, String className, String code, String semester, LocalTime startHour, LocalTime endHour, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
         this.courseName = courseName;
         this.code = code;
         this.className = className;

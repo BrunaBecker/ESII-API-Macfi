@@ -1,7 +1,6 @@
 package com.macfi.payload;
 
 import com.macfi.model.Calendar;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
