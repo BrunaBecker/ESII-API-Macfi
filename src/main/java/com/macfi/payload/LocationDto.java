@@ -23,7 +23,7 @@ public class LocationDto implements Serializable {
     @NotNull(message = "Description cannot be null")
     @Size(max = 300, message = "Description must be between 0 and 300 characters")
     String description;
-    boolean isActive = false;
+    boolean isActive = true;
     CoordinateDto coordinate;
     ProfessorDto professor;
     List<VirtualZoneDto> virtualZones;

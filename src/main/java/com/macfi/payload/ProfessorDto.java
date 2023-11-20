@@ -21,8 +21,8 @@ public class ProfessorDto implements Serializable {
     @NotNull(message = "brithdate must have a value")
     @Past(message = "birthdate must be in past")
     Date birthDate;
-    @NotNull
-    Boolean isActive;
+
+    Boolean isActive = true;
     @NotNull
     @Pattern(message = "must be in cpf format", regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")
     @NotEmpty

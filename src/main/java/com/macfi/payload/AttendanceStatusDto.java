@@ -16,10 +16,8 @@ public class AttendanceStatusDto implements Serializable {
     Long id;
     @NotNull(message = "studentState must not be null")
     StudentAtAttendanceState studentState;
-    @NotNull(message = "studentHasResponded must not be null")
-    boolean studentHasResponded;
-    @NotNull(message = "validated must not be null")
-    boolean validated;
+    boolean studentHasResponded = false;
+    boolean validated = false;
     @NotNull(message = "student must not be null")
     StudentDto student;
     @NotNull(message = "attendance must not be null")
