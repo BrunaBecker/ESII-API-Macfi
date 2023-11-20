@@ -17,14 +17,11 @@ public class AuthService {
 
     public Object loginPerson(String identifier, String password) {
 
-        Object object = professorService.login(identifier, password);
-        if (object == null) {
-            object = studentService.login(identifier, password);
+        try {
+            return professorService.login(identifier, password);
+        } catch (EntityNotFoundException e) {
+            return studentService.login(identifier, password);
         }
-        if (object == null) {
-            throw new EntityNotFoundException("User not found");
-        }
-        return object;
     }
 
     public ProfessorDto loginProfessor(String identifier, String password) {
