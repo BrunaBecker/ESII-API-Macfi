@@ -126,4 +126,9 @@ public class AttendanceService {
                 .orElseThrow(() -> new EntityNotFoundException("VirtualZone not found")));
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
     }
+
+    public List<AttendanceDto> getAttendancesHappeningByProfessor(Long id) {
+        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByProfessor(id);
+        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    }
 }

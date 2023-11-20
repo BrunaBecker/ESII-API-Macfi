@@ -100,6 +100,20 @@ public class AttendanceController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @GetMapping("happeningByProfessor/{id}") //localhost:8080/attendance/happeningByProfessor/1
+    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByProfessor(id);
+            return ResponseEntity.ok(attendances);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+    
+
 
     @GetMapping("happeningByStudent/{id}") //localhost:8080/attendance/happeningByStudent/1
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
