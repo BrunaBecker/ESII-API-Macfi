@@ -39,7 +39,7 @@ public class LocationService {
     }
 
     public LocationDto getLocationById(Long id) {
-        return modelMapping.getInstance().mapToDto(locationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Location not found")), LocationDto.class);
+        return modelMapping.getInstance().mapToDto(locationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Location not found")), LocationDto.class);
     }
 
 
@@ -50,7 +50,7 @@ public class LocationService {
     }
 
     public LocationDto updateLocation(LocationDto Location) {
-        Location l  =  locationRepository.findById(Location.getId()).orElseThrow(()-> new EntityNotFoundException("Location not found"));
+        Location l = locationRepository.findById(Location.getId()).orElseThrow(() -> new EntityNotFoundException("Location not found"));
         return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }
 
@@ -60,17 +60,17 @@ public class LocationService {
     }
 
     public LocationDto setVirtualZone(Long virtualZoneId, LocationDto location) {
-       VirtualZone v = virtualZoneRepository.findById(virtualZoneId).orElseThrow(()-> new EntityNotFoundException("VirtualZone not found"));
-       Location l = locationRepository.findById(location.getId()).orElseThrow(()-> new EntityNotFoundException("Location not found"));
-       l.getVirtualZones().add(v);
-       return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
+        VirtualZone v = virtualZoneRepository.findById(virtualZoneId).orElseThrow(() -> new EntityNotFoundException("VirtualZone not found"));
+        Location l = locationRepository.findById(location.getId()).orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        l.getVirtualZones().add(v);
+        return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }
 
     public LocationDto addCoordinate(Long id, CoordinateDto coordinateDto) {
-        Location l = locationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Location not found"));
+        Location l = locationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Location not found"));
         Coordinate c;
         try {
-            c = coordinateRepository.findById(coordinateDto.getId()).orElseThrow(()-> new EntityNotFoundException("Coordinate not found"));
+            c = coordinateRepository.findById(coordinateDto.getId()).orElseThrow(() -> new EntityNotFoundException("Coordinate not found"));
         } catch (EntityNotFoundException e) {
             c = modelMapping.getInstance().mapToEntity(coordinateDto, Coordinate.class);
         }
@@ -80,15 +80,15 @@ public class LocationService {
     }
 
     public LocationDto setVirtualZoneById(Long idLocation, Long idVirtualZone) {
-        Location l = locationRepository.findById(idLocation).orElseThrow(()-> new EntityNotFoundException("Location not found"));
-        VirtualZone v = virtualZoneRepository.findById(idVirtualZone).orElseThrow(()-> new EntityNotFoundException("VirtualZone not found"));
+        Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        VirtualZone v = virtualZoneRepository.findById(idVirtualZone).orElseThrow(() -> new EntityNotFoundException("VirtualZone not found"));
         l.getVirtualZones().add(v);
         return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }
 
     public LocationDto setClassroom(Long idLocation, Long idClassroom) {
-        Location l = locationRepository.findById(idLocation).orElseThrow(()-> new EntityNotFoundException("Location not found"));
-        Classroom c = classroomRepository.findById(idClassroom).orElseThrow(()-> new EntityNotFoundException("Classroom not found"));
+        Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        Classroom c = classroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         l.setClassroom(c);
         return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }

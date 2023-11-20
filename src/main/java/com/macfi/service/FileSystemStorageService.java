@@ -1,5 +1,15 @@
 package com.macfi.service;
 
+import com.macfi.exception.StorageException;
+import com.macfi.exception.StorageFileNotFoundException;
+import com.macfi.model.utils.StorageProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -9,26 +19,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import com.macfi.exception.StorageException;
-import com.macfi.exception.StorageFileNotFoundException;
-import com.macfi.model.utils.StorageProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 @Service
-public class FileSystemStorageService implements StorageService{
+public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties){
+    public FileSystemStorageService(StorageProperties properties) {
 
-        if (properties.getLocation().trim().isEmpty()){
+        if (properties.getLocation().trim().isEmpty()) {
             throw new StorageException("File upload location can not be Empty");
         }
 
@@ -36,9 +35,9 @@ public class FileSystemStorageService implements StorageService{
     }
 
     @Override
-    public void store(MultipartFile file, String directory){
-        try{
-            if (file.isEmpty()){
+    public void store(MultipartFile file, String directory) {
+        try {
+            if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
             }
             Path destinationFile = this.rootLocation.resolve(Paths.get(directory + file.getOriginalFilename())).normalize().toAbsolutePath();
@@ -59,14 +58,13 @@ public class FileSystemStorageService implements StorageService{
             return Files.walk(this.rootLocation, 1)
                     .filter(path -> !path.equals(this.rootLocation))
                     .map(this.rootLocation::relativize);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
 
     }
 
-//    @Override
+    //    @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
@@ -78,14 +76,12 @@ public class FileSystemStorageService implements StorageService{
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
-            }
-            else {
+            } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
 
             }
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -101,8 +97,7 @@ public class FileSystemStorageService implements StorageService{
             Files.createDirectories(rootLocation);
             Files.createDirectories(Paths.get("src/main/files/documents"));
             Files.createDirectories(Paths.get("src/main/files/images"));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
     }

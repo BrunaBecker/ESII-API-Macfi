@@ -6,7 +6,6 @@ import com.macfi.model.AttendanceStatus;
 import com.macfi.model.Ping;
 import com.macfi.model.utils.enums_class.StatusPing;
 import com.macfi.modelMapper.modelMapping;
-import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.PingDto;
 import com.macfi.repository.AttendanceStatusRepository;
 import com.macfi.repository.PingRepository;
@@ -58,8 +57,6 @@ public class PingService {
         Ping ping = pingRepository.findById(id).orElseThrow(() -> new RuntimeException("Ping not found"));
         return modelMapping.getInstance().mapToDto(ping, PingDto.class);
     }
-
-
 
 
 }

@@ -22,7 +22,7 @@ public class WaiverDto implements Serializable {
     @FutureOrPresent(message = "sendDate must not be in past")
     Date sendDate;
     Date acceptionDate;
-    boolean isAccepted;
+    boolean isAccepted = false;
     CommentDto comment;
     @NotNull(message = "student must be not null")
     StudentDto student;

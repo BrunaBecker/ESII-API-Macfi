@@ -1,4 +1,5 @@
 package com.macfi.controller;
+
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.ClassroomDto;
@@ -48,10 +49,9 @@ public class ClassroomController {
         try {
             classroomDto1 = classroomService.createClassroom(classroomDto);
             return new ResponseEntity<>(classroomDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -64,10 +64,9 @@ public class ClassroomController {
         try {
             classroomDto1 = classroomService.updateClassroom(classroomDto);
             return ResponseEntity.ok(classroomDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -76,22 +75,21 @@ public class ClassroomController {
 
     @GetMapping("professor/{identifier}") //localhost:8080/classroom/professor/12345670
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterProfessor(@PathVariable("identifier") String identifier) {
-       try  {
-              return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
-         } catch (Exception e) {
-              return ResponseEntity.badRequest().body(null);
-         }
+        try {
+            return ResponseEntity.ok(classroomService.getClassroomByProfessor(identifier));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("student/{identifier}") //localhost:8080/classroom/student/123456790
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
         try {
             return ResponseEntity.ok(classroomService.getClassroomByStudent(identifier));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             System.out.println(ae.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -101,10 +99,9 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> addStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
             return ResponseEntity.ok(classroomService.addStudent(idClassroom, idStudent));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -115,23 +112,21 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> removeStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
             return ResponseEntity.ok(classroomService.removeStudent(idClassroom, idStudent));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-@   PutMapping("setEvent") //localhost:8080/classroom/setEvent?idClassroom=1&idEvent=1
+    @PutMapping("setEvent") //localhost:8080/classroom/setEvent?idClassroom=1&idEvent=1
     public ResponseEntity<ClassroomDto> setEvent(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idEvent) {
         try {
             return ResponseEntity.ok(classroomService.setEvent(idClassroom, idEvent));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -141,10 +136,9 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> removeEvent(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idEvent) {
         try {
             return ResponseEntity.ok(classroomService.removeEvent(idClassroom, idEvent));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -163,23 +157,21 @@ public class ClassroomController {
     public ResponseEntity<ClassroomDto> setLocation(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idLocation) {
         try {
             return ResponseEntity.ok(classroomService.setLocation(idClassroom, idLocation));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @PutMapping("setAttendance") //localhost:8080/classroom/setAttendance?idClassroom=1&idAttendance=1
-    public ResponseEntity<ClassroomDto> setAttendance(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idAttendance){
+    public ResponseEntity<ClassroomDto> setAttendance(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idAttendance) {
         try {
-            return ResponseEntity.ok(classroomService.setAttendance(idClassroom, idAttendance ));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+            return ResponseEntity.ok(classroomService.setAttendance(idClassroom, idAttendance));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

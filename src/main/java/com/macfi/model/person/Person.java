@@ -49,7 +49,7 @@ public abstract class Person {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     protected List<Comment> comments;
 
-    @OneToMany(mappedBy = "person",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected List<Notification> notifications;
 
 

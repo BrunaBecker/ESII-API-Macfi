@@ -51,7 +51,7 @@ public class AttendanceService {
     public AttendanceDto updateAttendance(AttendanceDto attendanceDto) {
         attendanceRepository.findById(attendanceDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
-        Attendance attendance1 =  modelMapping.getInstance().mapToEntity(attendanceDto, Attendance.class);
+        Attendance attendance1 = modelMapping.getInstance().mapToEntity(attendanceDto, Attendance.class);
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance1), AttendanceDto.class);
     }
 

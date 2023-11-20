@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
@@ -19,6 +18,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.classroom.id = :id")
     List<Attendance> findByClassroomId(Long id);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.isHappening = true")
     List<Attendance> findAttendanceHappening();
@@ -30,6 +30,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a left join fetch Student s on a.id = s.id where s.id = :id and a.isHappening = true")
     List<Attendance> findAttendanceHappeningByStudent(Long id);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Attendance a where a.date = :date and a.classroom.id = :id")
     List<Attendance> findByClassroomIdAndDate(Long id, Date date);

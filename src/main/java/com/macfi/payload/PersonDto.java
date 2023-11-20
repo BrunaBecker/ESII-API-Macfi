@@ -1,7 +1,6 @@
 package com.macfi.payload;
 
 import com.macfi.model.person.Person;
-import com.macfi.model.utils.enums_class.UserType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class PersonDto implements Serializable {
     String socialName;
     @NotNull(message = "birthDate must not be null")
     Date birthDate;
-    Boolean isActive;
+    Boolean isActive = true;
     @NotEmpty(message = "cpf must not be empty")
     String cpf;
     @NotEmpty(message = "email must not be empty")

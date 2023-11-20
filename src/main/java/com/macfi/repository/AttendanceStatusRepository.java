@@ -12,6 +12,7 @@ public interface AttendanceStatusRepository extends JpaRepository<AttendanceStat
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from AttendanceStatus a where a.attendance.id = :attendanceid")
     List<AttendanceStatus> FindByAttendanceId(Long attendanceid);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from AttendanceStatus a where a.attendance.id = :attendanceid and a.student.id = :studentid")
     AttendanceStatus FindByAttendanceIdAndStudentId(Long attendanceid, Long studentid);

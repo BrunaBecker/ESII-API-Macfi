@@ -8,7 +8,10 @@ import com.macfi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -26,10 +29,9 @@ public class AuthController {
         try {
             object = authService.loginPerson(identifier, password);
             return ResponseEntity.ok(object);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -43,7 +45,7 @@ public class AuthController {
         try {
             professorDto = authService.loginProfessor(identifier, password);
             return ResponseEntity.ok(professorDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
@@ -53,14 +55,13 @@ public class AuthController {
 
     @GetMapping("login/student")
     public ResponseEntity<StudentDto> loginStudent(@RequestParam("identifier") String identifier, @RequestParam("password") String password) {
-      StudentDto  studentDto;
+        StudentDto studentDto;
         try {
             studentDto = authService.loginStudent(identifier, password);
             return ResponseEntity.ok(studentDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

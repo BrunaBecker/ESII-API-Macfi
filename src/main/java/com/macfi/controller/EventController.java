@@ -25,10 +25,9 @@ public class EventController {
         try {
             List<EventDto> events = eventService.getEvents();
             return ResponseEntity.ok(events);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -39,10 +38,9 @@ public class EventController {
         try {
             EventDto eventDto1 = eventService.updateEvent(eventDto);
             return ResponseEntity.ok(eventDto1);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -55,11 +53,10 @@ public class EventController {
         try {
             eventDto1 = eventService.createEvent(eventDto);
             return new ResponseEntity<>(eventDto1, HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             System.out.println(ae.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -70,10 +67,9 @@ public class EventController {
         try {
             List<EventDto> events = eventService.getEventByDateBetween(startDate, endDate);
             return ResponseEntity.ok(events);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -84,15 +80,13 @@ public class EventController {
         try {
             List<EventDto> events = eventService.getEventByDateBetweenAndClassroomId(startDate, endDate, classroomId);
             return ResponseEntity.ok(events);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
-
 
 
 }

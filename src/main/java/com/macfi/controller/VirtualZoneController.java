@@ -34,14 +34,14 @@ public class VirtualZoneController {
         try {
             List<VirtualZoneDto> virtualZoneDto = virtualZoneService.getVirtualZones();
             return ResponseEntity.ok(virtualZoneDto);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @Operation(
             summary = "Create VirtualZone REST API",
             description = "Create VirtualZone REST API is used to save post into database"
@@ -55,10 +55,9 @@ public class VirtualZoneController {
         try {
             VirtualZoneDto virtualZoneDto1 = virtualZoneService.createVirtualZone(virtualZoneDto);
             return new ResponseEntity<>(virtualZoneDto1, org.springframework.http.HttpStatus.CREATED);
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
@@ -66,22 +65,21 @@ public class VirtualZoneController {
 
     @PutMapping
     public ResponseEntity<VirtualZoneDto> updateVirtualZone(@Valid @RequestBody VirtualZoneDto virtualZoneDto) {
-       try {
-              VirtualZoneDto virtualZoneDto1 = virtualZoneService.updateVirtualZone(virtualZoneDto);
-              return ResponseEntity.ok(virtualZoneDto1);
-         } catch (Exception e) {
-              return ResponseEntity.badRequest().body(null);
-       }
+        try {
+            VirtualZoneDto virtualZoneDto1 = virtualZoneService.updateVirtualZone(virtualZoneDto);
+            return ResponseEntity.ok(virtualZoneDto1);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/{virtualZoneId}")
     public ResponseEntity<VirtualZoneDto> getVirtualZoneById(@PathVariable Long virtualZoneId) {
         try {
             return ResponseEntity.ok(virtualZoneService.getVirtualZoneById(virtualZoneId));
-        } catch (EntityNotFoundException | UserUnauthorized ae){
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

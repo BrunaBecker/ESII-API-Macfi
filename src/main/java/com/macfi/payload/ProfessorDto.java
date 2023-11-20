@@ -13,6 +13,7 @@ import java.util.Date;
  */
 @Data
 public class ProfessorDto implements Serializable {
+    final UserType type = UserType.professor;
     Long id;
     @NotEmpty(message = "name must be not empty")
     String name;
@@ -35,6 +36,4 @@ public class ProfessorDto implements Serializable {
     RegisterCollegeIDDto register;
     SettingDto setting;
     PictureDto profileImage;
-
-    final UserType type = UserType.professor;
 }

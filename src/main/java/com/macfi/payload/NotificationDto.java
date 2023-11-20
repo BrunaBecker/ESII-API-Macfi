@@ -19,8 +19,8 @@ public class NotificationDto implements Serializable {
     String supportingText;
     @NotNull(message = "statusNotification must not be null")
     StatusNotification statusNotification;
-    boolean isActive;
-    boolean isRead;
+    boolean isActive = true;
+    boolean isRead = false;
     @NotNull(message = "person id must not be null")
     Long personId;
 }

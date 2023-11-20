@@ -43,7 +43,7 @@ public class AttendanceStatusService {
     }
 
     public AttendanceStatusDto updateAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
-       attendanceStatusRepository.findById(attendanceStatusDto.getId())
+        attendanceStatusRepository.findById(attendanceStatusDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus not found"));
         AttendanceStatus attendanceStatus1 = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus1), AttendanceStatusDto.class);
@@ -128,9 +128,8 @@ public class AttendanceStatusService {
     }
 
 
-
     public AttendanceStatusDto removeUnsuccessfulPing(Long idAttendanceStatus, Long idPing) {
-      Ping p = pingRepository.findById(idPing)
+        Ping p = pingRepository.findById(idPing)
                 .orElseThrow(() -> new EntityNotFoundException("Ping not found"));
         AttendanceStatus attendanceStatus = attendanceStatusRepository.findById(idAttendanceStatus)
                 .orElseThrow(() -> new EntityNotFoundException("AttendanceStatus not found"));
@@ -146,7 +145,6 @@ public class AttendanceStatusService {
         attendanceStatus.getSuccessfulPings().remove(p);
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
     }
-
 
 
 }

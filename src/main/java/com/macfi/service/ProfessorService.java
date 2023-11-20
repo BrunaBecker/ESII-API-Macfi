@@ -58,7 +58,7 @@ public class ProfessorService {
     }
 
     public ProfessorDto updateProfessor(ProfessorDto professor) {
-        Professor professor1  = (Professor) professorRepository.findById(professor.getId()).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor1 = professorRepository.findById(professor.getId()).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor1), ProfessorDto.class);
     }
 
@@ -89,7 +89,7 @@ public class ProfessorService {
 
     public ProfessorDto setLocation(ProfessorDto professorDto, Long idLocation) {
         Location location = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
-        Professor professor = (Professor) professorRepository.findById(professorDto.getId()).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(professorDto.getId()).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getLocations().add(location);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
@@ -98,28 +98,28 @@ public class ProfessorService {
         Location location;
         try {
             location = locationRepository.findById(locationDto.getId()).orElseThrow(() -> new EntityNotFoundException("Location not found"));
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             location = modelMapping.getInstance().mapToEntity(locationDto, Location.class);
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getLocations().add(location);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
     public ProfessorDto setSetting(Long idProfessor, Long idSetting) {
         Setting setting = settingRepository.findById(idSetting).orElseThrow(() -> new EntityNotFoundException("Setting not found"));
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setSetting(setting);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
     public ProfessorDto setProfileImage(Long idProfessor, Long idProfileImage) {
         Picture picture = modelMapping.getInstance().mapToEntity(idProfileImage, Picture.class);
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setProfileImage(picture);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
-    
+
     public ProfessorDto addRegister(Long idProfessor, RegisterCollegeIDDto registerCollegeID) {
         RegisterCollegeID registerCollegeID1;
         try {
@@ -127,14 +127,14 @@ public class ProfessorService {
         } catch (EntityNotFoundException e) {
             registerCollegeID1 = modelMapping.getInstance().mapToEntity(registerCollegeID, RegisterCollegeID.class);
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setRegister(registerCollegeID1);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
     public ProfessorDto setComment(Long idComment, Long idProfessor) {
         Comment comment = commentRepository.findById(idComment).orElseThrow(() -> new EntityNotFoundException("Comment not found"));
-        Professor professor =  (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getComments().add(comment);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
@@ -146,7 +146,7 @@ public class ProfessorService {
         } catch (EntityNotFoundException e) {
             comment = modelMapping.getInstance().mapToEntity(commentDto, Comment.class);
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getComments().add(comment);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
 
@@ -161,14 +161,14 @@ public class ProfessorService {
         } catch (EntityNotFoundException e) {
             notification = notificationRepository.findById(notificationDto.getId()).orElseThrow(() -> new EntityNotFoundException("Notification not found"));
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getNotifications().add(notification);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
     public ProfessorDto setClassroom(Long idProfessor, Long idClassroom) {
         Classroom classroom = classroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getClassrooms().add(classroom);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
@@ -180,7 +180,7 @@ public class ProfessorService {
         } catch (EntityNotFoundException e) {
             setting = modelMapping.getInstance().mapToEntity(settingDto, Setting.class);
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setSetting(setting);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
 
@@ -193,7 +193,7 @@ public class ProfessorService {
         } catch (EntityNotFoundException e) {
             picture1 = pictureRepository.findById(picture.getId()).orElseThrow(() -> new EntityNotFoundException("Picture not found"));
         }
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setProfileImage(picture1);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
 
@@ -201,14 +201,14 @@ public class ProfessorService {
 
     public ProfessorDto setRegister(Long idProfessor, Long idRegister) {
         RegisterCollegeID registerCollegeID = registerCollegeIDRepository.findById(idRegister).orElseThrow(() -> new EntityNotFoundException("Register not found"));
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.setRegister(registerCollegeID);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
     public ProfessorDto setNotification(Long idNotification, Long idProfessor) {
         Notification notification = notificationRepository.findById(idNotification).orElseThrow(() -> new EntityNotFoundException("Notification not found"));
-        Professor professor = (Professor) professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getNotifications().add(notification);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
