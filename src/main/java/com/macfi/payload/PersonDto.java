@@ -28,6 +28,4 @@ public class PersonDto implements Serializable {
     String email;
     @NotNull(message = "register must not be null")
     RegisterCollegeIDDto register;
-
-
 }
