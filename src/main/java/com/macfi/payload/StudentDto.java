@@ -24,8 +24,7 @@ public class StudentDto implements Serializable {
     @NotNull(message = "birthdate must not be null")
     @Past(message = "birthdate must be in past")
     Date birthDate;
-    @NotNull(message = "student is active must have a value")
-    Boolean isActive;
+    Boolean isActive = true;
     @NotNull(message = "cpf must not be null")
     @Pattern(message = "cpf must be in valid format", regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")
     @NotEmpty(message = "cpf must have a value")
