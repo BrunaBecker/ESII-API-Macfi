@@ -7,7 +7,6 @@ import com.macfi.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +82,7 @@ public class SettingController {
     }
 
     @GetMapping("/person/{identify}")
-    public ResponseEntity<SettingDto> getSettingByPersonIdentifier(@PathVariable Long identify) {
+    public ResponseEntity<SettingDto> getSettingByPersonIdentifier(@PathVariable String identify) {
         SettingDto settingDto;
 
         try {
@@ -97,11 +96,25 @@ public class SettingController {
         }
     }
 
-    @PutMapping("/updateSettingPerson") //localhost:8080/setting/updateSettingPerson?idSetting=1&idPerson=1
-    public ResponseEntity<SettingDto> updateSettingByPersonId(@RequestParam Long idSetting, @RequestParam Long idPerson) {
+    @GetMapping("/person/{id}")
+    public ResponseEntity<SettingDto> getSettingByPersonId(@PathVariable Long id) {
+        SettingDto settingDto;
+
+        try {
+            settingDto = settingService.getSettingByPersonId(id);
+            return ResponseEntity.ok(settingDto);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("/setPerson") //localhost:8080/setting/updateSettingPerson?idSetting=1&idPerson=1
+    public ResponseEntity<SettingDto> setPerson(@RequestParam Long idSetting, @RequestParam Long idPerson) {
         SettingDto settingDto1;
         try {
-            settingDto1 = settingService.updateSettingByPersonId(idSetting, idPerson);
+            settingDto1 = settingService.setPerson(idSetting, idPerson);
             return ResponseEntity.ok(settingDto1);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
