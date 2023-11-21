@@ -7,7 +7,9 @@ import com.macfi.model.Event;
 import com.macfi.model.Location;
 import com.macfi.model.person.Student;
 import com.macfi.modelMapper.modelMapping;
+import com.macfi.payload.AttendanceDto;
 import com.macfi.payload.ClassroomDto;
+import com.macfi.payload.EventDto;
 import com.macfi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -89,7 +91,7 @@ public class ClassroomService {
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
     }
 
-    public ClassroomDto addStudent(Long idClassroom, Long idStudent) {
+    public ClassroomDto setStudent(Long idClassroom, Long idStudent) {
         Student student = studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         classroom.getStudents().add(student);
@@ -114,6 +116,30 @@ public class ClassroomService {
         Attendance attendance = attendanceRepository.findById(idAttendance).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
         Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         classroom.getAttendances().add(attendance);
+        return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
+    }
+
+    public ClassroomDto addAttendance(Long idClassroom, AttendanceDto attendanceDto) {
+        Attendance attendance;
+        try {
+            attendance = attendanceRepository.findById(attendanceDto.getId()).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        } catch (EntityNotFoundException e) {
+            attendance = modelMapping.getInstance().mapToEntity(attendanceDto, Attendance.class);
+        }
+        Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
+        classroom.getAttendances().add(attendance);
+        return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
+    }
+
+    public ClassroomDto addEvent(Long idClassroom, EventDto eventDto) {
+        Event event;
+        try {
+            event = eventRepository.findById(eventDto.getId()).orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        } catch (EntityNotFoundException e) {
+            event = modelMapping.getInstance().mapToEntity(eventDto, Event.class);
+        }
+        Classroom classroom = ClassroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
+        classroom.getEvents().add(event);
         return modelMapping.getInstance().mapToDto(ClassroomRepository.save(classroom), ClassroomDto.class);
     }
 }
