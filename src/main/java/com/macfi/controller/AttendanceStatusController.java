@@ -100,8 +100,8 @@ public class AttendanceStatusController {
     }
 
     @GetMapping("byAttendanceAndStudent")
-    //localhost:8080/attendanceStatus/byAttendanceAndStudent?attendanceid=1&studentid=1
-    public ResponseEntity<AttendanceStatusDto> getAttendanceStatusByAttendanceIdAndStudentId(@RequestParam("attendanceid") Long attendanceid, @RequestParam("studentid") Long studentid) {
+    //localhost:8080/attendanceStatus/byAttendanceAndStudent?idAttendance=1&idStudent=1
+    public ResponseEntity<AttendanceStatusDto> getAttendanceStatusByAttendanceIdAndStudentId(@RequestParam("idAttendance") Long attendanceid, @RequestParam("idStudent") Long studentid) {
         try {
             return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByAttendanceIdAndStudentId(attendanceid, studentid));
         } catch (EntityNotFoundException | UserUnauthorized ae) {
@@ -161,7 +161,7 @@ public class AttendanceStatusController {
     }
 
 
-    @PutMapping("setSuccessfulPing") //localhost:8080/attendanceStatus/addPing?idAttendanceStatus=1&idPing=1
+    @PutMapping("setSuccessfulPing") //localhost:8080/attendanceStatus/setPing?idAttendanceStatus=1&idPing=1
     public ResponseEntity<AttendanceStatusDto> setSuccessfulPing(@RequestParam("idAttendanceStatus") Long idAttendanceStatus, @RequestParam("idPing") Long idPing) {
         try {
             return ResponseEntity.ok(attendanceStatusService.setSuccessfulPing(idAttendanceStatus, idPing));

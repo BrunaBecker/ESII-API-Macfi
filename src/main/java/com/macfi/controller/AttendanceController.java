@@ -64,7 +64,7 @@ public class AttendanceController {
 
     //yyyy-MM-dd hh:mm:ss
 
-    @GetMapping("inClassroomByDate") //localhost:8080/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
+    @GetMapping("getClassroomByDate") //localhost:8080/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
     public ResponseEntity<List<AttendanceDto>> getAttendancesByClassroomAndDate(@RequestParam("classroomid") Long classroomid, @RequestParam("date") String date) {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
@@ -112,8 +112,6 @@ public class AttendanceController {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    
-
 
     @GetMapping("happeningByStudent/{id}") //localhost:8080/attendance/happeningByStudent/1
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
