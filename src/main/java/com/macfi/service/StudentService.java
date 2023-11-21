@@ -101,7 +101,7 @@ public class StudentService {
     }
 
     public StudentDto setClassroom(Long idClass, Long id) {
-        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found")));
+        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Classroom classroom = classroomRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         student.getClassrooms().add(classroom);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
