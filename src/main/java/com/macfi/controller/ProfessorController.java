@@ -71,7 +71,6 @@ public class ProfessorController {
 
     }
 
-
     @Operation(
             summary = "Create Professor REST API",
             description = "Create Professor REST API is used to save post into database"
@@ -146,12 +145,12 @@ public class ProfessorController {
     }
 
 
-    @PutMapping("setLocation/{idLocation}") //localhost:8080/professor/addLocation/1
-    public ResponseEntity<ProfessorDto> setLocation(@PathVariable("idLocation") Long idLocation, @RequestBody ProfessorDto professorDto) {
+    @PutMapping("setLocation")
+    public ResponseEntity<ProfessorDto> setLocation(@RequestParam("idProfessor") Long idProfessor,  @RequestParam("idLocation") Long idLocation) {
         ProfessorDto professorDto1;
 
         try {
-            professorDto1 = professorService.setLocation(professorDto, idLocation);
+            professorDto1 = professorService.setLocation(idProfessor, idLocation);
             return new ResponseEntity<>(professorDto1, HttpStatus.CREATED);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -162,7 +161,7 @@ public class ProfessorController {
     }
 
     @PutMapping("addLocation") //localhost:8080/professor/addLocation?idProfessor=1
-    public ResponseEntity<ProfessorDto> setLocation(@RequestParam Long idProfessor, @RequestBody LocationDto locationDto) {
+    public ResponseEntity<ProfessorDto> addLocation(@RequestParam Long idProfessor, @Valid @RequestBody LocationDto locationDto) {
         ProfessorDto professorDto1;
 
         try {
@@ -193,7 +192,7 @@ public class ProfessorController {
     }
 
     @PutMapping("addSetting")
-    public ResponseEntity<ProfessorDto> addSetting(@RequestParam("idProfessor") Long idProfessor, @RequestBody SettingDto settingDto) {
+    public ResponseEntity<ProfessorDto> addSetting(@RequestParam("idProfessor") Long idProfessor, @Valid @RequestBody  SettingDto settingDto) {
         ProfessorDto professorDto1;
 
         try {
@@ -225,7 +224,7 @@ public class ProfessorController {
 
 
     @PutMapping("addPicture") //localhost:8080/professor/addPicture?idProfessor=1
-    public ResponseEntity<ProfessorDto> addProfileImage(@RequestParam("idProfessor") Long idProfessor, @RequestBody PictureDto picture) {
+    public ResponseEntity<ProfessorDto> addProfileImage(@RequestParam("idProfessor") Long idProfessor, @Valid @RequestBody  PictureDto picture) {
         ProfessorDto professorDto1;
 
         try {
@@ -255,7 +254,7 @@ public class ProfessorController {
     }
 
     @PutMapping("addRegister")
-    public ResponseEntity<ProfessorDto> addRegister(@RequestParam("idProfessor") Long idProfessor, @RequestBody RegisterCollegeIDDto registerCollegeID) {
+    public ResponseEntity<ProfessorDto> addRegister(@RequestParam("idProfessor") Long idProfessor, @Valid @RequestBody  RegisterCollegeIDDto registerCollegeID) {
         ProfessorDto professorDto1;
 
         try {
@@ -300,7 +299,7 @@ public class ProfessorController {
     }
 
     @PutMapping("addNotification") //localhost:8080/professor/addNotification?idProfessor=1
-    public ResponseEntity<ProfessorDto> addNotification(@RequestParam Long idProfessor, @RequestBody NotificationDto notification) {
+    public ResponseEntity<ProfessorDto> addNotification(@RequestParam Long idProfessor, @Valid @RequestBody  NotificationDto notification) {
         ProfessorDto professorDto1;
 
         try {

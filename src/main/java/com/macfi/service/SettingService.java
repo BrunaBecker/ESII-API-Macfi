@@ -36,7 +36,7 @@ public class SettingService {
         return modelMapping.getInstance().mapToDto(settingRepository.save(s), SettingDto.class);
     }
 
-    public SettingDto getSettingByPersonIdentifier(Long identify) {
+    public SettingDto getSettingByPersonIdentifier(String identify) {
         return modelMapping.getInstance().mapToDto(settingRepository.findByPersonIdentifier(identify), SettingDto.class);
     }
 
@@ -45,10 +45,16 @@ public class SettingService {
     }
 
 
-    public SettingDto updateSettingByPersonId(Long idSetting, Long idPerson) {
+    public SettingDto setPerson(Long idSetting, Long idPerson) {
         Setting s = settingRepository.findById(idSetting).orElseThrow(() -> new EntityNotFoundException("Setting not found"));
         Person p = personRepository.findById(idPerson).orElseThrow(() -> new EntityNotFoundException("Person not found"));
         s.setPerson(p);
         return modelMapping.getInstance().mapToDto(settingRepository.save(s), SettingDto.class);
+    }
+
+    public SettingDto getSettingByPersonId(Long id) {
+        Person p = personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Person not found"));
+        Setting s = settingRepository.findByPersonId(id).orElseThrow(() -> new EntityNotFoundException("Setting not found"));
+        return modelMapping.getInstance().mapToDto(s, SettingDto.class);
     }
 }

@@ -147,4 +147,8 @@ public class AttendanceStatusService {
     }
 
 
+    public List<AttendanceStatusDto> getAttendanceStatusByStudentIdAndClassroomId(Long studentid, Long classroomid) {
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.findByStudentIdAndClassroomId(studentid, classroomid);
+        return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
+    }
 }

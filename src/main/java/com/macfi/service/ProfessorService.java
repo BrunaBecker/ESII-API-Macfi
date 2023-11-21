@@ -87,9 +87,9 @@ public class ProfessorService {
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
 
-    public ProfessorDto setLocation(ProfessorDto professorDto, Long idLocation) {
+    public ProfessorDto setLocation(Long idProfessor, Long idLocation) {
         Location location = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
-        Professor professor = professorRepository.findById(professorDto.getId()).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+        Professor professor = professorRepository.findById(idProfessor).orElseThrow(() -> new EntityNotFoundException("Professor not found"));
         professor.getLocations().add(location);
         return modelMapping.getInstance().mapToDto(professorRepository.save(professor), ProfessorDto.class);
     }
