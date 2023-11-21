@@ -75,7 +75,14 @@ public class NotificationController {
     )
     @DeleteMapping
     public ResponseEntity<Boolean> deleteNotification(@Valid @RequestBody NotificationDto notification) {
-        return ResponseEntity.ok(notificationService.deleteNotification(notification));
+       try {
+            return ResponseEntity.ok(notificationService.deleteNotification(notification));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+           System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @Operation(
@@ -88,7 +95,14 @@ public class NotificationController {
     )
     @DeleteMapping("{id}")//localhost:8080/notification/1
     public ResponseEntity<Boolean> deleteNotificationById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(notificationService.deleteNotificationById(id));
+       try {
+            return ResponseEntity.ok(notificationService.deleteNotificationById(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+           System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @Operation(
