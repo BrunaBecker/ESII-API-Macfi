@@ -177,7 +177,7 @@ public class ClassroomController {
         }
     }
 
-    @PutMapping("setAttendance") //localhost:8080/classroom/setAttendance?idClassroom=1&idAttendance=1
+    @PutMapping("setAttendance") //localhost:8080/classroom/setAttendanceStatus?idClassroom=1&idAttendance=1
     public ResponseEntity<ClassroomDto> setAttendance(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idAttendance) {
         try {
             return ResponseEntity.ok(classroomService.setAttendance(idClassroom, idAttendance));
