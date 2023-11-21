@@ -217,5 +217,16 @@ public class AttendanceStatusController {
         }
     }
 
+    @GetMapping("byStudentAndClassroom") //localhost:8080/attendanceStatus/byStudentAndClassroom?idStudent=1&idClassroom=1
+    public ResponseEntity<List<AttendanceStatusDto>> getAttendanceStatusByStudentIdAndClassroomId(@RequestParam("idStudent") Long studentid, @RequestParam("idClassroom") Long classroomid) {
+        try {
+            return ResponseEntity.ok(attendanceStatusService.getAttendanceStatusByStudentIdAndClassroomId(studentid, classroomid));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
 }
