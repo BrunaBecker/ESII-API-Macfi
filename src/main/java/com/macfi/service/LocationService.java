@@ -8,6 +8,7 @@ import com.macfi.model.utils.Coordinate;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.CoordinateDto;
 import com.macfi.payload.LocationDto;
+import com.macfi.payload.VirtualZoneDto;
 import com.macfi.repository.ClassroomRepository;
 import com.macfi.repository.CoordinateRepository;
 import com.macfi.repository.LocationRepository;
@@ -59,13 +60,6 @@ public class LocationService {
         return locations.stream().map(location -> modelMapping.getInstance().mapToDto(location, LocationDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
-    public LocationDto setVirtualZone(Long virtualZoneId, LocationDto location) {
-        VirtualZone v = virtualZoneRepository.findById(virtualZoneId).orElseThrow(() -> new EntityNotFoundException("VirtualZone not found"));
-        Location l = locationRepository.findById(location.getId()).orElseThrow(() -> new EntityNotFoundException("Location not found"));
-        l.getVirtualZones().add(v);
-        return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
-    }
-
     public LocationDto addCoordinate(Long id, CoordinateDto coordinateDto) {
         Location l = locationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Location not found"));
         Coordinate c;
@@ -79,7 +73,7 @@ public class LocationService {
         return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }
 
-    public LocationDto setVirtualZoneById(Long idLocation, Long idVirtualZone) {
+    public LocationDto setVirtualZone(Long idLocation, Long idVirtualZone) {
         Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
         VirtualZone v = virtualZoneRepository.findById(idVirtualZone).orElseThrow(() -> new EntityNotFoundException("VirtualZone not found"));
         l.getVirtualZones().add(v);
@@ -90,6 +84,25 @@ public class LocationService {
         Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
         Classroom c = classroomRepository.findById(idClassroom).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         l.setClassroom(c);
+        return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
+    }
+
+    public LocationDto addVirtualZone(Long idLocation, VirtualZoneDto virtualZoneDto) {
+        VirtualZone virtualZone;
+        try {
+            virtualZone = virtualZoneRepository.findById(virtualZoneDto.getId()).orElseThrow(() -> new EntityNotFoundException("VirtualZone not found"));
+        } catch (EntityNotFoundException e) {
+            virtualZone = modelMapping.getInstance().mapToEntity(virtualZoneDto, VirtualZone.class);
+        }
+        Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        l.getVirtualZones().add(virtualZone);
+        return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
+    }
+
+    public LocationDto setCoordinate(Long idLocation, Long idCoordinate) {
+        Location l = locationRepository.findById(idLocation).orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        Coordinate c = coordinateRepository.findById(idCoordinate).orElseThrow(() -> new EntityNotFoundException("Coordinate not found"));
+        l.setCoordinate(c);
         return modelMapping.getInstance().mapToDto(locationRepository.save(l), LocationDto.class);
     }
 }
