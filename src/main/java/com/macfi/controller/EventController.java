@@ -88,5 +88,44 @@ public class EventController {
         }
     }
 
+    @GetMapping("byClassroomId")//localhost:8080/event/byClassroomId?classroomId=1
+    public ResponseEntity<List<EventDto>> getEventByClassroomId(@RequestParam Long classroomId) {
+        try {
+            List<EventDto> events = eventService.getEventByClassroomId(classroomId);
+            return ResponseEntity.ok(events);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("byDateBetweenAndStudentId")//localhost:8080/event/byDateBetweenAndStudentId?startDate=2021-06-01&endDate=2021-06-30&studentId=1
+    public ResponseEntity<List<EventDto>> getEventByDateBetweenAndStudentId(@RequestParam String startDate, @RequestParam String endDate, @RequestParam Long studentId) {
+        try {
+            List<EventDto> events = eventService.getEventByDateBetweenAndStudentId(startDate, endDate, studentId);
+            return ResponseEntity.ok(events);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("byDateBetweenAndProfessorId")//localhost:8080/event/byDateBetweenAndProfessorId?startDate=2021-06-01&endDate=2021-06-30&professorId=1
+    public ResponseEntity<List<EventDto>> getEventByDateBetweenAndProfessorId(@RequestParam String startDate, @RequestParam String endDate, @RequestParam Long professorId) {
+        try {
+            List<EventDto> events = eventService.getEventByDateBetweenAndProfessorId(startDate, endDate, professorId);
+            return ResponseEntity.ok(events);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
 }

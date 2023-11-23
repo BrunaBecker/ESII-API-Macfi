@@ -42,26 +42,67 @@ public class EventService {
         Date dateStart;
         Date dateEnd;
         try {
-            dateStart = Dateformater.format(start);
-            dateEnd = Dateformater.format(end);
+            dateStart = Dateformater.parse(start, true, false);
+            dateEnd = Dateformater.parse(start, true, true);
             List<Event> events = eventRepository.findAllByDateBetween(dateStart, dateEnd);
             return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
+    public List<EventDto> getEventByClassroomId(Long classroomId) {
+        List<Event> events = eventRepository.findByClassroomId(classroomId);
+        return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
+    }
+
+    public List<EventDto> getEventByDateBetweenAndStudentId(String startDate, String endDate, Long personId) {
+        Date dateStart;
+        Date dateEnd;
+        try {
+            if (personId == null || startDate == null || endDate == null) {
+                throw new IllegalArgumentException("arg is null");
+            }
+
+            dateStart = Dateformater.parse(startDate, true, false);
+            dateEnd = Dateformater.parse(endDate, true, true);
+
+            if (dateStart == null || dateEnd == null) {
+                throw new IllegalArgumentException("Date is null");
+            }
+
+
+
+            List<Event> events = eventRepository.findByDateBetweenAndStudentId(personId, dateStart, dateEnd);
+            return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public List<EventDto> getEventByDateBetweenAndProfessorId(String startDate, String endDate, Long personId) {
+        Date dateStart;
+        Date dateEnd;
+        try {
+            dateStart = Dateformater.parse(startDate, true, false);
+            dateEnd = Dateformater.parse(endDate, true, true);
+            List<Event> events = eventRepository.findByDateBetweenAndProfessorId(personId, dateStart, dateEnd);
+            return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
     public List<EventDto> getEventByDateBetweenAndClassroomId(String startDate, String endDate, Long classroomId) {
         Date dateStart;
         Date dateEnd;
         try {
-            dateStart = Dateformater.format(startDate);
-            dateEnd = Dateformater.format(endDate);
+            dateStart = Dateformater.parse(startDate, true, false);
+            dateEnd = Dateformater.parse(endDate, true, false);
             List<Event> events = eventRepository.findByClassroomIdAndDateBetween(classroomId, dateStart, dateEnd);
             return events.stream().map(event -> modelMapping.getInstance().mapToDto(event, EventDto.class)).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
