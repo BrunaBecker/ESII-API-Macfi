@@ -70,7 +70,7 @@ public class AttendanceService {
 
         Date date;
         try {
-            date = Dateformater.format(dateStr);
+            date = Dateformater.parse(dateStr, true, true);
             List<Attendance> attendances = attendanceRepository.findByClassroomIdAndDate(classroomid, date);
             return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
         } catch (ParseException e) {

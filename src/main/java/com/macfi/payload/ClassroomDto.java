@@ -35,7 +35,6 @@ public class ClassroomDto implements Serializable {
     ProfessorDto professor;
     LocationDto defaultLocation;
 
-    List<EventDto> events;
     @Size(min = 1, max = 200)
     List<StudentDto> students;
 
