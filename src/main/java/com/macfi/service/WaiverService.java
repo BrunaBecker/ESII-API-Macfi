@@ -103,7 +103,7 @@ public class WaiverService {
     }
 
     public WaiverDto setAcceptionDate(Long idWaiver, String acceptionDate) throws ParseException {
-        Date date = Dateformater.format(acceptionDate);
+        Date date = Dateformater.parse(acceptionDate, true, true);
         Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
         waiver.setAcceptionDate(date);
         return modelMapping.getInstance().mapToDto(waiverRepository.save(waiver), WaiverDto.class);
