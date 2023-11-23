@@ -25,8 +25,9 @@ public class CalendarService {
         return modelMapping.getInstance().mapToDto(calendarRepository.save(modelMapping.getInstance().mapToEntity(calendarDto, Calendar.class)), CalendarDto.class);
     }
 
-    public CalendarDto updateCalendar(Long calendarId) {
-        Calendar calendar = modelMapping.getInstance().mapToEntity(calendarId, Calendar.class);
+    public CalendarDto updateCalendar(CalendarDto calendarDto) {
+        calendarRepository.findById(calendarDto.getId()).orElseThrow(() -> new EntityNotFoundException("Calendar not found"));
+        Calendar calendar = modelMapping.getInstance().mapToEntity(calendarDto, Calendar.class);
         return modelMapping.getInstance().mapToDto(calendarRepository.save(calendar), CalendarDto.class);
     }
 

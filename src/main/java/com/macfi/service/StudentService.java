@@ -100,8 +100,8 @@ public class StudentService {
         }
     }
 
-    public StudentDto setClassroom(Long idClass, String identifier) {
-        Student student = studentRepository.findByIdentifier(identifier);
+    public StudentDto setClassroom(Long idClass, Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Classroom classroom = classroomRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
         student.getClassrooms().add(classroom);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
@@ -112,19 +112,20 @@ public class StudentService {
         return student.stream().map(student1 -> modelMapping.getInstance().mapToDto(student1, StudentDto.class)).collect(Collectors.toList());
     }
 
-    public StudentDto addClassroom(ClassroomDto classroomDto, String identifier) {
-        Student student = studentRepository.findByIdentifier(identifier);
-        Classroom classroom = classroomRepository.findById(classroomDto.getId()).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
+    public StudentDto addClassroom(ClassroomDto classroomDto, Long id) {
+        Student student = studentRepository.findById((id)).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+        Classroom classroom;
+        try {
+            classroom = classroomRepository.findById(classroomDto.getId()).orElseThrow(() -> new EntityNotFoundException("Classroom not found"));
+        } catch (EntityNotFoundException e) {
+            classroom = modelMapping.getInstance().mapToEntity(classroomDto, Classroom.class);
+        }
         student.getClassrooms().add(classroom);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
     }
 
-    public StudentDto addAttendance(AttendanceStatusDto attendanceStatusDto, String identifier) {
-        Student student = studentRepository.findByIdentifier(identifier);
-        if (student == null) {
-            throw new EntityNotFoundException("Student not found");
-        }
-
+    public StudentDto addAttendanceStatus(AttendanceStatusDto attendanceStatusDto, Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         AttendanceStatus attendanceStatus;
         try {
             attendanceStatus = attendanceStatusRepository.findById(attendanceStatusDto.getId()).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
@@ -135,21 +136,15 @@ public class StudentService {
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
     }
 
-    public StudentDto setAttendance(Long idAttendance, String idStudent) {
-        Student student = studentRepository.findByIdentifier(idStudent);
-        if (student == null) {
-            throw new EntityNotFoundException("Student not found");
-        }
+    public StudentDto setAttendanceStatus(Long idAttendance, Long idStudent) {
+        Student student = studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         AttendanceStatus attendance = attendanceStatusRepository.findById(idAttendance).orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
         student.getAttendanceStatuses().add(attendance);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);
     }
 
-    public StudentDto addWaiver(WaiverDto waiverDto, String identifier) {
-        Student student = studentRepository.findByIdentifier(identifier);
-        if (student == null) {
-            throw new EntityNotFoundException("Student not found");
-        }
+    public StudentDto addWaiver(WaiverDto waiverDto, Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Waiver waiver;
         try {
             waiver = waiverRepository.findById(waiverDto.getId()).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
@@ -162,11 +157,8 @@ public class StudentService {
 
     }
 
-    public StudentDto setWaiver(Long idWaiver, String idStudent) {
-        Student student = studentRepository.findByIdentifier(idStudent);
-        if (student == null) {
-            throw new EntityNotFoundException("Student not found");
-        }
+    public StudentDto setWaiver(Long idWaiver, Long idStudent) {
+        Student student = studentRepository.findById(idStudent).orElseThrow(() -> new EntityNotFoundException("Student not found"));
         Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
         student.getWaivers().add(waiver);
         return modelMapping.getInstance().mapToDto(studentRepository.save(student), StudentDto.class);

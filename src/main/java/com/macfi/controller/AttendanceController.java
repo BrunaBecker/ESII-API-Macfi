@@ -64,7 +64,7 @@ public class AttendanceController {
 
     //yyyy-MM-dd hh:mm:ss
 
-    @GetMapping("inClassroomByDate") //localhost:8080/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
+    @GetMapping("getClassroomByDate") //localhost:8080/attendance/inClassroomByDate?classroomid=1&date=2021-06-01
     public ResponseEntity<List<AttendanceDto>> getAttendancesByClassroomAndDate(@RequestParam("classroomid") Long classroomid, @RequestParam("date") String date) {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesByClassroomAndDate(classroomid, date);
@@ -92,6 +92,18 @@ public class AttendanceController {
     public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
+            return ResponseEntity.ok(attendances);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+    @GetMapping("happeningByProfessor/{id}") //localhost:8080/attendance/happeningByProfessor/1
+    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
+        try {
+            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByProfessor(id);
             return ResponseEntity.ok(attendances);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

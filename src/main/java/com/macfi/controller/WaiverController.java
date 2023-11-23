@@ -2,7 +2,9 @@ package com.macfi.controller;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
+import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.CommentDto;
+import com.macfi.payload.FileMacFIDto;
 import com.macfi.payload.WaiverDto;
 import com.macfi.service.WaiverService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -76,9 +78,9 @@ public class WaiverController {
     }
 
     @PutMapping("setAttendanceStatus") //http://localhost:8080/waiver/setAttendanceStatus
-    public ResponseEntity<WaiverDto> setAttendanceStatus(@RequestParam Long idWaiver, @RequestParam Long idAttendance) {
+    public ResponseEntity<WaiverDto> setAttendanceStatus(@RequestParam("idWaiver") Long idWaiver, @RequestParam("idAttendanceStatus") Long idAttendanceStatus) {
         try {
-            WaiverDto waiverDto = waiverService.setAttendanceStatus(idWaiver, idAttendance);
+            WaiverDto waiverDto = waiverService.setAttendanceStatus(idWaiver, idAttendanceStatus);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -88,8 +90,18 @@ public class WaiverController {
         }
     }
 
+    @PutMapping("addAttendanceStatus") //http://localhost:8080/waiver/addAttendanceStatus?idWaiver=1
+    public ResponseEntity<WaiverDto> addAttendanceStatus(@RequestParam("idWaiver") Long idWaiver, @Valid @RequestBody AttendanceStatusDto attendanceStatusDto) {
+        try {
+            WaiverDto waiverDto = waiverService.addAttendanceStatus(idWaiver, attendanceStatusDto);
+            return new ResponseEntity<>(waiverDto, HttpStatus.OK);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+    }
+
     @PutMapping("setAccepted") //http://localhost:8080/waiver/setAccepted?idWaiver=1
-    public ResponseEntity<WaiverDto> setAccepted(@RequestParam Long idWaiver) {
+    public ResponseEntity<WaiverDto> setAccepted(@RequestParam("idWaiver") Long idWaiver) {
         try {
             WaiverDto waiverDto = waiverService.setAccepted(idWaiver);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
@@ -102,7 +114,7 @@ public class WaiverController {
     }
 
     @PutMapping("setRejected") //http://localhost:8080/waiver/setRejected?idWaiver=1
-    public ResponseEntity<WaiverDto> setRejected(@RequestParam Long idWaiver) {
+    public ResponseEntity<WaiverDto> setRejected(@RequestParam("idWaiver") Long idWaiver) {
         try {
             WaiverDto waiverDto = waiverService.setRejected(idWaiver);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
@@ -115,7 +127,7 @@ public class WaiverController {
     }
 
     @PutMapping("addComment") //http://localhost:8080/waiver/addComment?idWaiver=1
-    public ResponseEntity<WaiverDto> addComment(@RequestParam Long idWaiver, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<WaiverDto> addComment(@RequestParam("idWaiver") Long idWaiver, @RequestBody CommentDto commentDto) {
         try {
             WaiverDto waiverDto = waiverService.addComment(idWaiver, commentDto);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
@@ -127,10 +139,10 @@ public class WaiverController {
         }
     }
 
-    @PutMapping("setComment") //http://localhost:8080/waiver/setComment?idWaiver=1
-    public ResponseEntity<WaiverDto> setComment(@RequestParam Long idWaiver, @RequestParam Long comment) {
+    @PutMapping("setComment") //http://localhost:8080/waiver/setComment?idWaiver=1&idComment=1
+    public ResponseEntity<WaiverDto> setComment(@RequestParam("idWaiver") Long idWaiver, @RequestParam("idComment") Long idComment) {
         try {
-            WaiverDto waiverDto = waiverService.setComment(idWaiver, comment);
+            WaiverDto waiverDto = waiverService.setComment(idWaiver, idComment);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -141,7 +153,7 @@ public class WaiverController {
     }
 
     @PutMapping("setFile") //http://localhost:8080/waiver/setFile?idWaiver=1&fileId=1
-    public ResponseEntity<WaiverDto> setFile(@RequestParam Long idWaiver, @RequestParam Long fileId) {
+    public ResponseEntity<WaiverDto> setFile(@RequestParam("idWaiver") Long idWaiver, @RequestParam("idFile") Long fileId) {
         try {
             WaiverDto waiverDto = waiverService.setFile(idWaiver, fileId);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);
@@ -153,8 +165,17 @@ public class WaiverController {
         }
     }
 
+    @PutMapping("addFile") //http://localhost:8080/waiver/addFile?idWaiver=1
+    public ResponseEntity<WaiverDto> addFile(@RequestParam("idWaiver") Long idWaiver, @Valid @RequestBody FileMacFIDto fileMacFIDto) {
+        try {
+            WaiverDto waiverDto = waiverService.addFile(idWaiver, fileMacFIDto);
+            return new ResponseEntity<>(waiverDto, HttpStatus.OK);
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+    }
     @PutMapping("setAcceptionDate") //http://localhost:8080/waiver/setAcceptionDate?idWaiver=1
-    public ResponseEntity<WaiverDto> setAcceptionDate(@RequestParam Long idWaiver, @RequestParam String acceptionDate) {
+    public ResponseEntity<WaiverDto> setAcceptionDate(@RequestParam("idWaiver") Long idWaiver, @RequestParam("acceptionDate") String acceptionDate) {
         try {
             WaiverDto waiverDto = waiverService.setAcceptionDate(idWaiver, acceptionDate);
             return new ResponseEntity<>(waiverDto, HttpStatus.OK);

@@ -4,6 +4,7 @@ import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
 import com.macfi.payload.CalendarDto;
 import com.macfi.service.CalendarService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ public class CalendarController {
 
 
     @PutMapping
-    public ResponseEntity<CalendarDto> updateCalendar() {
+    public ResponseEntity<CalendarDto> updateCalendar(@Valid @RequestBody CalendarDto calendarDto) {
         try {
-            CalendarDto calendarDto1 = calendarService.updateCalendar(1L);
+            CalendarDto calendarDto1 = calendarService.updateCalendar(calendarDto);
             return ResponseEntity.ok(calendarDto1);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

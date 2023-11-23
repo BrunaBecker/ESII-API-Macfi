@@ -2,7 +2,9 @@ package com.macfi.controller;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.UserUnauthorized;
+import com.macfi.payload.AttendanceDto;
 import com.macfi.payload.ClassroomDto;
+import com.macfi.payload.EventDto;
 import com.macfi.service.ClassroomService;
 import com.macfi.service.ProfessorService;
 import com.macfi.service.StudentService;
@@ -82,6 +84,16 @@ public class ClassroomController {
         }
     }
 
+    @GetMapping("{id}")//localhost:8080/classroom/1
+    public ResponseEntity<ClassroomDto> getClassroomById(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(classroomService.getClassroomById(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
     @GetMapping("student/{identifier}") //localhost:8080/classroom/student/123456790
     public ResponseEntity<List<ClassroomDto>> getClassroomsByRegisterStudent(@PathVariable("identifier") String identifier) {
         try {
@@ -95,10 +107,10 @@ public class ClassroomController {
         }
     }
 
-    @PutMapping("addStudent") //localhost:8080/classroom/addStudent?idClassroom=1&idStudent=1
-    public ResponseEntity<ClassroomDto> addStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
+    @PutMapping("setStudent") //localhost:8080/classroom/setStudent?idClassroom=1&idStudent=1
+    public ResponseEntity<ClassroomDto> setStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
-            return ResponseEntity.ok(classroomService.addStudent(idClassroom, idStudent));
+            return ResponseEntity.ok(classroomService.setStudent(idClassroom, idStudent));
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -108,7 +120,7 @@ public class ClassroomController {
     }
 
 
-    @DeleteMapping("removeStudent") //localhost:8080/classroom/removeStudent?idClassroom=1&idStudent=1
+    @PutMapping("removeStudent") //localhost:8080/classroom/removeStudent?idClassroom=1&idStudent=1
     public ResponseEntity<ClassroomDto> removeStudent(@RequestParam("idClassroom") Long idClassroom, @RequestParam("idStudent") Long idStudent) {
         try {
             return ResponseEntity.ok(classroomService.removeStudent(idClassroom, idStudent));
@@ -132,7 +144,7 @@ public class ClassroomController {
         }
     }
 
-    @DeleteMapping("removeEvent") //localhost:8080/classroom/removeEvent?idClassroom=1&idEvent=1
+    @PutMapping("removeEvent") //localhost:8080/classroom/removeEvent?idClassroom=1&idEvent=1
     public ResponseEntity<ClassroomDto> removeEvent(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idEvent) {
         try {
             return ResponseEntity.ok(classroomService.removeEvent(idClassroom, idEvent));
@@ -165,7 +177,7 @@ public class ClassroomController {
         }
     }
 
-    @PutMapping("setAttendance") //localhost:8080/classroom/setAttendance?idClassroom=1&idAttendance=1
+    @PutMapping("setAttendance") //localhost:8080/classroom/setAttendanceStatus?idClassroom=1&idAttendance=1
     public ResponseEntity<ClassroomDto> setAttendance(@RequestParam("idClassroom") Long idClassroom, @RequestParam Long idAttendance) {
         try {
             return ResponseEntity.ok(classroomService.setAttendance(idClassroom, idAttendance));
@@ -177,5 +189,28 @@ public class ClassroomController {
         }
     }
 
+    @PutMapping("addAttendance")
+    public ResponseEntity<ClassroomDto> addAttendance(@RequestParam("idClassroom") Long idClassroom, @Valid @RequestBody AttendanceDto attendanceDto) {
+        try {
+            return ResponseEntity.ok(classroomService.addAttendance(idClassroom, attendanceDto));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PutMapping("addEvent")
+    public ResponseEntity<ClassroomDto> addEvent(@RequestParam("idClassroom") Long idClassroom, @Valid @RequestBody EventDto eventDto) {
+        try {
+            return ResponseEntity.ok(classroomService.addEvent(idClassroom, eventDto));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
     //TODO verify if has getClassroomByCode in some place because I have to change to CLassroom to List<Classroom>
 }

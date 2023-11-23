@@ -10,6 +10,7 @@ import com.macfi.model.utils.FileMacFIRepository;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.CommentDto;
+import com.macfi.payload.FileMacFIDto;
 import com.macfi.payload.WaiverDto;
 import com.macfi.repository.AttendanceStatusRepository;
 import com.macfi.repository.CommentRepository;
@@ -99,6 +100,18 @@ public class WaiverService {
         Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
         FileMacFI file = fileMacFIRepository.findById(fileId).orElseThrow(() -> new EntityNotFoundException("File not found"));
         waiver.setFile(file);
+        return modelMapping.getInstance().mapToDto(waiverRepository.save(waiver), WaiverDto.class);
+    }
+
+    public WaiverDto addFile(Long idWaiver, FileMacFIDto fileMacFIDto) {
+        Waiver waiver = waiverRepository.findById(idWaiver).orElseThrow(() -> new EntityNotFoundException("Waiver not found"));
+        FileMacFI fileMacFI;
+        try {
+            fileMacFI = fileMacFIRepository.findById(fileMacFIDto.getId()).orElseThrow(() -> new EntityNotFoundException("File not found"));
+        } catch (EntityNotFoundException e) {
+            fileMacFI = modelMapping.getInstance().mapToEntity(fileMacFIDto, FileMacFI.class);
+        }
+        waiver.setFile(fileMacFI);
         return modelMapping.getInstance().mapToDto(waiverRepository.save(waiver), WaiverDto.class);
     }
 
