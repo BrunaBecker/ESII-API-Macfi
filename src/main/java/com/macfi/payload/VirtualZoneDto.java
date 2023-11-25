@@ -14,7 +14,4 @@ public class VirtualZoneDto implements Serializable {
     Long id;
     @NotNull(message = "locationId must not be null")
     Long locationId;
-    @NotNull(message = "attendanceId must not be null")
-    Long attendanceId;
-
 }
