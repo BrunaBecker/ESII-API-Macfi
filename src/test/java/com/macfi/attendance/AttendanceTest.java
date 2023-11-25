@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -73,9 +74,9 @@ class AttendanceTest {
         boolean isAutomatic = false;
         boolean isHappening = true;
 
-        VirtualZone virtualZone = new VirtualZone(); // Replace with mock if needed
-        Classroom classroom = new Classroom(); // Replace with mock if needed
-        AttendanceStatus attendanceStatusMock = new AttendanceStatus(); // Replace with mock if needed
+        VirtualZone virtualZone = mock(VirtualZone.class); // Replace with mock if needed0;
+        Classroom classroom = mock(Classroom.class); // Replace with mock if needed
+        AttendanceStatus attendanceStatusMock =mock(AttendanceStatus.class);// Replace with mock if needed
         List<AttendanceStatus> statusStudentAttendance = Collections.singletonList(attendanceStatusMock);
 
         // Act
@@ -98,7 +99,7 @@ class AttendanceTest {
         assertEquals(attendance.getEndHour(), attendanceDto.getEndHour(), "End hour should match");
         assertEquals(attendance.isAutomatic(), attendanceDto.isAutomatic(), "isAutomatic should match");
         assertEquals(attendanceDto.isHappening(), attendance.isHappening(), "isHappening should match");
-//        assertEquals(attendance.getVirtualZone().getId(), attendanceDto.getVirtualZone().getId(), "VirtualZone object should match");
-//        assertSame(attendance.getClassroom(), attendanceDto.getClassroom(), "Classroom object should match");
+        assertEquals(attendance.getVirtualZone().getId(), attendanceDto.getVirtualZone().getId(), "VirtualZone object should match");
+        assertSame(attendance.getClassroom().getId(), attendanceDto.getClassroom().getId(), "Classroom object should match");
     }
 }
