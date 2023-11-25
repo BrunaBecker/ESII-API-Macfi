@@ -135,8 +135,11 @@ public class AttendanceService {
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByProfessor(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByProfessor(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByProfessor(Long id) {
+        Attendance attendance = attendanceRepository.findAttendanceHappeningByProfessor(id);
+        if (attendance == null) {
+            throw new EntityNotFoundException("Attendance not found");
+        }
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
     }
 }

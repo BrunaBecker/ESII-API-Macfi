@@ -101,9 +101,9 @@ public class AttendanceController {
         }
     }
     @GetMapping("happeningByProfessor/{id}") //localhost:8080/attendance/happeningByProfessor/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByProfessor(id);
+            AttendanceDto attendances = attendanceService.getAttendancesHappeningByProfessor(id);
             return ResponseEntity.ok(attendances);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
