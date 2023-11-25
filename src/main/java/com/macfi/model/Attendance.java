@@ -33,9 +33,6 @@ public class Attendance {
     @Temporal(TemporalType.TIME)
     private LocalTime endHour;
 
-    @Temporal(TemporalType.TIME)
-    private Duration duration;
-
     private boolean isAutomatic;
     private boolean isHappening;
 
@@ -57,7 +54,7 @@ public class Attendance {
                       String supportingText,
                       LocalTime startHour,
                       LocalTime endHour,
-                      Duration duration,
+
                       boolean isAutomatic,
                       boolean isHappening,
                       VirtualZone virtualZone,
@@ -67,7 +64,6 @@ public class Attendance {
         this.supportingText = supportingText;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.duration = duration;
         this.isAutomatic = isAutomatic;
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
@@ -79,7 +75,7 @@ public class Attendance {
                       String supportingText,
                       LocalTime startHour,
                       LocalTime endHour,
-                      Duration duration,
+
                       boolean isHappening,
                       VirtualZone virtualZone,
                       Classroom classroom,
@@ -89,7 +85,6 @@ public class Attendance {
         this.supportingText = supportingText;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.duration = duration;
         this.isAutomatic = false;
         this.isHappening = isHappening;
         this.virtualZone = virtualZone;
@@ -105,7 +100,7 @@ public class Attendance {
         return attendancesStatuses.remove(attendanceStatus);
     }
 
-    public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {
+    public Duration getDuration(LocalTime startHour, LocalTime endHour) {
         return Duration.between(startHour, endHour);
     }
 

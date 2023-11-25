@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -141,5 +142,17 @@ public class AttendanceService {
             throw new EntityNotFoundException("Attendance not found");
         }
         return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
+    }
+
+    public Duration getDuration(Long id) {
+        Attendance attendance = attendanceRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        if (attendance.getStartHour() == null) {
+            throw new RuleMacFiException("Attendance not has started hour");
+        }
+        if (attendance.getEndHour() == null) {
+            throw new RuleMacFiException("Attendance not has ended hour, maybe isnt created yet or is happening");
+        }
+        return attendance.getDuration(attendance.getStartHour(), attendance.getEndHour());
     }
 }

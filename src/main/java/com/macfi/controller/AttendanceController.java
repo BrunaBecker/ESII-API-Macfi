@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @CrossOrigin("http://localhost:8080")
@@ -205,5 +206,15 @@ public class AttendanceController {
         }
     }
 
+    @GetMapping("duration")//localhost:8080/attendance/duration?id=1
+    public ResponseEntity<Duration> getDuration(@RequestParam("id") Long id) {
+        try {
+            return ResponseEntity.ok(attendanceService.getDuration(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
 }
