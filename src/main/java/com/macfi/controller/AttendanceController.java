@@ -91,10 +91,10 @@ public class AttendanceController {
 
 
     @GetMapping("happeningByClassroom/{id}") //localhost:8080/attendance/happeningByClassroom/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
-            return ResponseEntity.ok(attendances);
+            AttendanceDto attendance = attendanceService.getAttendancesHappeningByClassroom(id);
+            return ResponseEntity.ok(attendance);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -116,10 +116,10 @@ public class AttendanceController {
     }
 
     @GetMapping("happeningByStudent/{id}") //localhost:8080/attendance/happeningByStudent/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
-            return ResponseEntity.ok(attendances);
+            AttendanceDto attendance = attendanceService.getAttendancesHappeningByStudent(id);
+            return ResponseEntity.ok(attendance);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {

@@ -89,18 +89,21 @@ public class AttendanceService {
     }
 
     public List<AttendanceDto> getAttendancesHappening() {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappening();
+        List<Attendance> attendances = attendanceRepository.findAllAttendancesHappening();
         return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByClassroom(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByClassroom(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByClassroom(Long id) {
+        Attendance attendance = attendanceRepository.findAttendanceHappeningByClassroom(id);
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByStudent(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByStudent(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByStudent(Long id) {
+       Attendance attendance = attendanceRepository.findAttendanceHappeningByStudent(id);
+        if (attendance == null) {
+            throw new EntityNotFoundException("Attendance not found");
+        }
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
     }
 
 
