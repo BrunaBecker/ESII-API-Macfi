@@ -2,6 +2,7 @@ package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.InvalidBodyCreateException;
+import com.macfi.exception.RuleMacFiException;
 import com.macfi.model.Attendance;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.modelMapper.modelMapping;
@@ -35,6 +36,13 @@ public class AttendanceService {
         if (a == null) {
             throw new InvalidBodyCreateException("Invalid body");
         }
+        if (a.getClassroom() != null && a.getClassroom().getProfessor() != null) {
+            Attendance t = attendanceRepository.findAttendanceHappeningByProfessor(a.getClassroom().getProfessor().getId());
+            if (t != null) {
+                throw new RuleMacFiException("Professor already has an attendance happening");
+            }
+        }
+
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(a), AttendanceDto.class);
     }
 

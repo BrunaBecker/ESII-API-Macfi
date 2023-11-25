@@ -34,7 +34,7 @@ public class AttendanceStatusService {
 
     public AttendanceStatusDto createAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
 
-        if (attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceStatusDto.getAttendance().getId(), attendanceStatusDto.getStudent().getId()) != null) {
+        if (attendanceStatusRepository.findByAttendanceIdAndStudentId(attendanceStatusDto.getAttendance().getId(), attendanceStatusDto.getStudent().getId()) != null) {
             throw new RuleMacFiException("AttendanceStatus already exists");
         }
 
@@ -56,18 +56,18 @@ public class AttendanceStatusService {
     }
 
     public List<AttendanceStatusDto> getAttendanceStatusByAttendanceId(Long attendanceid) {
-        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.FindByAttendanceId(attendanceid);
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.findByAttendanceId(attendanceid);
         return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
     public AttendanceStatusDto getAttendanceStatusByAttendanceIdAndStudentId(Long attendanceid, Long studentid) {
-        AttendanceStatus ats = attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid);
+        AttendanceStatus ats = attendanceStatusRepository.findByAttendanceIdAndStudentId(attendanceid, studentid);
 
         if (ats == null) {
             throw new EntityNotFoundException("AttendanceStatus not found");
         }
 
-        return modelMapping.getInstance().mapToDto(attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceid, studentid), AttendanceStatusDto.class);
+        return modelMapping.getInstance().mapToDto(attendanceStatusRepository.findByAttendanceIdAndStudentId(attendanceid, studentid), AttendanceStatusDto.class);
     }
 
 
@@ -77,7 +77,7 @@ public class AttendanceStatusService {
     }
 
     public List<AttendanceStatusDto> getAttendanceStatusByStudentId(Long studentid) {
-        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.FindByStudentId(studentid);
+        List<AttendanceStatus> attendanceStatuses = attendanceStatusRepository.findByStudentId(studentid);
         return attendanceStatuses.stream().map(attendanceStatus -> modelMapping.getInstance().mapToDto(attendanceStatus, AttendanceStatusDto.class)).collect(java.util.stream.Collectors.toList());
     }
 
