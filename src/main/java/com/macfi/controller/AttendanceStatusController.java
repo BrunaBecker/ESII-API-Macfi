@@ -168,6 +168,7 @@ public class AttendanceStatusController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -179,8 +180,7 @@ public class AttendanceStatusController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+            return ResponseEntity.badRequest().body(null);}
     }
 
     @PutMapping("removeSuccessfulPing") //localhost:8080/attendanceStatus/removePing?idAttendanceStatus=1&idPing=1
@@ -190,8 +190,7 @@ public class AttendanceStatusController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+            return ResponseEntity.badRequest().body(null); }
     }
 
     @PutMapping("removeUnsuccessfulPing") //localhost:8080/attendanceStatus/removePing?idAttendanceStatus=1&idPing=1
@@ -200,9 +199,8 @@ public class AttendanceStatusController {
             return ResponseEntity.ok(attendanceStatusService.removeUnsuccessfulPing(idAttendanceStatus, idPing));
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+        } catch (Exception e) { System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null); }
     }
 
 
@@ -213,6 +211,7 @@ public class AttendanceStatusController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -224,6 +223,7 @@ public class AttendanceStatusController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

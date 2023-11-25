@@ -43,6 +43,7 @@ public class AttendanceController {
             attendanceDto1 = attendanceService.createAttendance(attendance);
             return new ResponseEntity<>(attendanceDto1, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -83,7 +84,7 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (Exception e) {            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -134,7 +135,7 @@ public class AttendanceController {
         try {
             attendanceDto = attendanceService.getAttendanceById(id);
             return ResponseEntity.ok(attendanceDto);
-        } catch (Exception e) {
+        } catch (Exception e) {            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -212,7 +213,7 @@ public class AttendanceController {
             return ResponseEntity.ok(attendanceService.getDuration(id));
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
+        } catch (Exception e) {            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

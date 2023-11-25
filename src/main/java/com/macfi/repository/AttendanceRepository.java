@@ -25,6 +25,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     @Query("select a from Attendance a where a.date = :date and a.classroom.id = :id")
     List<Attendance> findByClassroomIdAndDate(Long id, Date date);
-    @Query("select a from Attendance a join fetch Classroom c on c.id = a.classroom.id join Professor p where p.id = :id and a.isHappening = true")
+    @Query("select a from Attendance a join fetch Classroom c on c.id = a.classroom.id join c.professor p where p.id = :id and a.isHappening = true")
     Attendance findAttendanceHappeningByProfessor(Long id);
 }

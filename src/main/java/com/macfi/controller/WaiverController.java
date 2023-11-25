@@ -37,6 +37,7 @@ public class WaiverController {
             WaiverDto waiverDto1 = waiverService.createWaiver(waiverDto);
             return new ResponseEntity<>(waiverDto1, org.springframework.http.HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
