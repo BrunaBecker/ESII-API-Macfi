@@ -1,6 +1,7 @@
 package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
+import com.macfi.exception.RuleMacFiException;
 import com.macfi.model.AttendanceStatus;
 import com.macfi.model.Ping;
 import com.macfi.model.Waiver;
@@ -32,6 +33,11 @@ public class AttendanceStatusService {
     private PingRepository pingRepository;
 
     public AttendanceStatusDto createAttendanceStatus(AttendanceStatusDto attendanceStatusDto) {
+
+        if (attendanceStatusRepository.FindByAttendanceIdAndStudentId(attendanceStatusDto.getAttendance().getId(), attendanceStatusDto.getStudent().getId()) != null) {
+            throw new RuleMacFiException("AttendanceStatus already exists");
+        }
+
         AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
 
