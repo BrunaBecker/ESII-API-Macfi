@@ -28,6 +28,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 
 @SpringBootApplication
@@ -222,7 +223,7 @@ public class MacfiApplication implements CommandLineRunner {
                 name,
                 socialName,
                 new Date(),
-                false,
+                true,
                 cpf,
                 email,
                 password,
@@ -278,7 +279,7 @@ public class MacfiApplication implements CommandLineRunner {
                 name,
                 socialName,
                 new Date(),
-                false,
+                true,
                 cpf,
                 email,
                 password,
@@ -372,9 +373,18 @@ public class MacfiApplication implements CommandLineRunner {
             EventStatus status,
             Calendar calendar
     ){
+
+        java.util.Calendar calendario = java.util.Calendar.getInstance();
+        int year = calendario.get(java.util.Calendar.YEAR);
+        calendario.set(year, java.util.Calendar.JANUARY, 1);
+        Random random = new Random();
+        int dayOfYear = random.nextInt(calendario.getActualMaximum(java.util.Calendar.DAY_OF_YEAR));
+        calendario.add(java.util.Calendar.DAY_OF_YEAR, dayOfYear);
+        Date randomDate = calendario.getTime();
+
         Event event = new Event(
                 "evento",
-                new Date(),
+                randomDate,
                 "this is an event",
                 classroom,
                 status,
