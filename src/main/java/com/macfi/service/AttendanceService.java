@@ -2,6 +2,7 @@ package com.macfi.service;
 
 import com.macfi.exception.EntityNotFoundException;
 import com.macfi.exception.InvalidBodyCreateException;
+import com.macfi.exception.RuleMacFiException;
 import com.macfi.model.Attendance;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.modelMapper.modelMapping;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +37,13 @@ public class AttendanceService {
         if (a == null) {
             throw new InvalidBodyCreateException("Invalid body");
         }
+        if (a.getClassroom() != null && a.getClassroom().getProfessor() != null) {
+            Attendance t = attendanceRepository.findAttendanceHappeningByProfessor(a.getClassroom().getProfessor().getId());
+            if (t != null) {
+                throw new RuleMacFiException("Professor already has an attendance happening");
+            }
+        }
+
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(a), AttendanceDto.class);
     }
 
@@ -80,18 +89,21 @@ public class AttendanceService {
     }
 
     public List<AttendanceDto> getAttendancesHappening() {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappening();
+        List<Attendance> attendances = attendanceRepository.findAllAttendancesHappening();
         return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByClassroom(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByClassroom(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByClassroom(Long id) {
+        Attendance attendance = attendanceRepository.findAttendanceHappeningByClassroom(id);
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByStudent(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByStudent(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByStudent(Long id) {
+       Attendance attendance = attendanceRepository.findAttendanceHappeningByStudent(id);
+        if (attendance == null) {
+            throw new EntityNotFoundException("Attendance not found");
+        }
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
     }
 
 
@@ -127,8 +139,23 @@ public class AttendanceService {
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(attendance), AttendanceDto.class);
     }
 
-    public List<AttendanceDto> getAttendancesHappeningByProfessor(Long id) {
-        List<Attendance> attendances = attendanceRepository.findAttendanceHappeningByProfessor(id);
-        return attendances.stream().map(attendance -> modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class)).collect(Collectors.toList());
+    public AttendanceDto getAttendancesHappeningByProfessor(Long id) {
+        Attendance attendance = attendanceRepository.findAttendanceHappeningByProfessor(id);
+        if (attendance == null) {
+            throw new EntityNotFoundException("Attendance not found");
+        }
+        return modelMapping.getInstance().mapToDto(attendance, AttendanceDto.class);
+    }
+
+    public Duration getDuration(Long id) {
+        Attendance attendance = attendanceRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Attendance not found"));
+        if (attendance.getStartHour() == null) {
+            throw new RuleMacFiException("Attendance not has started hour");
+        }
+        if (attendance.getEndHour() == null) {
+            throw new RuleMacFiException("Attendance not has ended hour, maybe isnt created yet or is happening");
+        }
+        return attendance.getDuration(attendance.getStartHour(), attendance.getEndHour());
     }
 }

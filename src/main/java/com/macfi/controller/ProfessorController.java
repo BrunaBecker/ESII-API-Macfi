@@ -32,6 +32,7 @@ public class ProfessorController {
             professorDto = professorService.getProfessors();
             return ResponseEntity.ok(professorDto);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -87,6 +88,7 @@ public class ProfessorController {
             professorDto = professorService.createProfessor(professor);
             return new ResponseEntity<>(professorDto, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

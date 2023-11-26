@@ -54,7 +54,6 @@ public class Attendance {
                       String supportingText,
                       LocalTime startHour,
                       LocalTime endHour,
-                      //Duration duration,
                       boolean isAutomatic,
                       boolean isHappening,
                       VirtualZone virtualZone,
@@ -99,7 +98,7 @@ public class Attendance {
         return attendancesStatuses.remove(attendanceStatus);
     }
 
-    public Duration calculateDuration(LocalTime startHour, LocalTime endHour) {
+    public Duration getDuration(LocalTime startHour, LocalTime endHour) {
         return Duration.between(startHour, endHour);
     }
 

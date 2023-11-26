@@ -63,6 +63,7 @@ public class SettingController {
             a = settingService.createSetting(setting);
             return new ResponseEntity<>(a, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -106,6 +107,7 @@ public class SettingController {
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

@@ -23,8 +23,7 @@ public class AttendanceDto implements Serializable {
     LocalTime startHour;
     @NotNull(message = "endHour must not be null")
     LocalTime endHour;
-    @NotNull(message = "duration must not be null")
-    Duration duration;
+
     @NotNull(message = "isAutomatic must not be null")
     boolean isAutomatic;
     @NotNull(message = "isHappening must not be null")
