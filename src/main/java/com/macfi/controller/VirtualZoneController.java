@@ -69,6 +69,7 @@ public class VirtualZoneController {
             VirtualZoneDto virtualZoneDto1 = virtualZoneService.updateVirtualZone(virtualZoneDto);
             return ResponseEntity.ok(virtualZoneDto1);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

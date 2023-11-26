@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @CrossOrigin("http://localhost:8080")
@@ -42,6 +43,7 @@ public class AttendanceController {
             attendanceDto1 = attendanceService.createAttendance(attendance);
             return new ResponseEntity<>(attendanceDto1, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -82,17 +84,17 @@ public class AttendanceController {
         try {
             List<AttendanceDto> attendances = attendanceService.getAttendancesHappening();
             return ResponseEntity.ok(attendances);
-        } catch (Exception e) {
+        } catch (Exception e) {            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
 
 
     @GetMapping("happeningByClassroom/{id}") //localhost:8080/attendance/happeningByClassroom/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByClassroom(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByClassroom(id);
-            return ResponseEntity.ok(attendances);
+            AttendanceDto attendance = attendanceService.getAttendancesHappeningByClassroom(id);
+            return ResponseEntity.ok(attendance);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -101,9 +103,9 @@ public class AttendanceController {
         }
     }
     @GetMapping("happeningByProfessor/{id}") //localhost:8080/attendance/happeningByProfessor/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByProfessor(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByProfessor(id);
+            AttendanceDto attendances = attendanceService.getAttendancesHappeningByProfessor(id);
             return ResponseEntity.ok(attendances);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -114,10 +116,10 @@ public class AttendanceController {
     }
 
     @GetMapping("happeningByStudent/{id}") //localhost:8080/attendance/happeningByStudent/1
-    public ResponseEntity<List<AttendanceDto>> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
+    public ResponseEntity<AttendanceDto> getAttendancesHappeningByStudent(@PathVariable("id") Long id) {
         try {
-            List<AttendanceDto> attendances = attendanceService.getAttendancesHappeningByStudent(id);
-            return ResponseEntity.ok(attendances);
+            AttendanceDto attendance = attendanceService.getAttendancesHappeningByStudent(id);
+            return ResponseEntity.ok(attendance);
         } catch (EntityNotFoundException | UserUnauthorized ae) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -133,7 +135,7 @@ public class AttendanceController {
         try {
             attendanceDto = attendanceService.getAttendanceById(id);
             return ResponseEntity.ok(attendanceDto);
-        } catch (Exception e) {
+        } catch (Exception e) {            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -205,5 +207,15 @@ public class AttendanceController {
         }
     }
 
+    @GetMapping("duration")//localhost:8080/attendance/duration?id=1
+    public ResponseEntity<Duration> getDuration(@RequestParam("id") Long id) {
+        try {
+            return ResponseEntity.ok(attendanceService.getDuration(id));
+        } catch (EntityNotFoundException | UserUnauthorized ae) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
 }
