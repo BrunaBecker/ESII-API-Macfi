@@ -334,22 +334,6 @@ public class MacfiApplication implements CommandLineRunner {
             Professor professor,
             Location location
     ){
-
-//        Coordinate coordinate = new Coordinate(
-//                -22.906351179754694,
-//                -43.133237683703356
-//        );
-
-//        Location location = new Location(
-//                "Instituto de Computação",
-//                "instituto de computação da UFF",
-//                false,
-//                coordinate,
-//                professor,
-//                new ArrayList<VirtualZone>()
-//        );
-//        locationRepository.save(location);
-
         VirtualZone virtualzone = new VirtualZone(
                 null,
                 null
@@ -362,9 +346,6 @@ public class MacfiApplication implements CommandLineRunner {
         attendance.setVirtualZone(virtualzone);
         attendanceRepository.save(attendance);
 
-//        location.addVirtualZone(virtualzone);
-//        locationRepository.save(location);
-
         return virtualzone;
     }
 
@@ -374,12 +355,14 @@ public class MacfiApplication implements CommandLineRunner {
             Calendar calendar
     ){
 
+        // Get the current year and month
         java.util.Calendar calendario = java.util.Calendar.getInstance();
         int year = calendario.get(java.util.Calendar.YEAR);
-        calendario.set(year, java.util.Calendar.JANUARY, 1);
+        int month = calendario.get(java.util.Calendar.MONTH);
+        calendario.set(year, month, 1);
         Random random = new Random();
-        int dayOfYear = random.nextInt(calendario.getActualMaximum(java.util.Calendar.DAY_OF_YEAR));
-        calendario.add(java.util.Calendar.DAY_OF_YEAR, dayOfYear);
+        int dayOfMonth = random.nextInt(calendario.getActualMaximum(java.util.Calendar.DAY_OF_MONTH)) + 1;
+        calendario.set(java.util.Calendar.DAY_OF_MONTH, dayOfMonth);
         Date randomDate = calendario.getTime();
 
         Event event = new Event(
@@ -447,7 +430,7 @@ public class MacfiApplication implements CommandLineRunner {
               "Aula",
               "Aula iniciada",
               StatusNotification.normal,
-              false,
+              true,
               true,
               person
         );
@@ -510,7 +493,7 @@ public class MacfiApplication implements CommandLineRunner {
         Location location = new Location(
                 "Instituto de Computação",
                 "instituto de computação da UFF",
-                false,
+                true,
                 coordinate,
                 professor,
                 new ArrayList<VirtualZone>()
