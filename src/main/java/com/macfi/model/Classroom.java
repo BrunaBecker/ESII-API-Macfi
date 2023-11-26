@@ -51,14 +51,13 @@ public class Classroom {
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    public Classroom(String courseName, String className, String code, String semester, LocalTime startHour, LocalTime endHour, Location defaultLocation, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
+    public Classroom(String courseName, String className, String code, String semester, LocalTime startHour, LocalTime endHour, Professor professor, List<Student> students, List<Attendance> attendances, List<Event> events) {
         this.courseName = courseName;
         this.code = code;
         this.className = className;
         this.semester = semester;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.defaultLocation = defaultLocation;
         this.professor = professor;
         this.students = students;
         this.attendances = attendances;

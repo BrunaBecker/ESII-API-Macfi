@@ -39,12 +39,10 @@ public class AttendanceStatus {
 
     @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
-
     private List<Ping> successfulPings;
 
     @OneToMany(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
     @ToString.Exclude
-
     private List<Ping> unsuccessfulPings;
 
     @OneToOne(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
