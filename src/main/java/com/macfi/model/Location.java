@@ -50,5 +50,9 @@ public class Location {
         this.virtualZones = virtualZones;
     }
 
+    public void addVirtualZone(VirtualZone virtualzone){
+        virtualZones.add(virtualzone);
+    }
+
 
 }

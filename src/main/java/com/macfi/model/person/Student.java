@@ -45,4 +45,9 @@ public class Student extends Person {
     }
 
 
+    public void addClassroom(Classroom classroom){
+        classrooms.add(classroom);
+    }
+
+
 }

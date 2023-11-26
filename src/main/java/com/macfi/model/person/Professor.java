@@ -37,4 +37,8 @@ public class Professor extends Person {
         this.classrooms = classrooms;
     }
 
+    public void addClassroom(Classroom classroom){
+        classrooms.add(classroom);
+    }
+
 }
