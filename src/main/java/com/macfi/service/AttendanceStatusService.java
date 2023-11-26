@@ -38,6 +38,8 @@ public class AttendanceStatusService {
             throw new RuleMacFiException("AttendanceStatus already exists");
         }
 
+
+
         AttendanceStatus attendanceStatus = modelMapping.getInstance().mapToEntity(attendanceStatusDto, AttendanceStatus.class);
         return modelMapping.getInstance().mapToDto(attendanceStatusRepository.save(attendanceStatus), AttendanceStatusDto.class);
 

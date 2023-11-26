@@ -133,33 +133,16 @@ public class MacfiApplication implements CommandLineRunner {
                         "223",
                         LocalTime.of(9, 0),
                         LocalTime.of(11, 0),
-                        new Location(),
                         professor,
                         students,
                         new ArrayList<Attendance>(),
                         new ArrayList<Event>()
                 );
-                Attendance attendance = new Attendance(new Date(), "supportText", LocalTime.now().plusHours(2), LocalTime.now(), false, true, null, classroom, new ArrayList<AttendanceStatus>());
-                AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, false, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
-                Location location = new Location("location " + i, "location", false, null, professor, new ArrayList<VirtualZone>());
-                Coordinate coordinate = new Coordinate(1234.0, 1234.0);
+                Coordinate coordinate = new Coordinate(-22.906351179754694, -43.133237683703356);
                 Event event = new Event("Evento " + i, new Date(), "evento", classroom, EventStatus.classNormal, calendarRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("Calendar not found")));
                 Notification notificationOne = new Notification("Evento " + i, "support text", StatusNotification.normal, true, false, professor);
                 Notification notificationTwo = new Notification("Evento " + (i + 10), "support text", StatusNotification.normal, true, false, student);
-                Ping pingS = new Ping("123.456.789.000", new Date(), StatusPing.successful, false, coordinate, attendanceStatus);
-                VirtualZone virtualZone = new VirtualZone(location, attendance);
-                Waiver waiver = new Waiver(new FileMacFI("https://file.pdf", "file.pdf", "pdf", 10, new Date()),
-                        "waiver", new Date(), new Date(), false, null, student, attendanceStatus);
-                Comment comment = new Comment("content", student, null, waiver);
 
-                attendanceStatus.getSuccessfulPings().add(pingS);
-                attendanceStatus.setWaiver(waiver);
-                attendance.getAttendancesStatuses().add(attendanceStatus);
-                attendance.setVirtualZone(virtualZone);
-                location.getVirtualZones().add(virtualZone);
-                location.setCoordinate(coordinate);
-                classroom.setDefaultLocation(location);
-                classroom.getAttendances().add(attendance);
                 classroomRepository.save(classroom);
 
                 eventRepository.save(event);
@@ -172,7 +155,6 @@ public class MacfiApplication implements CommandLineRunner {
                 if (professor != null) {
                     professor.getNotifications().add(notificationOne);
                     professor.getClassrooms().add(classroom);
-                    professor.getLocations().add(location);
                     professorRepository.save(professor);
                 }
 
@@ -182,8 +164,6 @@ public class MacfiApplication implements CommandLineRunner {
                     studentRepository.save(student);
                 }
 
-                waiver.setComment(comment);
-                waiverRepository.save(waiver);
             }
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
