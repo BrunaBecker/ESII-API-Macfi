@@ -63,19 +63,19 @@ public class StatisticService {
     }
 
     public String returnTotalAbsentFromAStudent(Long idStudent, Long idClassroom) {
-       return "Absent: " + getNumberOfAbsentFromStudent(idStudent, idClassroom);
+       return String.valueOf(getNumberOfAbsentFromStudent(idStudent, idClassroom));
     }
 
     public String returnTotalPresentFromAStudent(Long idStudent, Long idClassroom) {
-       return "Present: " + getNumberOfPresentFromStudent(idStudent, idClassroom);
+       return String.valueOf(getNumberOfPresentFromStudent(idStudent, idClassroom));
     }
 
     public String returnTotalJustifiedFromAStudent(Long idStudent, Long idClassroom) {
-       return "Justified: " + getNumberOfJustifiedFromStudent(idStudent, idClassroom);
+       return String.valueOf(getNumberOfJustifiedFromStudent(idStudent, idClassroom));
     }
 
     public String returnTotalAttendanceFromClassroom(Long idClassroom) {
-       return "Total: " + totalNumberOfAttendanceInClassroom(idClassroom);
+       return String.valueOf(totalNumberOfAttendanceInClassroom(idClassroom));
     }
 
     public String percentFrequency(Long idStudent, Long idClassroom) {
@@ -87,7 +87,7 @@ public class StatisticService {
 
         int f = (present + justified) * 100 / total;
 
-        return "Frequency: " + f + "%";
+        return String.valueOf(f);
     }
 
 
