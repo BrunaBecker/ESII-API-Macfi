@@ -26,7 +26,6 @@ public class Comment {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_comment_id")
-
     private Comment replyTo;
 
     @OneToOne

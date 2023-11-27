@@ -54,7 +54,6 @@ public class Attendance {
                       String supportingText,
                       LocalTime startHour,
                       LocalTime endHour,
-
                       boolean isAutomatic,
                       boolean isHappening,
                       VirtualZone virtualZone,
@@ -75,7 +74,6 @@ public class Attendance {
                       String supportingText,
                       LocalTime startHour,
                       LocalTime endHour,
-
                       boolean isHappening,
                       VirtualZone virtualZone,
                       Classroom classroom,
