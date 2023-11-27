@@ -20,7 +20,6 @@ public class VirtualZone {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
     @OneToOne(mappedBy = "virtualZone", cascade = CascadeType.ALL)

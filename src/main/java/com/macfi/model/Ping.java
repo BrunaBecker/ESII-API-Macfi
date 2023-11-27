@@ -30,7 +30,7 @@ public class Ping {
 
     private StatusPing status;
 
-    private boolean isContinuos;
+    private Boolean isContinuos;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinate_id", referencedColumnName = "id")

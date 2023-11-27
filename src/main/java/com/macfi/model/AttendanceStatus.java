@@ -46,7 +46,6 @@ public class AttendanceStatus {
     private List<Ping> unsuccessfulPings;
 
     @OneToOne(mappedBy = "attendanceStatus", cascade = CascadeType.ALL)
-
     private Waiver waiver;
 
     public AttendanceStatus(StudentAtAttendanceState studentState, boolean studentHasResponded, boolean validated, Student student, Attendance attendance, List<Ping> successfulPings, List<Ping> unsuccessfulPings, Waiver waiver) {

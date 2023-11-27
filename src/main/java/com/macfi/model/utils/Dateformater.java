@@ -29,6 +29,7 @@ public class Dateformater {
         if (date.length() > 10) {
             return parse(date, DATE_FORMAT_MACFI);
         } else {
+            System.out.println(date);
             return parse(date, DATE_FORMAT_MACFI_WITHOUT_TIME);
         }
     }

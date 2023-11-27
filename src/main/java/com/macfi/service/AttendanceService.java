@@ -30,6 +30,9 @@ public class AttendanceService {
     @Autowired
     private AttendanceStatusRepository attendanceStatusRepository;
 
+    @Autowired
+    private MacfiServices macfiServices;
+
 
     public AttendanceDto createAttendance(AttendanceDto attendanceDto) {
 
@@ -43,6 +46,9 @@ public class AttendanceService {
                 throw new RuleMacFiException("Professor already has an attendance happening");
             }
         }
+
+        assert a.getClassroom() != null;
+        macfiServices.notifyAllStudents(a.getClassroom());
 
         return modelMapping.getInstance().mapToDto(attendanceRepository.save(a), AttendanceDto.class);
     }

@@ -3,6 +3,7 @@ package com.macfi.payload;
 import com.macfi.model.Ping;
 import com.macfi.model.utils.enums_class.StatusPing;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,20 +16,22 @@ import java.util.Date;
 @Data
 public class PingDto implements Serializable {
     Long id;
-    @NotEmpty(message = "ip is required")
+
     @Size(min = 7, max = 15, message = "ip format not valid")
     String ip;
-    @NotEmpty(message = "date is required")
-    Date date;
 
-    @NotEmpty(message = "status is required")
+    @NotEmpty(message = "date is required")
+    String date;
+
     StatusPing status;
 
-    @NotEmpty(message = "isContinuos is required")
-    boolean isContinuos;
+    @NotNull(message = "isContinuos cannot be null")
+    Boolean isContinuos;
 
-    Long coordinateId;
-    Long attendanceStatusId;
+    CoordinateDto coordinate;
+
+    @NotNull(message = "attendanceStatus cannot be null")
+    AttendanceStatusDto attendanceStatus;
 
 
 }

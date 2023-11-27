@@ -14,7 +14,6 @@ import java.util.List;
  */
 @Data
 public class LocationDto implements Serializable {
-    @NotNull(message = "Id cannot be null")
     @Positive(message = "Id must be positive")
     Long id;
     @NotNull(message = "Title cannot be null")
@@ -25,7 +24,6 @@ public class LocationDto implements Serializable {
     String description;
     boolean isActive = true;
     CoordinateDto coordinate;
-    ProfessorDto professor;
-    List<VirtualZoneDto> virtualZones;
-    ClassroomDto classroom;
+//    ProfessorDto professor;
+//    ClassroomDto classroom;
 }

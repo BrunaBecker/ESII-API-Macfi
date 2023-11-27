@@ -37,7 +37,7 @@ public class Location {
     @ToString.Exclude
     private List<VirtualZone> virtualZones;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     private Classroom classroom;
 

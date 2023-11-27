@@ -1,8 +1,11 @@
 package com.macfi.service;
 
+import com.macfi.exception.EntityNotFoundException;
+import com.macfi.model.Location;
 import com.macfi.model.VirtualZone;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.VirtualZoneDto;
+import com.macfi.repository.LocationRepository;
 import com.macfi.repository.VirtualZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -16,6 +19,8 @@ public class VirtualZoneService {
     @Autowired
     private VirtualZoneRepository virtualZoneRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
 
     public List<VirtualZoneDto> getVirtualZones() {
         List<VirtualZone> virtualZones = virtualZoneRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -24,7 +29,7 @@ public class VirtualZoneService {
 
     public VirtualZoneDto createVirtualZone(VirtualZoneDto virtualZoneDto) {
         VirtualZone a = modelMapping.getInstance().mapToEntity(virtualZoneDto, VirtualZone.class);
-        return modelMapping.getInstance().mapToDto(virtualZoneRepository.save(a), VirtualZoneDto.class);
+        return modelMapping.getInstance().mapToDto(a, VirtualZoneDto.class);
     }
 
     public VirtualZoneDto updateVirtualZone(VirtualZoneDto virtualZoneDto) {
