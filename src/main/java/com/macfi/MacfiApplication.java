@@ -114,7 +114,7 @@ public class MacfiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-//        try {
+        try {
             System.out.println("Criando Professores...");
             generateProfessors();
 
@@ -136,60 +136,11 @@ public class MacfiApplication implements CommandLineRunner {
             System.out.println("Criando Virtual Zones");
             generateVirtualZones();
 
-
-//                Attendance attendance = new Attendance(new Date(), "supportText", LocalTime.now(), LocalTime.now(), Duration.ofHours(2), false, false, null, classroom, new ArrayList<AttendanceStatus>());
-//                AttendanceStatus attendanceStatus = new AttendanceStatus(StudentAtAttendanceState.present, true, student, attendance, new ArrayList<Ping>(), new ArrayList<Ping>(), null);
-//                Location location = new Location("location " + i, "location", false, null, professor, new ArrayList<VirtualZone>());
-//                Coordinate coordinate = new Coordinate(1234.0, 1234.0);
-//                Event event = new Event("Evento "+i, new Date(), "evento", classroom, EventStatus.classNormal, new ArrayList<Calendar>());
-//                Notification notificationOne = new Notification("Evento "+i, "support text", StatusNotification.normal, true, false, professor);
-//                Notification notificationTwo = new Notification("Evento "+(i+10), "support text", StatusNotification.normal, true, false, student);
-//                Ping pingS = new Ping("123.456.789.000", new Date(), StatusPing.successful, false, coordinate, attendanceStatus);
-//                VirtualZone virtualZone = new VirtualZone(location, attendance);
-//                Waiver waiver = new Waiver(new FileMacFI("https://file.pdf", "file.pdf", "pdf", 10, new Date()),
-//                        "waiver", new Date(), new Date(), false, null, student, attendanceStatus);
-//                Comment comment = new Comment("content", student, null, waiver);
-
-//                attendanceStatus.getSuccessfulPings().add(pingS);
-//                attendanceStatus.setWaiver(waiver);
-//                attendance.getAttendancesStatuses().add(attendanceStatus);
-//                location.getVirtualZones().add(virtualZone);
-//                location.setCoordinate(coordinate);
-//                classroom.setDefaultLocation(location);
-//                classroom.getAttendances().add(attendance);
-
-//                eventRepository.save(event);
-//                calendarRepository.save(calendar);
-//                calendar.getEvents().add(event);
-//                event.getCalendars().add(calendar);
-//                eventRepository.save(event);
-//
-//
-//                if (professor != null) {
-//                    professor.getNotifications().add(notificationOne);
-//                    professor.getClassrooms().add(classroom);
-//                    professor.getLocations().add(location);
-//                    professorRepository.save(professor);
-//                }
-//
-//                if (student != null) {
-//                    student.getNotifications().add(notificationTwo);
-//                    student.getClassrooms().add(classroom);
-//                    studentRepository.save(student);
-//                }
-//
-//                waiver.setComment(comment);
-//                waiverRepository.save(waiver);
-//        } catch (Exception e){
-//            System.out.println(e.getLocalizedMessage());
-//        }
+        } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+        }
 
     }
-
-    /*
-    *   Notification
-    *   Ping
-    */
 
     /*
     *   Professor
@@ -208,6 +159,7 @@ public class MacfiApplication implements CommandLineRunner {
     *   Location
     *   Coordinate
     *   Comment
+    *   Notification
     * */
 
     private Professor createProfessor(
@@ -552,13 +504,13 @@ public class MacfiApplication implements CommandLineRunner {
                 "https://this-person-does-not-exist.com/img/avatar-gen1136deaf30fb5b38d39e4bd2fdd9d3b5.jpg"
         );
         createProfessor(
-                "Lúcia Marli Oliveira",
+                "Leonardo Gresta Paulino Murta",
                 "",
                 "80585097798",
-                "lucia@ic.uff.br",
+                "leomurta@ic.uff.br",
                 "senha",
                 "0000004",
-                "https://this-person-does-not-exist.com/img/avatar-gend1f3669fc780688b40d93917f434dca5.jpg"
+                "https://leomurta.github.io/images/face.jpg"
         );
         createProfessor(
                 "Heloise Julia Elza Drumond",
@@ -1652,7 +1604,7 @@ public class MacfiApplication implements CommandLineRunner {
         }
         classroom = createClassroom(
                 "Engenharia de Soft. I",
-                "A1",
+                "B1",
                 "TCC00292",
                 "120",
                 professor,
@@ -1673,10 +1625,10 @@ public class MacfiApplication implements CommandLineRunner {
             students.add((Student) studentRepository.findById((long) i).get());
         }
         classroom = createClassroom(
-                "Engenharia de Soft. I",
-                "B1",
-                "TCC00292",
-                "120",
+                "Engenharia de Soft. II",
+                "A1",
+                "TCC00293",
+                "223",
                 professor,
                 students
         );
