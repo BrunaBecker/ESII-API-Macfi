@@ -9,6 +9,7 @@ import com.macfi.model.Ping;
 import com.macfi.model.utils.Coordinate;
 import com.macfi.model.utils.Dateformater;
 import com.macfi.model.utils.enums_class.StatusPing;
+import com.macfi.model.utils.enums_class.StudentAtAttendanceState;
 import com.macfi.modelMapper.modelMapping;
 import com.macfi.payload.AttendanceStatusDto;
 import com.macfi.payload.PingDto;
@@ -75,19 +76,25 @@ public class PingService {
                     attendanceStatus.addSuccessfulPing(ping);
 
                 } catch (Exception e) {
+                    attendanceStatus.setStudentState(StudentAtAttendanceState.absent);
                     ping.setStatus(StatusPing.unsuccessful);
                     attendanceStatus.addUnsuccessfulPing(ping);
                 }
 
             } else {
                 ping.setStatus(StatusPing.unsuccessful);
+                attendanceStatus.setStudentState(StudentAtAttendanceState.absent);
                 attendanceStatus.addUnsuccessfulPing(ping);
             }
 
         } else {
+            attendanceStatus.setStudentState(StudentAtAttendanceState.absent);
             ping.setStatus(StatusPing.invalidAttendance);
         }
-        attendanceStatusRepository.save(attendanceStatus);
+        if (ping.getStatus() != StatusPing.invalidAttendance) {
+            attendanceStatusRepository.save(attendanceStatus);
+        }
+
         pingRepository.save(ping);
         PingDto pingDto1 = modelMapping.getInstance().mapToDto(ping, PingDto.class);
         pingDto1.setDate(Dateformater.format(ping.getDate()));
